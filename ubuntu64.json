@@ -1,0 +1,51 @@
+{
+    "builders": [
+        {
+            "type": "virtualbox-iso",
+            "guest_os_type": "Ubuntu_64",
+            "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.4-server-i386.iso",
+            "iso_checksum": "0081e57fb8c7e4094fb9767384f087c6",
+            "iso_checksum_type": "md5",
+            "http_directory": "preseed",
+            "ssh_username": "vagrant",
+            "ssh_password": "vagrant",
+            "boot_wait": "5s",
+            "output_directory": "ubuntu64_basebox_virtualbox",
+            "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+            "boot_command": [
+                "<esc><esc><enter><wait>",
+                "/install/vmlinuz noapic ",
+                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+                "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+                "hostname={{ .Name }} ",
+                "fb=false debconf/frontend=noninteractive ",
+                "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+                "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+                "initrd=/install/initrd.gz -- ",
+                "<enter>"
+            ]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "execute_command": "echo 'vagrant' | sudo -S sh '{{ .Path }}'",
+            "inline": [
+                "apt-get update -y",
+                "apt-get install -y linux-headers-$(uname -r) build-essential dkms",
+                "apt-get clean",
+                "mount -o loop VBoxGuestAdditions.iso /media/cdrom",
+                "sh /media/cdrom/VBoxLinuxAdditions.run",
+                "umount /media/cdrom",
+                "mkdir ~/.ssh",
+                "wget -qO- https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub >> ~/.ssh/authorized_keys",
+                "echo 'vagrant ALL=NOPASSWD:ALL' > /tmp/vagrant",
+                "chmod 0440 /tmp/vagrant",
+                "mv /tmp/vagrant /etc/sudoers.d/"
+            ]
+        }
+    ],
+    "post-processors": [
+        "vagrant"
+    ]
+}
