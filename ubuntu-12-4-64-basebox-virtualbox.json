@@ -1,0 +1,13 @@
+{
+  "name": "felnne/ubuntu-12-4-64",
+  "description": "This box contains Ubuntu 12.04 LTS 64-bit.",
+  "versions": [{
+    "version": "0.1.0",
+    "providers": [{
+      "name": "virtualbox",
+      "url": "file:/Users/felnne/Projects/packer-experiments/ubuntu-12-4-64-basebox/virtualbox.box",
+      "checksum_type": "sha1",
+      "checksum": "58389fa37c41ed01b3c6a80e29a4e03bdb85605a"
+    }]
+  }]
+}

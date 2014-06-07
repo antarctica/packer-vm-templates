@@ -10,7 +10,7 @@
             "ssh_username": "vagrant",
             "ssh_password": "vagrant",
             "boot_wait": "5s",
-            "output_directory": "ubuntu64_basebox_virtualbox",
+            "output_directory": "ubuntu-12-4-64-basebox-virtualbox",
             "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
             "boot_command": [
                 "<esc><esc><enter><wait>",
@@ -46,6 +46,14 @@
         }
     ],
     "post-processors": [
-        "vagrant"
+        {
+            "type": "vagrant",
+            "compression_level": 4,
+            "override": {
+                "virtualbox": {
+                    "output": "ubuntu-12-4-64-basebox-virtualbox.box"
+                }
+            }
+        }
     ]
 }
