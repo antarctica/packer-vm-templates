@@ -1,8 +1,8 @@
 # Packer experiments
 
-Uses [packer documentation](http://www.packer.io/) to create a [vagrant](http://www.vagrantup.com) base box for use as VMs in projects.
+Uses [packer](http://www.packer.io/) to create a [vagrant](http://www.vagrantup.com) base box for use as VMs in projects.
 
-Note: Packer templates are OS version specific, currently this experiment covers *Ubuntu 12.04* only.
+Note: Packer templates are OS version specific, currently this experiment covers *Ubuntu 12.04* only.  
 Note: Vagrant base boxes are provider specific, currently this experiment covers *VirtualBox* only.
 
 ## Overview
@@ -36,8 +36,7 @@ See [packer documentation](http://www.packer.io/docs/installation.html).
 
 ### 3 Build base box
 
-    $ cd packer-experiments
-    $ packer build ubuntu64.json
+    $ packer build ubuntu-12-4-64-template.json
     
 Packer will download the OS and VirtualBox guest additions ISOs then create a VirtualBox VM and non-interactively install the OS. Packer will then execute shell commands to install VirtualBox guest additions and enable passwordless sudo.
 
@@ -49,7 +48,32 @@ This will take 5-10 minutes or longer if ISOs aren't cached, progress can be see
 
 Vagrant boxes use a meta-data file to store the name, version and supported providers of each box. A URI to the box and a checksum are also stored. After creating the boxes you will need to ensure these values are correct, simply update the existing values.
 
+Note: On Mac OS X use `$ openssl sha1 <file>` to calculate a SHA1 hash.
 
+### 5 Test base box
 
+#### Add the build box to Vagrant:
 
+    $ vagrant box add ubuntu-12-4-basebox-vritualbox.json
 
+Now create a new VM:
+
+    $ vagrant init felnne/ubuntu-12-4-64
+    $ vagrant up
+
+Check no errors are reported and test connecting to the VM using `$ vagrant ssh` and confirming shared folders work correctly.
+
+To remove the test VM:
+
+    $ vagrant halt
+    $ vagrant destroy
+    $ rm Vagrantfile
+    $ rm -rf .vagrant
+    
+To remove the base box from vagrant (optional):
+
+    $ vagrant box remove felnne/ubuntu-12-4-64
+    
+### Publish base box
+
+Note: This process has not been formalised yet, therefore it is probably best not to complete this step.
