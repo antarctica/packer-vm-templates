@@ -74,6 +74,6 @@ To remove the base box from vagrant (optional):
 
     $ vagrant box remove felnne/ubuntu-12-4-64
     
-### Publish base box
+### 6 Publish base box
 
 Note: This process has not been formalised yet, therefore it is probably best not to complete this step.
