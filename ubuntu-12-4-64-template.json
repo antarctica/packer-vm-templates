@@ -37,6 +37,7 @@
                 "mount -o loop VBoxGuestAdditions.iso /media/cdrom",
                 "sh /media/cdrom/VBoxLinuxAdditions.run",
                 "umount /media/cdrom",
+                "ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions",
                 "mkdir ~/.ssh",
                 "wget -qO- https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub >> ~/.ssh/authorized_keys",
                 "echo 'vagrant ALL=NOPASSWD:ALL' > /tmp/vagrant",
