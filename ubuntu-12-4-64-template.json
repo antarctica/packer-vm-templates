@@ -16,11 +16,11 @@
                 "<esc><esc><enter><wait>",
                 "/install/vmlinuz noapic ",
                 "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-                "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+                "debian-installer=en_GB auto locale=en_GB kbd-chooser/method=gb ",
                 "hostname={{ .Name }} ",
                 "fb=false debconf/frontend=noninteractive ",
-                "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-                "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+                "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=GB ",
+                "keyboard-configuration/variant=GB console-setup/ask_detect=false ",
                 "initrd=/install/initrd.gz -- ",
                 "<enter>"
             ]
