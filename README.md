@@ -9,9 +9,8 @@ Note: The structure and contents of this repository will probably change conside
 In this README:
 
 * values such as `<foo>` are variables and should be substituted for some real value
-* directories are absolute to the project root / checkout location
-* commands are listed in the `this` style, e.g. `$ vagrant status`
-* important information is given in **bold**
+* directories are relative to the repository root
+* commands are listed in `this` style, e.g. `$ vagrant status`
 
 ## Overview
 
@@ -19,7 +18,7 @@ Vagrant base boxes require the user to create a VM, install the OS, guest additi
 
 Packer automates this process by creating a VM, downloading and installing the OS and guest additions (in the case of VirtualBox) and setting user access etc. automatically and non-interactively.
 
-* Packer templates are OS version and provider specific, [see here for a list of supported boxes](https://bitbucket.org/antarctica/packer-experiments/wiki/supported-boxes).
+* Packer templates are OS version and provider specific, [see here for a list of supported boxes](https://bitbucket.org/antarctica/packer-experiments/wiki/supported-boxes)
 * VMs based on boxes created by this experiment are **not suitable for production**
 * VMs based on boxes created by this experiment are **not not safe to be accessible on the public internet**
 
@@ -31,17 +30,19 @@ Packer does not reduce complexity but it does prevent users having to do everyth
 
 ### Packer
 
-Note: Please refer to the [packer documentation](http://www.packer.io/docs) for an introduction to what packer is and its terminology.
+Please refer to the [packer documentation](http://www.packer.io/docs) for an introduction to what packer is and its terminology.
+
+These experiments use the latest version and follow published best practice wherever possible.
 
 ### Requirements
 
 On your local machine:
 
 * [VirtualBox](http://www.virtualbox.org)[1] + [Vagrant](http://www.vagrantup.com)[2] installed
-* A *Mac/Linux* terminal, Windows is currently not supported.
+* A *Mac/Linux* terminal with a `SSH` client. Windows is currently not supported.
 
-[1] The virtual box builder is the only builder currently supported, others may be added soon
-[2] The vagrant box provider is the only provider currently supported, others may be added soon
+[1] VirtualBox is the only builder currently supported, others may be added soon.  
+[2] Vagrant is the only provider currently supported, others may be added soon.
 
 ## Getting started
 
