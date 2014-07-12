@@ -10,35 +10,53 @@ In this README:
 
 * values such as `<foo>` are variables and should be substituted for some real value
 * directories are absolute to the project root / checkout location
-* commands are listed in the `this` style, e.g. `$ vagrant status`
+* commands are listed in the `this` style, e.g. `$ packer build`
 * important information is given in **bold**
 
 ## Overview
 
-Vagrant base boxes require the user to create a VM, install the OS, guest additions (in the case of VirtualBox) and user accounts. This VM is then packaged into a *box*, which is used as a template to stamp out VMs wherever that base is used in a *vagrantfile*.
+Packer is a tool for stating an operating image or ISO, configuring it and outputting the resulting virtual machine in a variety of formats for a variety of formats.
 
-Packer automates this process by creating a VM, downloading and installing the OS and guest additions (in the case of VirtualBox) and setting user access etc. automatically and non-interactively.
+Packer provides conveniences such as integration with Ansible and Vagrant for automating the configuration and export format of VMs respectively to create vagrant base boxes for use in projects.
+
+For example a packer template can:
+
+* create a VM using a builder (such as VirtualBox)
+* download an OS (such as Ubuntu 12.04) and the builder's guest/host integration software (such as the VirtualBox guest additions)
+* install these using a installation pre-seeding file and a configuration tool (such as shell scripts and ansible)
+* package this VM for use with a provider (such as Vagrant)
+
+All of these steps are performed automatically and are easy to visualise, change and version.
 
 * Packer templates are OS version and provider specific, [see here for a list of supported boxes](https://bitbucket.org/antarctica/packer-experiments/wiki/supported-boxes).
 * VMs based on boxes created by this experiment are **not suitable for production**
 * VMs based on boxes created by this experiment are **not not safe to be accessible on the public internet**
 
+Note: Whilst this experiment focuses on creating Vagrant BaseBoxes, Packer itself can be used for a wide range of VM provisioning related tasks.
+
+
 ### Rational 
 
-For a single OS and Vagrant provider this may seem overkill (as base boxes don't change that often) but if this changes and multiple OSs (e.g. debian, centos) and providers (e.g. VMWare, AWS) are supported this quickly becomes unmanageable.
+Packer provides a framework that supporting multiple OS versions, distributions and Packer builders and providers more standardised by providing a larger of abstraction and a structured configuration format.
 
-Packer does not reduce complexity but it does prevent users having to do everything manually and makes supporting new upgrades, operating systems and providers much quicker and standardised.
+This means configuration steps can be shared between different OS's, builders and providers whether they are written by BAS, other NERC centres or external entities. By the same token we are able to share our configurations in a way that may be directly useful to others.
+
+Packer does not reduce the complexity of creating base OS images but it does automate way many of the differences between builders (VirtualBox, VMware) and providers (Vagrant, AWS) to the point that supporting new options becomes trivial, if indeed someone has not already do so in a form we can use ourselves.
 
 ### Packer
 
-Note: Please refer to the [packer documentation](http://www.packer.io/docs) for an introduction to what packer is and its terminology.
+Please refer to the [packer documentation](http://www.packer.io/docs) for an introduction to what packer is and its terminology.
+
+### Vagrant
+
+Please refer to the [ansible experiments]() project's README for how Vagrant is used within BAS or the [vagrant documentation](http://docs.vagrantup.com) for an introduction to what vagrant is and its terminology.
 
 ### Requirements
 
 On your local machine:
 
 * [VirtualBox](http://www.virtualbox.org)[1] + [Vagrant](http://www.vagrantup.com)[2] installed
-* A *Mac/Linux* terminal, Windows is currently not supported.
+* A Mac OS X or Linux operating system. Windows is not currently supported.
 
 [1] The virtual box builder is the only builder currently supported, others may be added soon
 [2] The vagrant box provider is the only provider currently supported, others may be added soon
@@ -71,11 +89,15 @@ See [packer documentation](http://www.packer.io/docs/installation.html).
 5. Packer will run more shell scripts to remove ansible and its dependencies and cleanup software packages, log files and command histories
 6. Packer will export the VM to a vagrant box file, the original VM will be destroyed automatically.
 
-This will take 5-10 minutes per OS/provider or longer if ISOs aren't cached, progress can be seen in the VirtualBox VM and from the Packer command line.
+This process takes 5-10 minutes or longer if ISOs aren't cached, progress can be seen in the VirtualBox VM during OS installation, then the command line when the VM reboots.
 
 ### 4 Update vagrant box metadata
 
-Vagrant boxes use a meta-data file to store the name, version and supported providers of each box. A URI to the box and a checksum are also stored. After creating the boxes you will need to ensure these values are correct, these files are stored in `vagrant_baseboxes`.
+Vagrant uses a meta-data file to store the name, version, supported providers, location and checksum of a box. Meta-data files can reference multiple `.box` files for each vagrant provider it supports (e.g. VirtualBox, VMware).
+
+You will need to edit this file to ensure the location URL, checksums and other details are correct:
+
+    $ nano vagrant_baseboxes/ubuntu-12.04-64-basebox-virtualbox.json
 
 Note: On Mac OS X use `$ openssl sha1 <file>` to calculate a SHA1 hash.
 
@@ -115,4 +137,80 @@ To share boxes between users [vagrant cloud](https://vagrantcloud.com) is used. 
 
 Boxes currently belong to the `antarctica` such as, `antarctica/ubuntu-12.04-64`.
 
+As a backup/alternative/most-likely-the-sort-of-thing-we'll-use-just-hosted-somewhere-else boxes are stored in an Amazon S3 bucket (packages.calcifer.co) in the `vagrant/baseboxes` directory. See the existing structure for where to put boxes and meta-data files.
+
+Note: If you're doing this make sure the meta-data file (.json) has a content-type header of **`application/json`** otherwise vagrant thinks its a box (rather than meta-data about a box). Not sure who I blame for this, probably Amazon.
+
+### 7 Use base box
+
+Note: This process has not been formalised yet, therefore it is probably best not to complete this step.
+
 To use a box in a project generate a vagrantfile such as `$ vagrant init antarctica/ubuntu-12.04-64`.
+
+## Base box names
+
+Use the following standard for naming a base box
+
+### Packer template (in `/packer_templates`)
+
+#### [Filename]
+
+`<OS>-<version>-<architecture>-basebox.packer.json`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`ubuntu-12.04-64-basebox.packer.json`
+
+#### distro_version
+
+`<OS>-<version>-<architecture>`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`ubuntu-12.04-64`
+
+### Preseed file (in `/preseed`) - if applicable
+
+`<OS>-<version>-<architecture>-basebox.preseed.cfg`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`ubuntu-12.04-64-basebox.preseed.cfg`
+
+### Provisioning playbook (in `/provisioning_playbooks`)
+
+`<OS>-<version>-<architecture>-basebox.<builder>.yml`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`ubuntu-12.04-64-basebox.virtualbox.yml`
+
+### Vagrant box meta-data (in `vagrant_baseboxes`)
+
+#### [Filename]
+
+`<OS>-<version>-<architecture>-basebox.json`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`ubuntu-12.04-64-basebox.json`
+
+#### Name
+
+`<you>/<OS>-<version>-<architecture>`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`felnne/ubuntu-12.04-64`
