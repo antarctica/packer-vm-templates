@@ -3,13 +3,24 @@
   "description": "This box contains Ubuntu 12.04 LTS 64-bit.",
   "versions": [
     {
+      "version": "0.1.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://packages.calcifer.co/vagrant/baseboxes/ubuntu/12.04/x64/virtualbox/0.1.0/ubuntu-12.04-64-basebox-virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "5e21a7163b613a2c14496d2910cb20af3d4f5d10"
+        }
+      ]
+    },
+    {
       "version": "0.1.1",
       "providers": [
         {
           "name": "virtualbox",
-          "url": "file:/Users/felnne/Projects/packer-experiments/vagrant_baseboxes/ubuntu-12.04-64-basebox-virtualbox.box",
+          "url": "http://packages.calcifer.co/vagrant/baseboxes/ubuntu/12.04/x64/virtualbox/0.1.1/ubuntu-12.04-64-basebox-virtualbox.box",
           "checksum_type": "sha1",
-          "checksum": "90d5230bc9b034ff1cdd1c1881276228a43c4079"
+          "checksum": "aef373c3a32cf9a5a9e02fe2da5aae39fc357226"
         }
       ]
     }
