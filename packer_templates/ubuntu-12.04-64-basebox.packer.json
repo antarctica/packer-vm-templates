@@ -18,7 +18,7 @@
             "http_directory": "preseed",
             "boot_wait": "5s",
             "output_directory": "{{ user `distro_version` }}-basebox-virtualbox",
-            "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+            "shutdown_command": "echo 'shutdown -P now' > .shutdown.sh; echo 'vagrant'|sudo -S sh '.shutdown.sh'",
             "boot_command": [
                 "<esc><esc><enter><wait>",
                 "/install/vmlinuz noapic ",
