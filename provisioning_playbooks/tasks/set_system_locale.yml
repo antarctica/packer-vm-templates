@@ -1,0 +1,4 @@
+---
+
+- name: create locale config
+  template: src=/tmp/packer-provisioner-ansible-local/files/etc/default/locale.j2 dest=/etc/default/locale
