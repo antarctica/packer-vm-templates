@@ -64,9 +64,12 @@ See [packer documentation](http://www.packer.io/docs/installation.html).
 
     $ packer build packer_templates/ubuntu-12.04-64-basebox.packer.json
     
-Packer will download the OS and VirtualBox guest additions ISOs then create a VirtualBox VM and non-interactively install the OS. Packer will then execute shell commands to install VirtualBox guest additions and enable passwordless sudo.
-
-The configured VM will be shutdown and exported to a Vagrant box, the VM will be destroyed. Leaving just the `.box` file inside `vagrant_baseboxes`.
+1. Packer will download the OS and VirtualBox guest additions ISOs checking their signatures.
+2. A VirtualBox VM will be created and the OS installed non-interactively.
+3. Packer will run some shell scripts to update system packages, set sudo access and install ansible and its dependencies
+4. Packer will run an ansible playbook which will configure the VM according to vagrants expectations and install the VirtualBox guest additions
+5. Packer will run more shell scripts to remove ansible and its dependencies and cleanup software packages, log files and command histories
+6. Packer will export the VM to a vagrant box file, the original VM will be destroyed automatically.
 
 This will take 5-10 minutes per OS/provider or longer if ISOs aren't cached, progress can be seen in the VirtualBox VM and from the Packer command line.
 

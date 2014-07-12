@@ -1,0 +1,25 @@
+---
+
+- name: install virtualbox guest additions dependencies
+  apt: update_cache=yes cache_valid_time=3600 pkg={{ item }} state=present # won't update if done under an hour ago
+  with_items:
+    - linux-headers-3.2.0-23-generic
+    - build-essential
+    - dkms
+- name: mount virtualbox guest additions iso
+  mount: name=/media/cdrom src=/home/vagrant/VBoxGuestAdditions.iso fstype=iso9660 opts=loop state=mounted
+- name: run virtualbox guest additions install script
+  shell: "/media/cdrom/VBoxLinuxAdditions.run"
+  ignore_errors: yes
+- name: unmount virtualbox guest additions iso
+  mount: name=/media/cdrom src=/home/vagrant/VBoxGuestAdditions.iso fstype=iso9660 opts=loop state=absent
+- name: remove virtualbox guest additions iso
+  file: path=/home/vagrant/VBoxGuestAdditions.iso state=absent
+- name: symlink virtualbox guest additions
+  file: path=/usr/lib/VBoxGuestAdditions src=/opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions state=link
+- name: uninstall install virtualbox guest additions dependencies
+  apt: purge=yes pkg={{ item }} state=absent
+  with_items:
+    - linux-headers-3.2.0-23-generic
+    - build-essential
+    - dkms
