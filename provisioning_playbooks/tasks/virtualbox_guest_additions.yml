@@ -1,9 +1,13 @@
 ---
 
+- name: decide which linux headers to install
+  shell: "echo $(uname -r)"
+  register: linux_headers
+- debug: var=linux_headers
 - name: install virtualbox guest additions dependencies
   apt: update_cache=yes cache_valid_time=3600 pkg={{ item }} state=present # won't update if done under an hour ago
   with_items:
-    - linux-headers-3.2.0-23-generic
+    - linux-headers-{{ linux_headers.stdout_lines.0 }}
     - build-essential
     - dkms
 - name: mount virtualbox guest additions iso
@@ -20,6 +24,6 @@
 - name: uninstall install virtualbox guest additions dependencies
   apt: purge=yes pkg={{ item }} state=absent
   with_items:
-    - linux-headers-3.2.0-23-generic
+    - linux-headers-{{ linux_headers.stdout_lines.0 }}
     - build-essential
     - dkms
