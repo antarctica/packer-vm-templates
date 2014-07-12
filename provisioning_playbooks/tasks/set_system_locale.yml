@@ -1,6 +1,4 @@
 ---
 
 - name: create locale config
-  shell: "printf 'LANG=\"en_GB.UTF-8\"\nLANGUAGE=\"en_GB.UTF-8:\"\nLC_ALL=\"en_GB.UTF-8\"\n' >> /tmp/locale"
-- name: replace existing locale config
-  command: "mv /tmp/locale /etc/default/locale"
+  template: src=/tmp/packer-provisioner-ansible-local/files/etc/default/locale.j2 dest=/etc/default/locale

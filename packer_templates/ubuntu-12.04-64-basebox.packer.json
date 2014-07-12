@@ -52,6 +52,11 @@
           "script": "provisioning_scripts/vagrant_sudo.sh"
         },
         {
+            "type": "file",
+            "source": "provisioning_playbooks/files",
+            "destination": "/tmp/packer-provisioner-ansible-local/"
+        },
+        {
           "type": "ansible-local",
           "playbook_file": "provisioning_playbooks/ubuntu-12.04-64-basebox-virtualbox.yml",
           "playbook_paths": [
