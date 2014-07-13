@@ -3,7 +3,6 @@
 - name: decide which linux headers to install
   shell: "echo $(uname -r)"
   register: linux_headers
-- debug: var=linux_headers
 - name: install virtualbox guest additions dependencies
   apt: update_cache=yes cache_valid_time=3600 pkg={{ item }} state=present # won't update if done under an hour ago
   with_items:
@@ -20,10 +19,10 @@
 - name: remove virtualbox guest additions iso
   file: path=/home/vagrant/VBoxGuestAdditions.iso state=absent
 - name: symlink virtualbox guest additions
-  file: path=/usr/lib/VBoxGuestAdditions src=/opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions state=link
+  file: path=/usr/lib/VBoxGuestAdditions src=/opt/VBoxGuestAdditions-4.3.12 state=link
 - name: uninstall install virtualbox guest additions dependencies
   apt: purge=yes pkg={{ item }} state=absent
   with_items:
-    - linux-headers-{{ linux_headers.stdout_lines.0 }}
+#    - linux-headers-{{ linux_headers.stdout_lines.0 }}  # Enabling this line causes issues - see #X for details
     - build-essential
     - dkms
