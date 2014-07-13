@@ -8,14 +8,15 @@ rm /usr/local/bin/ansible-galaxy
 rm /usr/local/bin/ansible-playbook
 rm /usr/local/bin/ansible-pull
 rm /usr/local/bin/ansible-vault
+rm -rf /usr/share/ansible/
 
 # Uninstall Ansible dependencies
-
-# (This is not as rigorous as it could be)
 yes | pip uninstall PyYAML
 yes | pip uninstall jinja2
 yes | pip uninstall paramiko
 yes | pip uninstall httplib2
+yes | pip uninstall MarkupSafe  # installed as a dependency
+yes | pip uninstall ecdsa  # installed as a dependency
 
 apt-get -y --purge remove git
 apt-get -y --purge remove python-pip
