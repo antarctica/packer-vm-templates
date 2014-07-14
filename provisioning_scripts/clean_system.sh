@@ -2,8 +2,8 @@
 set -ex
 
 # Final package cleaning
-apt-get -y clean
 apt-get autoremove -y --purge
+apt-get -y clean
 find /var/lib/apt -type f | xargs rm -f
 
 # Remove linux headers

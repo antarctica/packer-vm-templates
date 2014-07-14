@@ -1,0 +1,17 @@
+{
+  "name": "felnne/ubuntu-14.04-64",
+  "description": "This box contains Ubuntu 14.04 LTS 64-bit.",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/x64/virtualbox/0.1.0/ubuntu-14.04-64-basebox-virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "4db63bb6306359cdede0c21b0e6b2292427f1a40"
+        }
+      ]
+    }
+  ]
+}
