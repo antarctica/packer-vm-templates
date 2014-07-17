@@ -12,6 +12,39 @@
           "checksum": "4db63bb6306359cdede0c21b0e6b2292427f1a40"
         }
       ]
+    },
+    {
+      "version": "0.1.1",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/x64/virtualbox/0.1.1/ubuntu-14.04-64-basebox-virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "9ca965a7ce94d8ae8dac57292f17671178ef64c1"
+        }
+      ]
+    },
+    {
+      "version": "0.2.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/x64/virtualbox/0.2.0/ubuntu-14.04-64-basebox-virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "88978916d14bbdbf8e85c0d757978ef1778c6ae9"
+        }
+      ]
+    },
+    {
+      "version": "0.3.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/x64/virtualbox/0.3.0/ubuntu-14.04-64-basebox-virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "4a92c57de017917045962d1bf45500a6f879ddc0"
+        }
+      ]
     }
   ]
 }
