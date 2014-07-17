@@ -20,9 +20,3 @@
   file: path=/home/vagrant/VBoxGuestAdditions.iso state=absent
 - name: symlink virtualbox guest additions
   file: path=/usr/lib/VBoxGuestAdditions src=/opt/VBoxGuestAdditions-4.3.12 state=link
-- name: uninstall install virtualbox guest additions dependencies
-  apt: purge=yes pkg={{ item }} state=absent
-  with_items:
-#    - linux-headers-{{ linux_headers.stdout_lines.0 }}  # Enabling this line causes issues - see #X for details
-    - build-essential
-    - dkms

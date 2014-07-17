@@ -21,5 +21,6 @@ yes | pip uninstall ecdsa  # installed as a dependency
 apt-get -y --purge remove git
 apt-get -y --purge remove python-pip
 apt-get -y --purge remove python-dev
-apt-get -y --purge remove make
 apt-get -y --purge remove fakeroot
+# Make should also be uninstalled but its part of build-essential
+# Build-essential is left behind to rebuild guest additions later
