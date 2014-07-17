@@ -80,7 +80,7 @@ See [packer documentation](http://www.packer.io/docs/installation.html).
 
 ### 3 Build base box
 
-    $ packer build packer_templates/ubuntu-12.04-64-basebox.packer.json
+    $ packer build packer_templates/ubuntu-14.04-64-basebox.packer.json
     
 1. Packer will download the OS and VirtualBox guest additions ISOs checking their signatures.
 2. A VirtualBox VM will be created and the OS installed non-interactively.
@@ -97,7 +97,7 @@ Vagrant uses a meta-data file to store the name, version, supported providers, l
 
 You will need to edit this file to ensure the location URL, checksums and other details are correct:
 
-    $ nano vagrant_baseboxes/ubuntu-12.04-64-basebox-virtualbox.json
+    $ nano vagrant_baseboxes/ubuntu-14.04-64-basebox-virtualbox.json
 
 Note: On Mac OS X use `$ openssl sha1 <file>` to calculate a SHA1 hash.
 
@@ -105,11 +105,11 @@ Note: On Mac OS X use `$ openssl sha1 <file>` to calculate a SHA1 hash.
 
 #### Add the build box to Vagrant:
 
-    $ vagrant box add vagrant_baseboxes/ubuntu-12.04-64-basebox-virtualbox.json
+    $ vagrant box add vagrant_baseboxes/ubuntu-14.04-64-basebox-virtualbox.json
 
 Create a new VM:
 
-    $ vagrant init felnne/ubuntu-12.04-64
+    $ vagrant init bas/ubuntu-14.04-64
     $ vagrant up
 
 Check no errors are reported and test connecting to the VM using `$ vagrant ssh` and confirming shared folders work correctly.
@@ -123,11 +123,11 @@ Remove the test VM:
     
 Remove the base box from vagrant (optional):
 
-    $ vagrant box remove felnne/ubuntu-12.04-64
+    $ vagrant box remove bas/ubuntu-14.04-64
 
 Remove generated box (optional):
 
-    $ rm vagrant_baseboxes/ubuntu-12.04-64-basebox-virtualbox.box
+    $ rm vagrant_baseboxes/ubuntu-14.04-64-basebox-virtualbox.box
     
 ### 6 Publish base box
 
@@ -135,7 +135,7 @@ Note: This process has not been formalised yet, therefore it is probably best no
 
 To share boxes between users [vagrant cloud](https://vagrantcloud.com) is used. This hosts meta-data about boxes, providers, versions and URIs to the packer generated boxes. Currently these boxes are stored on amazon S3 but this can be easily changed.
 
-Boxes currently belong to the `antarctica` such as, `antarctica/ubuntu-12.04-64`.
+Boxes currently belong to `antarctica` such as, `antarctica/ubuntu-14.04-64`.
 
 As a backup/alternative/most-likely-the-sort-of-thing-we'll-use-just-hosted-somewhere-else boxes are stored in an Amazon S3 bucket (packages.calcifer.co) in the `vagrant/baseboxes` directory. See the existing structure for where to put boxes and meta-data files.
 
@@ -145,7 +145,7 @@ Note: If you're doing this make sure the meta-data file (.json) has a content-ty
 
 Note: This process has not been formalised yet, therefore it is probably best not to complete this step.
 
-To use a box in a project generate a vagrantfile such as `$ vagrant init antarctica/ubuntu-12.04-64`.
+To use a box in a project generate a vagrantfile such as `$ vagrant init antarctica/ubuntu-14.04-64`.
 
 ## Base box names
 
