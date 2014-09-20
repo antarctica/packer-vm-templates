@@ -78,6 +78,17 @@
           "checksum": "c25770e62e4f83ae9b55e21e22462b7009654f5a"
         }
       ]
+    },
+    {
+      "version": "0.4.3",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/x64/virtualbox/0.4.3/ubuntu-14.04-64-basebox-virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "68eb556988304476df33fe24e894ba5b060c47aa"
+        }
+      ]
     }
   ]
 }
