@@ -17,7 +17,7 @@ In this README:
 
 Packer is a tool for stating an operating image or ISO, configuring it and outputting the resulting virtual machine in a variety of formats for a variety of formats.
 
-Packer provides conveniences such as integration with Ansible and Vagrant for automating the configuration and export format of VMs respectively to create vagrant base boxes for use in projects.
+Packer provides conveniences such as integration with ansible and vagrant for automating the configuration and export format of VMs respectively to create vagrant base boxes for use in projects.
 
 For example a packer template can:
 
@@ -86,7 +86,7 @@ See [packer documentation](http://www.packer.io/docs/installation.html).
 2. A VirtualBox VM will be created and the OS installed non-interactively.
 3. Packer will run some shell scripts to update system packages, set sudo access and install ansible and its dependencies
 4. Packer will run an ansible playbook which will configure the VM according to vagrants expectations and install the VirtualBox guest additions
-5. Packer will run more shell scripts to remove ansible and its dependencies and cleanup software packages, log files and command histories
+5. Packer will run more shell scripts to remove ansible and its dependencies and clean up software packages, log files and command histories
 6. Packer will export the VM to a vagrant box file, the original VM will be destroyed automatically.
 
 This process takes 5-10 minutes or longer if ISOs aren't cached, progress can be seen in the VirtualBox VM during OS installation, then the command line when the VM reboots.
@@ -107,7 +107,7 @@ Note: On Mac OS X use `$ openssl sha1 <file>` to calculate a SHA1 hash.
 
 #### Add the build box to Vagrant:
 
-    $ vagrant box add vagrant_baseboxes/ubuntu-14.04-64-basebox-virtualbox.json
+    $ vagrant box add vagrant_baseboxes/ubuntu-14.04-64-basebox.json
 
 Create a new VM:
 
