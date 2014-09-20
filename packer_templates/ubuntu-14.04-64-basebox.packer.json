@@ -44,6 +44,16 @@
         {
           "type": "shell",
           "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+          "script": "provisioning_scripts/restart_system.sh"
+        },
+        {
+          "type": "shell",
+          "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+          "script": "provisioning_scripts/upgrade_packages.sh"
+        },
+        {
+          "type": "shell",
+          "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
           "script": "provisioning_scripts/install_ansible.sh"
         },
         {

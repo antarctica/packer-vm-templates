@@ -91,7 +91,9 @@ See [packer documentation](http://www.packer.io/docs/installation.html).
 
 This process takes 5-10 minutes or longer if ISOs aren't cached, progress can be seen in the VirtualBox VM during OS installation, then the command line when the VM reboots.
 
-### 4 Update vagrant box metadata
+Note: If you review the list of provisioning steps you will see the 'upgrade_packages' script is called after rebooting to complete the earlier call of the same script. This is intentional and isn't actually carried out by packer (it seems to skip whatever the next script call is after rebooting).
+
+### 4 Update vagrant box meta-data
 
 Vagrant uses a meta-data file to store the name, version, supported providers, location and checksum of a box. Meta-data files can reference multiple `.box` files for each vagrant provider it supports (e.g. VirtualBox, VMware).
 
