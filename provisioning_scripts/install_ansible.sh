@@ -5,14 +5,10 @@ set -ex
 apt-get -y update
 
 # Install Ansible dependencies
-apt-get install -y git python-pip python-dev make fakeroot
-yes | pip install PyYAML jinja2 paramiko httplib2
+apt-get install -y git python python-pip python-dev
 
-# Install Ansible
-git clone git://github.com/ansible/ansible.git /home/vagrant/ansible_installer
-cd /home/vagrant/ansible_installer
-make install
-rm -rf /home/vagrant/ansible_installer
+# Install ansible
+yes | pip install ansible
 
 # Create a directory for Ansible's files
 mkdir -p /tmp/packer-provisioner-ansible-local/files
