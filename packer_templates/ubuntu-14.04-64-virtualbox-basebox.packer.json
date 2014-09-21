@@ -4,25 +4,26 @@
         "ssh_password": "vagrant",
         "hostname": "vagrant",
         "distro_version": "ubuntu-14.04-64",
-        "distro_iso_name": "ubuntu-14.04-server-amd64.iso",
-        "distro_iso_checksum": "01545fa976c8367b4f0d59169ac4866c"
+        "distro_iso_url": "http://gb.releases.ubuntu.com/trusty/ubuntu-14.04-server-amd64.iso",
+        "distro_iso_checksum": "01545fa976c8367b4f0d59169ac4866c",
+        "builder_type": "virtualbox"
     },
     "builders": [
         {
             "type": "virtualbox-iso",
             "guest_os_type": "Ubuntu_64",
             "disk_size": 40960,
-            "iso_url": "http://gb.releases.ubuntu.com/trusty/{{ user `distro_iso_name` }}",
+            "iso_url": "{{ user `distro_iso_url` }}",
             "iso_checksum": "{{ user `distro_iso_checksum` }}",
             "iso_checksum_type": "md5",
             "http_directory": "preseed",
             "boot_wait": "5s",
-            "output_directory": "{{ user `distro_version` }}-basebox-virtualbox",
+            "output_directory": "{{ user `distro_version` }}-{{ user `builder_type` }}",
             "shutdown_command": "echo 'shutdown -P now' > .shutdown.sh; echo 'vagrant'|sudo -S sh '.shutdown.sh'",
             "boot_command": [
                 "<esc><esc><enter><wait>",
                 "/install/vmlinuz noapic ",
-                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `distro_version` }}-basebox.preseed.cfg ",
+                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `distro_version` }}.preseed.cfg ",
                 "debian-installer=en_GB auto locale=en_GB kbd-chooser/method=gb ",
                 "hostname={{ user `hostname` }} ",
                 "fb=false debconf/frontend=noninteractive ",
@@ -68,7 +69,7 @@
         },
         {
           "type": "ansible-local",
-          "playbook_file": "provisioning_playbooks/ubuntu-14.04-64-basebox-virtualbox.yml",
+          "playbook_file": "provisioning_playbooks/ubuntu-14.04-64-virtualbox-basebox.yml",
           "playbook_paths": [
             "provisioning_playbooks/tasks"
           ]
@@ -90,7 +91,7 @@
             "compression_level": 4,
             "override": {
                 "virtualbox": {
-                    "output": "vagrant_baseboxes/{{ user `distro_version` }}-basebox-virtualbox.box"
+                    "output": "vagrant_baseboxes/{{ user `distro_version` }}-{{ user `builder_type` }}.box"
                 }
             }
         }

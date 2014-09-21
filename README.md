@@ -149,70 +149,138 @@ Note: This process has not been formalised yet, therefore it is probably best no
 
 To use a box in a project generate a vagrantfile such as `$ vagrant init antarctica/ubuntu-14.04-64`.
 
-## Base box names
+E.g.
 
-Use the following standard for naming a base box
+    $ vagrant init antarctica/trusty
+    $ vagrant up
 
-### Packer template (in `/packer_templates`)
+## Naming conventions
 
-#### [Filename]
+Note: Older versions of templates, configuration files and artefacts may not follow the conventions written here as they pre-date them.
 
-`<OS>-<version>-<architecture>-basebox.packer.json`
+### Packer template `/packer_templates`
+
+#### (Filename)
+
+`<os>-<version>-<architecture>-<builder>-<artefact-type>.packer.json`
 
 Note: Use lowercase alpha-numeric or `.` characters only.
 
 E.g.
 
-`ubuntu-12.04-64-basebox.packer.json`
+`ubuntu-14.04-64-virtualbox-basebox.packer.json`
 
-#### distro_version
 
-`<OS>-<version>-<architecture>`
+#### ssh_username (template variable)
 
-Note: Use lowercase alpha-numeric or `.` characters only.
+`vagrant`
 
-E.g.
+#### ssh_password (template variable)
 
-`ubuntu-12.04-64`
+`vagrant`
 
-### Preseed file (in `/preseed`) - if applicable
+#### hostname (template variable)
 
-`<OS>-<version>-<architecture>-basebox.preseed.cfg`
+`vagrant`
 
-Note: Use lowercase alpha-numeric or `.` characters only.
+#### distro_version (template variable)
 
-E.g.
-
-`ubuntu-12.04-64-basebox.preseed.cfg`
-
-### Provisioning playbook (in `/provisioning_playbooks`)
-
-`<OS>-<version>-<architecture>-basebox.<builder>.yml`
+`<os>-<version>-<architecture>`
 
 Note: Use lowercase alpha-numeric or `.` characters only.
 
 E.g.
 
-`ubuntu-12.04-64-basebox.virtualbox.yml`
+`ubuntu-14.04-64`
 
-### Vagrant box meta-data (in `vagrant_baseboxes`)
+#### builder_type (template variable)
 
-#### [Filename]
+`<builder_type>`
 
-`<OS>-<version>-<architecture>-basebox.json`
+E.g.
+
+`virtualbox`
+
+#### Output directory
+
+`<os>-<version>-<architecture>-<builder>`
 
 Note: Use lowercase alpha-numeric or `.` characters only.
 
 E.g.
 
-`ubuntu-12.04-64-basebox.json`
+`ubuntu-14.04-64-virtualbox`
+
+#### Post-processor output
+
+`<artefact-type>/<os>-<version>-<architecture>-<builder>.box`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`vagrant_baseboxes/ubuntu-14.04-64-virtualbox.box`
+
+#### VM name (optional)
+
+`<os>-<version>-<architecture>`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`ubuntu-14.04-64`
+
+### Preseed file `/preseed` (optional)
+
+`<os>-<version>-<architecture>.preseed.cfg`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`ubuntu-14.04-64-basebox.preseed.cfg`
+
+### Provisioning playbook `/provisioning_playbooks` (optional)
+
+`<os>-<version>-<architecture>-<builder>-<artefact-type>.yml`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`ubuntu-14.04-64-virtualbox-basebox.yml`
+
+### Vagrant base box meta-data file `vagrant_baseboxes` (optional)
+
+#### (Filename)
+
+`<os>-<version>-<architecture>.json`
+
+Note: Use lowercase alpha-numeric or `.` characters only.
+
+E.g.
+
+`ubuntu-14.04-64.json`
 
 #### Name
 
-`<you>/<OS>-<version>-<architecture>`
+Though this breaks consistency we use friendlier names for referring to base boxes.
 
-Note: Use lowercase alpha-numeric or `.` characters only.
+E.g. Instead `ubuntu-14.04-64` we use `trusty` as its unlikely two operating systems will use the same code-names for releases and we will typically only support one architecture. Where an update needs to be handled (say 14.1) we would need to re-release the base-boxes anyway we can therefore use the box version to reflect a changed OS version.
+
+We namespace all boxes with `antarctica` for best practice and avoiding clashes.
+
+E.g. `antarctica/trusty`
+
+Note: The name of the box as reported to Vagrant has no relation to the name of the box file (or meta-data file) and should follow their own conventions. Within Vagrant (e.g. `$ vagrant box list`) the friendly name will be shown.
+
+#### Description
+
+Usually the following format is used:
+
+`<os> <version> <architecture> base box`
 
 E.g.
 
-`felnne/ubuntu-12.04-64`
+Ubuntu 14.04 LTS 64-bit base box
