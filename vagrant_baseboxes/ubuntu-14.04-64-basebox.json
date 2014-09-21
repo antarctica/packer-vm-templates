@@ -87,6 +87,12 @@
           "url": "http://packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/x64/virtualbox/0.4.3/ubuntu-14.04-64-basebox-virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "68eb556988304476df33fe24e894ba5b060c47aa"
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "http://packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/x64/vmware/0.4.3/ubuntu-14.04-64-basebox-vmware.box",
+          "checksum_type": "sha1",
+          "checksum": "9b2afc77a85b0037b33c00b581efb7a463b1e526"
         }
       ]
     }

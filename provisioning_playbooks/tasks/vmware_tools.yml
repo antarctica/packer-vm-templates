@@ -1,0 +1,35 @@
+---
+
+- name: mount vmware tools iso
+  mount: name=/media/cdrom src=/home/vagrant/linux.iso fstype=iso9660 opts=loop state=mounted
+
+- name: create location for extracted installer
+  file: path=/tmp/vmware-tools-installer state=directory
+
+# Enable to discover correct vmware tools version
+#- name: list contents of vmware tools cd
+#  command: "ls /media/cdrom"
+#  register: cd_contents
+#- debug: var=cd_contents
+
+- name: extract vmware tools installer
+  command: "tar xzf /media/cdrom/VMwareTools-9.8.3-2075148.tar.gz -C /tmp/vmware-tools-installer"
+
+- name: run vmware installer
+  command: "/tmp/vmware-tools-installer/vmware-tools-distrib/vmware-install.pl --default"
+
+- name: unmount vmware tools iso
+  mount: name=/media/cdrom src=/home/vagrant/linux.iso fstype=iso9660 opts=loop state=absent
+- name: remove vmware tools iso
+  file: path=/home/vagrant/linux.iso state=absent
+
+
+
+#    mkdir /tmp/vmfusion
+#    mkdir /tmp/vmfusion-archive
+#    mount -o loop /home/vagrant/linux.iso /tmp/vmfusion
+#    tar xzf /tmp/vmfusion/VMwareTools-*.tar.gz -C /tmp/vmfusion-archive
+#    /tmp/vmfusion-archive/vmware-tools-distrib/vmware-install.pl --default
+#    umount /tmp/vmfusion
+#    rm -rf  /tmp/vmfusion
+#    rm -rf  /tmp/vmfusion-archive

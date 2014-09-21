@@ -1,0 +1,11 @@
+---
+# Enable the Piwik cron job for generating statistics
+
+- name: provision basebox
+  hosts: 127.0.0.1
+  sudo: yes
+  connection: local
+  tasks:
+    - include: /tmp/packer-provisioner-ansible-local/playbooks/tasks/set_system_locale.yml
+    - include: /tmp/packer-provisioner-ansible-local/playbooks/tasks/vmware_tools.yml
+    - include: /tmp/packer-provisioner-ansible-local/playbooks/tasks/set_vagrant_ssh.yml
