@@ -7,5 +7,5 @@
   connection: local
   tasks:
     - include: /tmp/packer-provisioner-ansible-local/playbooks/tasks/set_system_locale.yml
-    - include: /tmp/packer-provisioner-ansible-local/playbooks/tasks/virtualbox_guest_additions.yml
+    - include: /tmp/packer-provisioner-ansible-local/playbooks/tasks/vmware_tools.yml
     - include: /tmp/packer-provisioner-ansible-local/playbooks/tasks/set_vagrant_ssh.yml
