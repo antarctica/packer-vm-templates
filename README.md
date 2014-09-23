@@ -1,411 +1,193 @@
-# Packer experiments
+# Bento
+
+[![Build Status](http://img.shields.io/travis/opscode/bento.svg)][travis]
+
+[travis]: https://travis-ci.org/opscode/bento
+
+Bento is a project that encapsulates [Packer](http://packer.io) templates for building
+[Vagrant](http://vagrantup.com) baseboxes. We use these boxes internally at Chef Software, Inc. for
+testing Hosted Enterprise Chef, Private Enterprise Chef and our open source [cookbooks](https://supermarket.getchef.com/users/chef)
+via [test-kitchen](http://kitchen.ci/).
+
+This project is managed by the CHEF Release Engineering team. For more information on the Release Engineering team's contribution, triage, and release process, please consult the [CHEF Release Engineering OSS Management Guide](https://docs.google.com/a/opscode.com/document/d/1oJB0vZb_3bl7_ZU2YMDBkMFdL-EWplW1BJv_FXTUOzg/edit).
 
-Using [Packer](http://www.packer.io/) to create a [vagrant](http://www.vagrantup.com) base boxes for use in projects.
+## Current Baseboxes
 
-Note: The structure and contents of this repository will probably change considerably during this testing phase.
+The following baseboxes are publicly available and were built using
+this project. Note that our baseboxes do not include Chef Client.
+Vagrant can be instructed to install Chef at runtime using the
+[vagrant-omnibus](https://github.com/schisamo/vagrant-omnibus) plugin.
 
-## Conventions
+### VirtualBox
 
-In this README:
+These baseboxes were all built using a Mac OS X host running VirtualBox 4.3.14, and have that format of Guest Extensions.
 
-* values such as `<foo>` are variables and should be substituted for some real value
-* directories are absolute to the project root / checkout location
-* commands are listed in the `this` style, e.g. `$ packer build`
-* important information is given in **bold**
+* [opscode-centos-5.10-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-5.10-i386_chef-provisionerless.box)
+* [opscode-centos-5.10](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-5.10_chef-provisionerless.box)
+* [opscode-centos-6.5-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5-i386_chef-provisionerless.box)
+* [opscode-centos-6.5](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box)
+* [opscode-centos-7.0](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-7.0_chef-provisionerless.box)
+* [opscode-debian-6.0.10-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-6.0.10-i386_chef-provisionerless.box)
+* [opscode-debian-6.0.10](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-6.0.10_chef-provisionerless.box)
+* [opscode-debian-7.6-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.6-i386_chef-provisionerless.box)
+* [opscode-debian-7.6](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.6_chef-provisionerless.box)
+* [opscode-fedora-19-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_fedora-19-i386_chef-provisionerless.box)
+* [opscode-fedora-19](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_fedora-19_chef-provisionerless.box)
+* [opscode-fedora-20-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_fedora-20-i386_chef-provisionerless.box)
+* [opscode-fedora-20](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_fedora-20_chef-provisionerless.box)
+* [opscode-freebsd-9.2-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_freebsd-9.2-i386_chef-provisionerless.box)
+* [opscode-freebsd-9.2](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_freebsd-9.2_chef-provisionerless.box)
+* [opscode-freebsd-10](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_freebsd-10.0_chef-provisionerless.box)
+* [opscode-opensuse-13.1-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_opensuse-13.1-i386_chef-provisionerless.box)
+* [opscode-opensuse-13.1](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_opensuse-13.1-x86_64_chef-provisionerless.box)
+* [opscode-ubuntu-10.04-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-10.04-i386_chef-provisionerless.box)
+* [opscode-ubuntu-10.04](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-10.04_chef-provisionerless.box)
+* [opscode-ubuntu-12.04-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04-i386_chef-provisionerless.box)
+* [opscode-ubuntu-12.04](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04_chef-provisionerless.box)
+* [opscode-ubuntu-14.04-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04-i386_chef-provisionerless.box)
+* [opscode-ubuntu-14.04](http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box)
 
-## Overview
+### VMWare
 
-Packer is a tool for taking an operating image (usually in the form of an ISO), installing it as a new VM, performing customisations (e.g. installing base packages) before packaging the resulting VM for use as a starting point with tools such as Vagrant.
+These baseboxes were all built using a Mac OS X host running VMWare Fusion 6.0.2, and have that version of VMWare Tools.
+The boxes should work unchanged in VMWare Workstation for Windows or Linux.
 
-Packer provides a framework for performing automated installations of operating systems using a variety of builders (such as VirtualBox to produce a VM image), provisioners (used to configure the built VM to install custom packages etc.) and tools for exporting the built VM as an 'image' (such as a Vagrant base box).
+* [opscode-centos-5.10-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_centos-5.10-i386_chef-provisionerless.box)
+* [opscode-centos-5.10](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_centos-5.10_chef-provisionerless.box)
+* [opscode-centos-6.5-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_centos-6.5-i386_chef-provisionerless.box)
+* [opscode-centos-6.5](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_centos-6.5_chef-provisionerless.box)
+* [opscode-centos-7.0](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_centos-7.0_chef-provisionerless.box)
+* [opscode-debian-6.0.10-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_debian-6.0.10-i386_chef-provisionerless.box)
+* [opscode-debian-6.0.10](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_debian-6.0.10_chef-provisionerless.box)
+* [opscode-debian-7.6-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_debian-7.6-i386_chef-provisionerless.box)
+* [opscode-debian-7.6](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_debian-7.6_chef-provisionerless.box)
+* [opscode-fedora-19-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_fedora-19-i386_chef-provisionerless.box)
+* [opscode-fedora-19](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_fedora-19_chef-provisionerless.box)
+* [opscode-fedora-20-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_fedora-20-i386_chef-provisionerless.box)
+* [opscode-fedora-20](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_fedora-20_chef-provisionerless.box)
+* [opscode-freebsd-9.2-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_freebsd-9.2-i386_chef-provisionerless.box)
+* [opscode-freebsd-9.2](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_freebsd-9.2_chef-provisionerless.box)
+* [opscode-freebsd-10](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_freebsd-10.0_chef-provisionerless.box)
+* [opscode-opensuse-13.1-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_opensuse-13.1-i386_chef-provisionerless.box)
+* [opscode-opensuse-13.1](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_opensuse-13.1-x86_64_chef-provisionerless.box)
+* [opscode-ubuntu-10.04-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-10.04-i386_chef-provisionerless.box)
+* [opscode-ubuntu-10.04](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-10.04_chef-provisionerless.box)
+* [opscode-ubuntu-12.04-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-12.04-i386_chef-provisionerless.box)
+* [opscode-ubuntu-12.04](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-12.04_chef-provisionerless.box)
+* [opscode-ubuntu-14.04-i386](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-14.04-i386_chef-provisionerless.box)
+* [opscode-ubuntu-14.04](http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-14.04_chef-provisionerless.box)
 
-An example workflow using Packer might be:
+## Older Baseboxes
 
-1. Perform an automated installation of an operating system using a *builder* (such as a VirtualBox VM)
-2. Configure the operating system with custom settings and packages (such as VM integration tools) using one or more *provisioners*
-3. Package the resulting operating system into a variety of *artefacts* (such as a Vagrant base box) using one or more *post provisioners*
+Older baseboxes include Chef and therefore are not compatible with some
+new plugins. The full list of old boxes are available in the [old boxes file](https://github.com/opscode/bento/blob/master/OLD-BOXES.md).
 
-These stages collectively make up a packer *template* (a JSON file), a single template may create multiple *artefacts* using multiple *builders* (for example a VM image for VirtualBox and VMware), multiple *provisioners* and multiple *post-processors*.
+## Build Your Own Boxes
 
-Within this project:
+First, install [Packer](http://packer.io) and then clone this project.
 
-* We focus on creating Vagrant base boxes (rather than AMIs for AWS or Images for Digital Ocean for example)
-* Artefacts are designed to be as minimal as possible, favouring provisioning of software packages and services to be performed by each project (for example a base box should not include ruby pre-installed)
-* Wherever possible we follow relevant best practice (i.e. Packer and Vagrant) and wherever possible artefacts should be usable outside of BAS (i.e. use the Vagrant insecure private key rather than a BAS specific key)
-* Artefacts created by this experiment are **not suitable for production**
-* Artefacts created by this experiment are **not not safe to be accessible on the public internet**
+Inside the `packer` directory, a JSON file describes each box that can be built. You can use `packer build` to build the
+boxes.
 
-### Supported artefacts
+    $ packer build debian-7.2.0-i386.json
 
-[A list of artefacts produced by this project is available here](https://bitbucket.org/antarctica/packer-experiments/wiki/artefacts)
+If you want to use a another mirror site, use mirror variable.
 
-Note: This page lists all artefacts that have ever been produced by this project, including deprecated/non-supported ones. Please note the guidance listed on the wiki page for which artefact versions are recommended/supported for use in other projects.
+    $ packer build -var 'mirror=http://ftp.jaist.ac.jp/pub/Linux/debian-cdimage/release' debian-7.2.0-i386.json
 
-This project includes templates for these operating systems:
+If you only have VMware or VirtualBox available, you may also tell Packer to build only that box.
 
-* Ubuntu 14.04 LTS AMD 64
+    $ packer build -only=virtualbox-iso debian-7.2.0-i386.json
 
-This project supports the following builders:
+Congratulations! You now have box(es) in the ../builds directory that you can then add to Vagrant and start testing cookbooks.
 
-* VirtualBox
-* VMware desktop (VMware Fusion and VMware Workstation)
+### Proprietary Boxes
 
-This project supports the following post-processors:
+Mac OS X (10.7, 10.8, and 10.9), Red Hat Enterprise Linux, and SUSE Linux Enterprise Server templates are provided. However, their ISOs are not publicly retrievable and as such, the URLs in those templates are bogus. For RHEL and SLES, you should substitute your server where you host the ISOs, using the mirror variable as above.
 
-* Vagrant base box
+#### Mac OS X Boxes
 
-### Rational 
+To build a Mac OS X box, you will need to start with an installer for your desired version of OS X.  You will then need to use [Tim Sutton's osx-vm-templates](https://github.com/timsutton/osx-vm-templates)/) to modify that installer for use by packer.  The output of that build will include the location of the ISO and its checksum, which you can substitute into your `packer build` command, e.g.:
 
-Packer provides a framework that supporting multiple OS versions, distributions and Packer builders and providers more standardised by providing a larger of abstraction and a structured configuration format.
+    $ packer build -var 'iso_checksum=<checksum>' -var 'iso_url=<iso_url>' macosx-10.9.json
 
-This means configuration steps can be shared between different OS's, builders and providers whether they are written by BAS, other NERC centres or external entities. By the same token we are able to share our configurations in a way that may be directly useful to others.
+There is a known issue where [test-kitchen](http://kitchen.ci/) starts a Mac OS X box correctly, but `vagrant up` fails due to the absence of the HGFS kernel module.  This is due to a silent failure during the VMware tools installation and can be corrected by installing the VMware tools on the Mac OS X box manually.
 
-Packer does not reduce the complexity of creating base OS images but it does automate way many of the differences between builders (VirtualBox, VMware) and providers (Vagrant, AWS) to the point that supporting new options becomes trivial, if indeed someone has not already do so in a form we can use ourselves.
+Note that, while it is possible to build OS X boxes for VirtualBox, it may not be ideal. VirtualBox provides no "guest additions" for OS X. Boxes consequently have limited networking configurability and must rely on rsync for folder syncing. VMWare, when available, is generally preferred.
 
-### Packer
+### Windows Boxes
 
-Please refer to the [Packer documentation](http://www.packer.io/docs) for an introduction to what Packer is and its terminology.
+Packer does not yet support Windows, so veewee definitions are still used for building those boxes. You must build these
+boxes yourself due to licensing constraints. You can build these as follows:
 
-### Vagrant
+    $ bundle install
+    $ bundle exec veewee vbox build [definition-name]
 
-Please refer to the [ansible experiments](https://bitbucket.org/antarctica/ansible-experiments) project's README for how Vagrant is used within BAS or the [Vagrant documentation](http://docs.vagrantup.com) for an introduction to what Vagrant is and its terminology.
+These veewee definitions are lightly maintained. For other approaches to building Windows boxes, please see the following
+community projects:
 
-### Requirements
+* [Mischa Taylor's basebox project](https://github.com/misheska/basebox-packer/)
+* [Vagrant Windows Boxes and Puppet](https://github.com/ferventcoder/vagrant-windows-puppet/tree/master/baseboxes)
 
-On your local machine:
+### Special Note About Building from Windows Hosts
 
-* A Mac OS X or Linux operating system[1]
+When building boxes from a Windows host system, you must ensure that kickstart configuration files (`ks.cfg` for RHEL
+based systems) and preseed files (`preseed.cfg` for Debian based systems) have Unix line endings (i.e. lines end with
+LF character only). Moreover, it's also a good idea to have `*.sh` scripts with Unix line endings too.
 
-For using the VirtualBox builder:
+When these files have Windows line endings, the group creation can fail in the pre-seed phase and in turn, prevents the
+user `vagrant` to be created correctly. This ultimately results in Packer not being able to connect to the newly booted
+up machine with an error message that looks like this:
 
-* [VirtualBox](http://www.virtualbox.org)[1]
+```
+==> virtualbox-iso: Waiting for SSH to become available...
+==> virtualbox-iso: Error waiting for SSH: handshake failed: ssh: unable to authenticate, attempted methods [none password], no support
+```
 
-For using the VMware builder:
+Since Packer tries to log in with user `vagrant` but it was not created successfully in the pre-seed phase, it is unable
+to connect to the machine and the packaging process stops.
 
-* [VMware Fusion](http://www.vmware.com/products/fusion) or [VMware Workstation](http://www.vmware.com/products/workstation)
+By default, when cloning this repository, git should normalize `ks.cfg`, `preseed.cfg` and `*.sh` to Unix line endings
+and `*.bat` to Windows line endings, thanks to the [.gitattributes](.gitattributes) file in the repository. However, if
+it's not the case because you have overridden line-ending conversion in your own git configuration, convert the offending files so they have the correct line endings.
 
-For testing Vagrant base boxes:
+## Bugs and Issues
 
-* [Vagrant](http://www.vagrantup.com)
-* The [Vagrant VMware plugin](www.vagrantup.com/vmware) if testing VMware based base boxes
+Please use GitHub issues to report bugs, features, or other problems. Please note:
+the [JIRA issue tracker](http://tickets.opscode.com/browse/BENTO) is no longer being used.
 
-[1] Windows is not currently supported.
+## License & Authors
 
-## Getting started
+These basebox templates were converted from [veewee](https://github.com/jedi4ever/veewee)
+definitions originally based on
+[work done by Tim Dysinger](https://github.com/dysinger/basebox) to
+make "Don't Repeat Yourself" (DRY) modular baseboxes. Thanks Tim!
 
-### 1 Install Packer
+Mac OS X templates were adopted wholesale from [Fletcher Nichol's packer templates](https://github.com/fnichol/packer-templates).
 
-#### Mac OS X (with homebrew installed)
+- Author: Seth Chisamore (<schisamo@getchef.com>)
+- Author: Stephen Delano (<stephen@getchef.com>)
+- Author: Joshua Timberman (<joshua@getchef.com>)
+- Author: Tim Dysinger (<tim@dysinger.net>)
+- Author: Chris McClimans (<chris@hippiehacker.org>)
+- Author: Julian Dunn (<jdunn@getchef.com>)
+- Author: Tom Duffield (<tom@getchef.com>)
+- Author: Ross Timson (<ross@rosstimson.com>)
+- Author: Fletcher Nichol (<fnichol@nichol.ca>)
 
-    $ brew tap homebrew/binary
-    $ brew install packer
-    
-#### Other platforms
+```text
+Copyright 2012-2014, Chef Software, Inc. (<legal@getchef.com>)
+Copyright 2011-2012, Tim Dysinger (<tim@dysinger.net>)
 
-See [Packer documentation](http://www.packer.io/docs/installation.html).
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-### 2 Clone repo
+    http://www.apache.org/licenses/LICENSE-2.0
 
-    $ git clone git@bitbucket.org:antarctica/packer-experiments.git
-
-### 3 Create artefact using template
-
-Templates are stored in `packer_templates`, currently each template focuses on a single OS, for a single builder producing a single artefact (i.e. a one to one relationship between template and artefact) but this may change.
-
-    $ packer build packer_templates/<packer_template>.json
-
-Where: `<packer_template>` is the name of a Packer template.
-
-E.g:
-
-    $ packer build packer_templates/ubuntu-14.04-64-virtualbox-basebox.packer.json
-
-Though generalised the steps below give a good overview of what Packer does:
-
-1. Packer will download or find the OS and VM tools ISOs and check their signatures.
-2. A VM will be created and the OS installed non-interactively.
-3. Packer will run some provisioners which may be scripts or configuration scripts such as Ansible playbooks to update system packages, set sudo access and install the VM tools and any other required packages.
-5. Packer will run some more provisioners to clean up software packages, log files and histories.
-6. Packer will export the VM to create an artefact file, the VM will be destroyed automatically.
-
-This process takes 5-10 minutes or longer if ISOs aren't cached, progress can be seen in the VM during OS installation, then the command line after the VM reboots.
-
-Note: If you review the list of provisioning steps you will see the 'upgrade_packages' script is called after rebooting to complete the earlier call of the same script. This is intentional and isn't actually carried out by Packer (it seems to skip whatever the next script call is after rebooting).
-
-### 4 Update vagrant base box meta-data
-
-Vagrant base box artefacts are stored in `vagrant_baseboxes`.
-
-Vagrant uses a meta-data file to store the name, versions and supported providers (equivalent of Packer builders) of one or more boxes. Each box entry lists its location (URL) and checksum of the box.
-
-    $ nano vagrant_baseboxes/<meta-data file>.json
-
-Where: `<meta-data file>` is a Vagrant base box meta-data file.
-
-E.g.
-
-    $ nano vagrant_baseboxes/ubuntu-14.04-64.json
-
-Note: On Mac OS X use `$ openssl sha1 <file>` to calculate a SHA1 hash.
-
-E.g.
-
-    $ openssl sha1 vagrant_baseboxes/ubuntu-14.04-64-virtualbox.box
-
-### 5 Test Vagrant base box (optional)
-
-#### Add box to Vagrant
-
-    $ vagrant box add <meta-data file>.json
-
-Where: `<meta-data file>` is the name of the meta-data file describing the base box you wish to test.
-
-E.g.
-
-    $ vagrant box add vagrant_baseboxes/ubuntu-14.04-64.json
-
-For boxes with multiple providers Vagrant will ask which should be used to determine which base box to download.
-
-Note: Before you can download the base box you will need to ensure it is available at the URL given in the meta-data file.
-
-#### Create a test VM
-
-    $ vagrant init <box>
-    $ vagrant up
-
-Where: `<box>` is the name of the Vagrant base box added earlier.
-
-E.g.
-
-    $ vagrant init antarctica/trusty
-    $ vagrant up
-
-The most important thing to test (other than the VM successfully booting) is shared folder support. If no errors occur during the initial VM creation, try to reboot the VM (`$ vagrant reload`) and test shared folders remain accessible (this will rule out any kernel changes that will apply only after a restart).
-
-#### Remove the test VM
-
-    $ vagrant halt
-    $ vagrant destroy
-    $ rm Vagrantfile
-    $ rm -rf .vagrant
-    
-#### Remove box from Vagrant (optional)
-
-    $ vagrant box remove <box>
-
-Where: `<box>` is the name of the Vagrant base box added earlier.
-
-E.g.
-
-    $ vagrant box remove antarctica/trusty
-
-Note: If you need to remove a specific version of a box use the `--box-version` flag.
-
-E.g.
-
-    $ vagrant box remove antarctica/trusty --box-version=0.4.0
-    
-### 6 Publish base box
-
-Note: This process has not been formalised yet, therefore it is probably best not to complete this step.
-
-To share Vagrant base boxes between users it must be available at a common location (such as a shared web server or AWS S3 bucket), this includes both the meta-data file and `.box` files (however the `.box`) files can be stored at a different location to the meta-data file if needed.
-
-Note: In meta-data files, always use HTTPS URLs to specifying the location of boxes.
-
-Currently boxes and meta-data files are stored in the AWS S3 bucket `packages.calcifer.co` in the `vagrant/baseboxes` directory and accessible to anyone who can guess their location.
-
-Boxes are also listed on the public [Vagrant Cloud](https://vagrantcloud.com) under the [*antarctica*](https://vagrantcloud.com/antarctica) organisation/namespace. This is the preferred location from which to consume our boxes (because its the easiest for users).
-
-When uploading:
-
-* Follow the existing folder structure for `.box` files: `vagrant/baseboxes/<os family>/<os version>/<architecture>/<builder>/<version>/`
-
-* Follow the existing folder structure for meta-data files: `vagrant/baseboxes/<os family>/<os version>/<architecture>/` using a content type of `application/json`
-
-Note: Contact [felnne@bas.ac.uk](mailto:felnne@bas.ac.uk) to access this bucket.
-
-After uploading:
-
-* Update the [list of artefacts](https://bitbucket.org/antarctica/packer-experiments/wiki/artefacts)
-
-* Update the box information on [Vagrant Cloud](https://vagrantcloud.com) to release a new version (with relevant change log information and providers using the self-hosted option).
-
-Note: Contact [felnne@bas.ac.uk](mailto:felnne@bas.ac.uk) to access the [*antarctica*](https://vagrantcloud.com/antarctica) organisation.
-
-### 7 Use base box
-
-#### Add box to Vagrant (optional)
-
-Vagrant will automatically try to find an unknown base box, as our boxes are listed on [Vagrant Cloud](https://vagrantcloud.com), Vagrant will automatically find and download the relevant box automatically.
-
-To install manually using [Vagrant Cloud](https://vagrantcloud.com):
-
-    $ vagrant box add antarctica/<box>
-
-Where: `<box>` refers to a box from the [*antarctica*](https://vagrantcloud.com/antarctica) organisation on [Vagrant Cloud](https://vagrantcloud.com).
-
-E.g.
-
-    $ vagrant box add antarctica/trusty
-
-To install manually using a meta-data.json file:
-
-Note: There is no advantage to doing this and you will loose some features such as automatic version tracking using this method.
-
-    $ vagrant box add <meta-data file>.json
-
-Where: `<meta-data file>` is the name of the meta-data file describing the base box you wish to test.
-
-Note: Always use HTTPS for loading base box meta-data files.
-
-E.g.
-
-    $ vagrant box add https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/x64/ubuntu-14.04-64.json
-
-Regardless of which method is used, for boxes with multiple providers Vagrant will ask which should be used, to determine which to download.
-
-#### Create a VM
-
-Vagrant will automatically try to find an unknown base box, as our boxes are listed on [Vagrant Cloud](https://vagrantcloud.com), Vagrant will automatically find and download the relevant box automatically.
-
-    $ vagrant init antarctica/<box>
-    $ vagrant up
-
-Where: `<box>` refers to a box from the [*antarctica*](https://vagrantcloud.com/antarctica) organisation on [Vagrant Cloud](https://vagrantcloud.com).
-
-E.g.
-
-    $ vagrant init antarctica/trusty
-    $ vagrant up
-
-## Naming conventions
-
-Note: Older versions of templates, configuration files and artefacts may not follow the conventions written here as they pre-date them.
-
-### Packer template `/packer_templates`
-
-#### (Filename)
-
-`<os>-<version>-<architecture>-<builder>-<artefact-type>.packer.json`
-
-Note: Use lowercase alpha-numeric or `.` characters only.
-
-E.g.
-
-`ubuntu-14.04-64-virtualbox-basebox.packer.json`
-
-
-#### ssh_username (template variable)
-
-`vagrant`
-
-#### ssh_password (template variable)
-
-`vagrant`
-
-#### hostname (template variable)
-
-`vagrant`
-
-#### distro_version (template variable)
-
-`<os>-<version>-<architecture>`
-
-Note: Use lowercase alpha-numeric or `.` characters only.
-
-E.g.
-
-`ubuntu-14.04-64`
-
-#### builder_type (template variable)
-
-`<builder_type>`
-
-E.g.
-
-`virtualbox`
-
-#### Output directory
-
-`<os>-<version>-<architecture>-<builder>`
-
-Note: Use lowercase alpha-numeric or `.` characters only.
-
-E.g.
-
-`ubuntu-14.04-64-virtualbox`
-
-#### Post-processor output
-
-`<artefact-type>/<os>-<version>-<architecture>-<builder>.box`
-
-Note: Use lowercase alpha-numeric or `.` characters only.
-
-E.g.
-
-`vagrant_baseboxes/ubuntu-14.04-64-virtualbox.box`
-
-#### VM name (optional)
-
-`<os>-<version>-<architecture>`
-
-Note: Use lowercase alpha-numeric or `.` characters only.
-
-E.g.
-
-`ubuntu-14.04-64`
-
-### Preseed file `/preseed` (optional)
-
-`<os>-<version>-<architecture>.preseed.cfg`
-
-Note: Use lowercase alpha-numeric or `.` characters only.
-
-E.g.
-
-`ubuntu-14.04-64-basebox.preseed.cfg`
-
-### Provisioning playbook `/provisioning_playbooks` (optional)
-
-`<os>-<version>-<architecture>-<builder>-<artefact-type>.yml`
-
-Note: Use lowercase alpha-numeric or `.` characters only.
-
-E.g.
-
-`ubuntu-14.04-64-virtualbox-basebox.yml`
-
-### Vagrant base box meta-data file `vagrant_baseboxes` (optional)
-
-#### (Filename)
-
-`<os>-<version>-<architecture>.json`
-
-Note: Use lowercase alpha-numeric or `.` characters only.
-
-E.g.
-
-`ubuntu-14.04-64.json`
-
-#### Name
-
-Though this breaks consistency we use friendlier names for referring to base boxes.
-
-E.g. Instead `ubuntu-14.04-64` we use `trusty` as its unlikely two operating systems will use the same code-names for releases and we will typically only support one architecture. Where an update needs to be handled (say 14.1) we would need to re-release the base-boxes anyway we can therefore use the box version to reflect a changed OS version.
-
-We namespace all boxes with `antarctica` for best practice and avoiding clashes.
-
-E.g. `antarctica/trusty`
-
-Note: The name of the box as reported to Vagrant has no relation to the name of the box file (or meta-data file) and should follow their own conventions. Within Vagrant (e.g. `$ vagrant box list`) the friendly name will be shown.
-
-#### Description
-
-Usually the following format is used:
-
-`<os> <version> <architecture> base box`
-
-E.g.
-
-Ubuntu 14.04 LTS 64-bit base box
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
