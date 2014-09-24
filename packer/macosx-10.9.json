@@ -6,6 +6,48 @@
     "iso_checksum": "e2a48af008ff3c4db6a8235151a1e90ea600fceb",
     "chef_version": "provisionerless"
   },
+
+  "builders": [
+    {
+      "type": "vmware-iso",
+
+      "boot_wait": "2s",
+
+      "vm_name": "packer-macosx-10.9-vmware",
+      "guest_os_type": "darwin12-64",
+
+      "tools_upload_flavor": "darwin",
+      "tools_upload_path": "/Users/vagrant/{{.Flavor}}.iso",
+
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "2048",
+        "numvcpus": "1",
+        "firmware": "efi",
+        "keyboardAndMouseProfile": "macProfile",
+        "smc.present": "TRUE",
+        "hpet0.present": "TRUE",
+        "ich7m.present": "TRUE",
+        "ehci.present": "TRUE",
+        "usb.present": "TRUE"
+      },
+      "disk_size": 20480,
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "md5",
+
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "10000s",
+
+      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -h now",
+
+      "skip_compaction": true,
+      "output_directory": "packer-macosx-10.9-vmware"
+    }
+  ],
   "provisioners": [
     {
       "type": "file",
@@ -32,39 +74,6 @@
         "/usr/bin/defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser vagrant"
       ],
       "execute_command": "echo 'vagrant'| {{.Vars}} sudo -E -S sh '{{.Path}}'"
-    }
-  ],
-  "builders": [
-    {
-      "boot_wait": "2s",
-      "disk_size": 20480,
-      "guest_os_type": "darwin12-64",
-      "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "md5",
-      "iso_url": "{{user `iso_url`}}",
-      "output_directory": "packer-macosx-10.9-vmware",
-      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -h now",
-      "skip_compaction": true,
-      "ssh_password": "vagrant",
-      "ssh_port": 22,
-      "ssh_username": "vagrant",
-      "ssh_wait_timeout": "10000s",
-      "tools_upload_flavor": "darwin",
-      "tools_upload_path": "/Users/vagrant/{{.Flavor}}.iso",
-      "type": "vmware-iso",
-      "vm_name": "packer-macosx-10.9-vmware",
-      "vmx_data": {
-        "cpuid.coresPerSocket": "1",
-        "memsize": "2048",
-        "numvcpus": "1",
-        "firmware": "efi",
-        "keyboardAndMouseProfile": "macProfile",
-        "smc.present": "TRUE",
-        "hpet0.present": "TRUE",
-        "ich7m.present": "TRUE",
-        "ehci.present": "TRUE",
-        "usb.present": "TRUE"
-      }
     }
   ],
   "post-processors": [
