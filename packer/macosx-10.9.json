@@ -3,8 +3,7 @@
   "variables": {
     "autologin_vagrant_user": "",
     "iso_url": "http://fakeurl/OSX_InstallESD_10.9.1_13B42.dmg",
-    "iso_checksum": "e2a48af008ff3c4db6a8235151a1e90ea600fceb",
-    "chef_version": "provisionerless"
+    "iso_checksum": "e2a48af008ff3c4db6a8235151a1e90ea600fceb"
   },
 
   "builders": [
@@ -80,7 +79,7 @@
     {
       "type": "vagrant",
       "vagrantfile_template": "vagrantfile_templates/macosx.rb",
-      "output": "../builds/{{.Provider}}/opscode_macosx-10.9_chef-{{user `chef_version`}}.box"
+      "output": "../builds/{{.Provider}}/macosx-10.9.box"
     }
   ]
 }
