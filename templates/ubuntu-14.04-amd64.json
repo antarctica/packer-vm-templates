@@ -1,12 +1,19 @@
 {
   "variables": {
-    "mirror": "http://releases.ubuntu.com"
+    "iso_url": "http://gb.releases.ubuntu.com/trusty/ubuntu-14.04-server-amd64.iso",
+    "iso_checksum": "01545fa976c8367b4f0d59169ac4866c",
+    "iso_checksum_type": "sha1",
+    "io_ram_size": 384,
+    "hostname": "vagrant",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "distro": "ubuntu-14.04-amd64"
   },
   "builders": [
     {
       "type": "virtualbox-iso",
       
-      "vm_name": "packer-ubuntu-14.04-amd64",
+      "vm_name": "packer-{{user `distro`}}",
       "guest_os_type": "Ubuntu_64",
 
       "virtualbox_version_file": ".vbox_version",
@@ -17,7 +24,7 @@
           "modifyvm",
           "{{.Name}}",
           "--memory",
-          "384"
+          "{{user `io_ram_size`}}"
         ],
         [
           "modifyvm",
@@ -28,9 +35,10 @@
       ],
       "disk_size": 40960,
 
-      "iso_url": "{{user `mirror`}}/14.04/ubuntu-14.04-server-amd64.iso",
-      "iso_checksum": "4d94f6111b8fe47da94396180ce499d8c0bb44f3",
-      "iso_checksum_type": "sha1",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
       "http_directory": "../preseed",
       
       "boot_command": [
@@ -40,51 +48,52 @@
         "/install/vmlinuz<wait>",
         " auto<wait>",
         " console-setup/ask_detect=false<wait>",
-        " console-setup/layoutcode=us<wait>",
-        " console-setup/modelcode=pc105<wait>",
+        " console-setup/layoutcode=gb<wait>",
+        " console-setup/modelcode=SKIP<wait>",
         " debconf/frontend=noninteractive<wait>",
-        " debian-installer=en_US<wait>",
+        " debian-installer=en_GB<wait>",
         " fb=false<wait>",
         " initrd=/install/initrd.gz<wait>",
-        " kbd-chooser/method=us<wait>",
-        " keyboard-configuration/layout=USA<wait>",
-        " keyboard-configuration/variant=USA<wait>",
-        " locale=en_US<wait>",
+        " kbd-chooser/method=gb<wait>",
+        " keyboard-configuration/layout=GB<wait>",
+        " keyboard-configuration/variant=GB<wait>",
+        " locale=en_GB<wait>",
         " netcfg/get_domain=vm<wait>",
-        " netcfg/get_hostname=vagrant<wait>",
+        " netcfg/get_hostname={{user `hostname`}}<wait>",
         " noapic<wait>",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu-14.04/preseed.cfg<wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `distro`}}/preseed.cfg<wait>",
         " -- <wait>",
         "<enter><wait>"
       ],
       "boot_wait": "10s",
       
-      "ssh_password": "vagrant",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
       "ssh_port": 22,
-      "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
 
       "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
 
-      "output_directory": "packer-ubuntu-14.04-amd64-virtualbox"
+      "output_directory": "packer-{{user `distro`}}-virtualbox-iso"
     },
     {
       "type": "vmware-iso",
 
-      "vm_name": "packer-ubuntu-14.04-amd64",
+      "vm_name": "packer-{{user `distro`}}",
       "guest_os_type": "ubuntu-64",
       "tools_upload_flavor": "linux",
       
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
-        "memsize": "384",
+        "memsize": "{{user `io_ram_size`}}",
         "numvcpus": "1"
       },
       "disk_size": 40960,
       
-      "iso_url": "{{user `mirror`}}/14.04/ubuntu-14.04-server-amd64.iso",
-      "iso_checksum": "4d94f6111b8fe47da94396180ce499d8c0bb44f3",
-      "iso_checksum_type": "sha1",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
       "http_directory": "../preseed",
 
       "boot_command": [
@@ -94,33 +103,33 @@
         "/install/vmlinuz<wait>",
         " auto<wait>",
         " console-setup/ask_detect=false<wait>",
-        " console-setup/layoutcode=us<wait>",
-        " console-setup/modelcode=pc105<wait>",
+        " console-setup/layoutcode=gb<wait>",
+        " console-setup/modelcode=SKIP<wait>",
         " debconf/frontend=noninteractive<wait>",
-        " debian-installer=en_US<wait>",
+        " debian-installer=en_GB<wait>",
         " fb=false<wait>",
         " initrd=/install/initrd.gz<wait>",
-        " kbd-chooser/method=us<wait>",
-        " keyboard-configuration/layout=USA<wait>",
-        " keyboard-configuration/variant=USA<wait>",
-        " locale=en_US<wait>",
+        " kbd-chooser/method=gb<wait>",
+        " keyboard-configuration/layout=GB<wait>",
+        " keyboard-configuration/variant=GB<wait>",
+        " locale=en_GB<wait>",
         " netcfg/get_domain=vm<wait>",
-        " netcfg/get_hostname=vagrant<wait>",
+        " netcfg/get_hostname={{user `hostname`}}<wait>",
         " noapic<wait>",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu-14.04/preseed.cfg<wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `distro`}}/preseed.cfg<wait>",
         " -- <wait>",
         "<enter><wait>"
       ],
       "boot_wait": "10s",      
 
-      "ssh_password": "vagrant",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
       "ssh_port": 22,
-      "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
       
       "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
 
-      "output_directory": "packer-ubuntu-14.04-amd64-vmware"
+      "output_directory": "packer-{{user `distro`}}-vmware-iso"
     }
   ],
   "provisioners": [
@@ -141,7 +150,7 @@
   ],
   "post-processors": [
     {
-      "output": "../builds/{{.Provider}}/ubuntu-14.04.box",
+      "output": "../base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box",
       "type": "vagrant"
     }
   ]

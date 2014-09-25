@@ -1,6 +1,12 @@
 {
   "variables": {
-    "mirror": "http://cdimage.debian.org/debian-cd"
+    "iso_url": "http://cdimage.debian.org/debian-cd/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-CD-1.iso",
+    "iso_checksum": "ba6f8194b5970be964a5de86522423135358908a",
+    "iso_checksum_type": "sha1",
+    "io_ram_size": 384,
+    "hostname": "vagrant",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant"
   },
   "builders": [
     {
@@ -12,9 +18,15 @@
       "virtualbox_version_file": ".vbox_version",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       
-      "iso_url": "{{user `mirror`}}/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-CD-1.iso",
-      "iso_checksum": "ba6f8194b5970be964a5de86522423135358908a",
-      "iso_checksum_type": "sha1",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "{{user `io_ram_size`}}" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+      ],
+      "disk_size": 40960,
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "http_directory": "http",
 
       "boot_command": [
@@ -26,8 +38,8 @@
         "locale=en_US <wait>",
         "kbd-chooser/method=us <wait>",
         "keyboard-configuration/xkb-keymap=us <wait>",
-        "netcfg/get_hostname={{ .Name }} <wait>",
-        "netcfg/get_domain=vagrantup.com <wait>",
+        "netcfg/get_hostname={{user `hostname`}} <wait>",
+        "netcfg/get_domain=vm <wait>",
         "fb=false <wait>",
         "debconf/frontend=noninteractive <wait>",
         "console-setup/ask_detect=false <wait>",
@@ -36,18 +48,12 @@
       ],
       "boot_wait": "10s",
       
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
-
-      "vboxmanage": [
-        [ "modifyvm", "{{.Name}}", "--memory", "384" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
-      ],
-      "disk_size": 40960,
       "output_directory": "packer-debian-7.6-amd64-virtualbox"
     },
     {
@@ -59,15 +65,15 @@
       "tools_upload_flavor": "linux",
       
       "vmx_data": {
-        "memsize": "384",
+        "memsize": "{{user `io_ram_size`}}",
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
       "disk_size": 40960,
 
-      "iso_url": "{{user `mirror`}}/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-CD-1.iso",
-      "iso_checksum": "ba6f8194b5970be964a5de86522423135358908a",
-      "iso_checksum_type": "sha1",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "http_directory": "http",
 
       "boot_command": [
@@ -79,8 +85,8 @@
         "locale=en_US <wait>",
         "kbd-chooser/method=us <wait>",
         "keyboard-configuration/xkb-keymap=us <wait>",
-        "netcfg/get_hostname={{ .Name }} <wait>",
-        "netcfg/get_domain=vagrantup.com <wait>",
+        "netcfg/get_hostname={{user `hostname`}} <wait>",
+        "netcfg/get_domain=vm <wait>",
         "fb=false <wait>",
         "debconf/frontend=noninteractive <wait>",
         "console-setup/ask_detect=false <wait>",
@@ -89,8 +95,8 @@
       ],
       "boot_wait": "10s",
 
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
 

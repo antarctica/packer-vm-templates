@@ -1,6 +1,12 @@
 {
   "variables": {
-    "mirror": "http://mirrors.kernel.org/centos"
+    "iso_url": "http://mirrors.kernel.org/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso",
+    "iso_checksum": "32c7695b97f7dcd1f59a77a71f64f2957dddf738",
+    "iso_checksum_type": "sha1",
+    "io_ram_size": 480,
+    "hostname": "vagrant",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant"
   },
   "builders": [
     {
@@ -17,7 +23,7 @@
           "modifyvm",
           "{{.Name}}",
           "--memory",
-          "480"
+          "{{user `io_ram_size`}}"
         ],
         [
           "modifyvm",
@@ -28,9 +34,9 @@
       ],
       "disk_size": 40960,
 
-      "iso_url": "{{user `mirror`}}/6.5/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso",
-      "iso_checksum": "32c7695b97f7dcd1f59a77a71f64f2957dddf738",
-      "iso_checksum_type": "sha1",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "http_directory": "http",
 
       "boot_command": [
@@ -38,9 +44,9 @@
       ],
       "boot_wait": "10s",
 
-      "ssh_password": "vagrant",
+      "ssh_password": "{{user `ssh_username`}}",
       "ssh_port": 22,
-      "ssh_username": "vagrant",
+      "ssh_username": "{{user `ssh_password`}}",
       "ssh_wait_timeout": "10000s",
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
@@ -57,14 +63,14 @@
       
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
-        "memsize": "480",
+        "memsize": "{{user `io_ram_size`}}",
         "numvcpus": "1"
       },
       "disk_size": 40960,
 
-      "iso_url": "{{user `mirror`}}/6.5/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso",
-      "iso_checksum": "32c7695b97f7dcd1f59a77a71f64f2957dddf738",
-      "iso_checksum_type": "sha1",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "http_directory": "http",
 
       "boot_command": [
@@ -72,9 +78,9 @@
       ],
       "boot_wait": "10s",
 
-      "ssh_password": "vagrant",
+      "ssh_password": "{{user `ssh_username`}}",
       "ssh_port": 22,
-      "ssh_username": "vagrant",
+      "ssh_username": "{{user `ssh_password`}}",
       "ssh_wait_timeout": "10000s",
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
