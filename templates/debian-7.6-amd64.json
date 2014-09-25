@@ -6,13 +6,14 @@
     "io_ram_size": 384,
     "hostname": "vagrant",
     "ssh_username": "vagrant",
-    "ssh_password": "vagrant"
+    "ssh_password": "vagrant",
+    "distro": "debian-7.6-amd64"
   },
   "builders": [
     {
       "type": "virtualbox-iso",
 
-      "vm_name": "packer-debian-7.6-amd64",
+      "vm_name": "packer-{{user `distro`}}",
       "guest_os_type": "Debian_64",
 
       "virtualbox_version_file": ".vbox_version",
@@ -27,23 +28,24 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
-      "http_directory": "http",
+
+      "http_directory": "../preseed",
 
       "boot_command": [
         "<esc><wait>",
         "install <wait>",
-        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian-7/preseed.cfg <wait>",
-        "debian-installer=en_US <wait>",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `distro`}}/preseed.cfg <wait>",
+        "debian-installer=en_GB <wait>",
         "auto <wait>",
-        "locale=en_US <wait>",
-        "kbd-chooser/method=us <wait>",
-        "keyboard-configuration/xkb-keymap=us <wait>",
+        "locale=en_GB <wait>",
+        "kbd-chooser/method=gb <wait>",
+        "keyboard-configuration/xkb-keymap=gb <wait>",
         "netcfg/get_hostname={{user `hostname`}} <wait>",
         "netcfg/get_domain=vm <wait>",
         "fb=false <wait>",
         "debconf/frontend=noninteractive <wait>",
         "console-setup/ask_detect=false <wait>",
-        "console-keymaps-at/keymap=us <wait>",
+        "console-keymaps-at/keymap=gb <wait>",
         "<enter><wait>"
       ],
       "boot_wait": "10s",
@@ -54,12 +56,12 @@
       "ssh_wait_timeout": "10000s",
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
-      "output_directory": "packer-debian-7.6-amd64-virtualbox"
+      "output_directory": "packer-{{user `distro`}}-virtualbox-iso"
     },
     {
       "type": "vmware-iso",
 
-      "vm_name": "packer-debian-7.6-amd64",
+      "vm_name": "packer-{{user `distro`}}",
       "guest_os_type": "debian5-64",
 
       "tools_upload_flavor": "linux",
@@ -74,23 +76,24 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
-      "http_directory": "http",
+
+      "http_directory": "../preseed",
 
       "boot_command": [
         "<esc><wait>",
         "install <wait>",
-        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian-7/preseed.cfg <wait>",
-        "debian-installer=en_US <wait>",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `distro`}}/preseed.cfg <wait>",
+        "debian-installer=en_GB <wait>",
         "auto <wait>",
-        "locale=en_US <wait>",
-        "kbd-chooser/method=us <wait>",
-        "keyboard-configuration/xkb-keymap=us <wait>",
+        "locale=en_GB <wait>",
+        "kbd-chooser/method=gb <wait>",
+        "keyboard-configuration/xkb-keymap=gb <wait>",
         "netcfg/get_hostname={{user `hostname`}} <wait>",
         "netcfg/get_domain=vm <wait>",
         "fb=false <wait>",
         "debconf/frontend=noninteractive <wait>",
         "console-setup/ask_detect=false <wait>",
-        "console-keymaps-at/keymap=us <wait>",
+        "console-keymaps-at/keymap=gb <wait>",
         "<enter><wait>"
       ],
       "boot_wait": "10s",
@@ -102,21 +105,21 @@
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
 
-      "output_directory": "packer-debian-7.6-amd64-vmware"
+      "output_directory": "packer-{{user `distro`}}-vmware-iso"
     }
   ],
   "provisioners": [
     {
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
-        "scripts/debian/update.sh",
-        "scripts/common/sshd.sh",
-        "scripts/debian/networking.sh",
-        "scripts/debian/sudoers.sh",
-        "scripts/common/vagrant.sh",
-        "scripts/common/vmtools.sh",
-        "scripts/debian/cleanup.sh",
-        "scripts/common/minimize.sh"
+        "../provisioining/scripts/debian/update.sh",
+        "../provisioining/scripts/common/sshd.sh",
+        "../provisioining/scripts/debian/networking.sh",
+        "../provisioining/scripts/debian/sudoers.sh",
+        "../provisioining/scripts/common/vagrant.sh",
+        "../provisioining/scripts/common/vmtools.sh",
+        "../provisioining/scripts/debian/cleanup.sh",
+        "../provisioining/scripts/common/minimize.sh"
       ],
       "type": "shell"
     }
@@ -124,7 +127,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "../builds/{{.Provider}}/debian-7.6.box"
+      "output": "../base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box"
     }
   ]
 
