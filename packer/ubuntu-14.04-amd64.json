@@ -31,7 +31,7 @@
       "iso_url": "{{user `mirror`}}/14.04/ubuntu-14.04-server-amd64.iso",
       "iso_checksum": "4d94f6111b8fe47da94396180ce499d8c0bb44f3",
       "iso_checksum_type": "sha1",
-      "http_directory": "http",
+      "http_directory": "../preseed",
       
       "boot_command": [
         "<esc><wait>",
@@ -85,7 +85,7 @@
       "iso_url": "{{user `mirror`}}/14.04/ubuntu-14.04-server-amd64.iso",
       "iso_checksum": "4d94f6111b8fe47da94396180ce499d8c0bb44f3",
       "iso_checksum_type": "sha1",
-      "http_directory": "http",
+      "http_directory": "../preseed",
 
       "boot_command": [
         "<esc><wait>",
@@ -127,14 +127,14 @@
     {
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
-        "scripts/ubuntu/update.sh",
-        "scripts/common/sshd.sh",
-        "scripts/ubuntu/networking.sh",
-        "scripts/ubuntu/sudoers.sh",
-        "scripts/common/vagrant.sh",
-        "scripts/common/vmtools.sh",
-        "scripts/ubuntu/cleanup.sh",
-        "scripts/common/minimize.sh"
+        "../provisioining/scripts/ubuntu/update.sh",
+        "../provisioining/scripts/common/sshd.sh",
+        "../provisioining/scripts/ubuntu/networking.sh",
+        "../provisioining/scripts/ubuntu/sudoers.sh",
+        "../provisioining/scripts/common/vagrant.sh",
+        "../provisioining/scripts/common/vmtools.sh",
+        "../provisioining/scripts/ubuntu/cleanup.sh",
+        "../provisioining/scripts/common/minimize.sh"
       ],
       "type": "shell"
     }
