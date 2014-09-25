@@ -1,0 +1,24 @@
+
+{
+  "name": "antarctica/wheezy",
+  "description": "A vanilla Debian 7.6 64-bit base box",
+  "versions": [
+    {
+      "version": "0.2.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/debian/7.6/amd64/1.0.0/virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "64e1d542796784b9679429d5ec2d4635300153d5"
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/debian/7.6/amd64/1.0.0/vmware.box",
+          "checksum_type": "sha1",
+          "checksum": "3755a1d83cc6ba0c899f996eeb53b8a30593ea09"
+        }
+      ]
+    }
+  ]
+}
