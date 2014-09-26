@@ -6,13 +6,14 @@
     "io_ram_size": 480,
     "hostname": "vagrant",
     "ssh_username": "vagrant",
-    "ssh_password": "vagrant"
+    "ssh_password": "vagrant",
+    "distro": "centos-7.0-x86_64"
   },
   "builders": [
     {
       "type": "virtualbox-iso",
 
-      "vm_name": "packer-centos-7.0-x86_64",
+      "vm_name": "packer-{{user `distro`}}",
       "guest_os_type": "RedHat_64",
 
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
@@ -37,10 +38,11 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
-      "http_directory": "http",
+      
+      "http_directory": "../preseed",
 
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.0/ks.cfg<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `distro`}}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
 
@@ -51,12 +53,12 @@
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
 
-      "output_directory": "packer-centos-7.0-x86_64-virtualbox"
+      "output_directory": "packer-{{user `distro`}}-virtualbox-iso"
     },
     {
       "type": "vmware-iso",
 
-      "vm_name": "packer-centos-7.0-x86_64",
+      "vm_name": "packer-{{user `distro`}}",
       "guest_os_type": "centos-64",
 
       "tools_upload_flavor": "linux",
@@ -71,10 +73,11 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
-      "http_directory": "http",
+
+      "http_directory": "../preseed",
 
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.0/ks.cfg<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `distro`}}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
 
@@ -85,27 +88,27 @@
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
 
-      "output_directory": "packer-centos-7.0-x86_64-vmware"
+      "output_directory": "packer-{{user `distro`}}-vmware-iso"
     }
   ],
   "provisioners": [
     {
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
-        "scripts/centos/fix-slow-dns.sh",
-        "scripts/common/sshd.sh",
-        "scripts/common/vagrant.sh",
-        "scripts/common/vmtools.sh",
-        "scripts/centos/cleanup.sh",
-        "scripts/common/minimize.sh"
+        "../provisioining/scripts/centos/fix-slow-dns.sh",
+        "../provisioining/scripts/common/sshd.sh",
+        "../provisioining/scripts/common/vagrant.sh",
+        "../provisioining/scripts/common/vmtools.sh",
+        "../provisioining/scripts/centos/cleanup.sh",
+        "../provisioining/scripts/common/minimize.sh"
       ],
       "type": "shell"
     }
   ],
   "post-processors": [
     {
-      "output": "../builds/{{.Provider}}/centos-7.0.box",
-      "type": "vagrant"
+      "type": "vagrant",
+      "output": "../base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box"
     }
   ]
 }
