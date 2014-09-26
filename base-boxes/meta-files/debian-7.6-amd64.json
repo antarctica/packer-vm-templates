@@ -1,10 +1,10 @@
 
 {
   "name": "antarctica/wheezy",
-  "description": "A vanilla Debian 7.6 64-bit base box",
+  "description": "A vanilla Debian 7.6 amd64 base box",
   "versions": [
     {
-      "version": "0.2.0",
+      "version": "0.1.0",
       "providers": [
         {
           "name": "virtualbox",

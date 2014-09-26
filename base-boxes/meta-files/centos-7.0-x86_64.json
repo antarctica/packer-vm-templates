@@ -1,0 +1,24 @@
+
+{
+  "name": "antarctica/cent-6",
+  "description": "A vanilla CentOS 7.0 x86-64 base box",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "",
+          "checksum_type": "sha1",
+          "checksum": ""
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "",
+          "checksum_type": "sha1",
+          "checksum": ""
+        }
+      ]
+    }
+  ]
+}
