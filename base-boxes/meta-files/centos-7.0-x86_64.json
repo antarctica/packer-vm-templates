@@ -1,0 +1,24 @@
+
+{
+  "name": "antarctica/cent-6",
+  "description": "A vanilla CentOS 7.0 x86-64 base box",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://packages.calcifer.co.s3.amazonaws.com/vagrant/baseboxes/centos/7.0/x86-64/1.0.0/virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "8675b24292bfceff90786295eb0cbd3e37efc8e7"
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "http://packages.calcifer.co.s3.amazonaws.com/vagrant/baseboxes/centos/7.0/x86-64/1.0.0/vmware.box",
+          "checksum_type": "sha1",
+          "checksum": "f6f5bae2fc01b0b3b2ba78ab68c11f319e2c278e"
+        }
+      ]
+    }
+  ]
+}
