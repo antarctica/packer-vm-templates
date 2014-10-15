@@ -83,7 +83,7 @@ As with Bento this project is licensed under the Apache Licence:
     You may obtain a copy of the License at
 
         http://www.apache.org/licenses/LICENSE-2.0
-        
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -125,7 +125,7 @@ E.g.
 
     $ packer build templates/ubuntu-14.04-amd64.json
 
-Packer will begging by downloading installation media (ISO) if not already cached, then boot a new VM and install the OS. After rebooting SSH will be used to configure the OS before shutting down the Vm and exporting it as a Vagrant box. This process is non-interactive and takes between 10-15 minutes where install media is cached.
+Packer will begin by downloading installation media (ISO) if not already cached, then boot a new VM and install the OS. After rebooting SSH will be used to configure the OS before shutting down the Vm and exporting it as a Vagrant box. This process is non-interactive and takes between 10-15 minutes where install media is cached.
 
 After  build completes you will see an output like:
 
