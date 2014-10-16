@@ -135,13 +135,13 @@ E.g.
 
     $ packer build templates/ubuntu-14.04-amd64.json
 
-Packer will begin by downloading installation media (ISO) if not already cached, then boot a new VM and install the OS. After rebooting SSH will be used to configure the OS before shutting down the Vm and exporting it as a Vagrant box. This process is non-interactive and takes between 10-15 minutes where install media is cached.
 Note: You can tell Packer to use a single builder using the `-only` flag.
 
 E.g.
 
     $ packer build -only=vmware-iso templates/ubuntu-14.04-amd64.json
 
+Packer will begin by downloading installation media (ISO) if not already cached, then boot a new VM and install the OS. After rebooting the VM will be configured using SSH before being shut down and exported as a VM and as a Vagrant base box. This process is non-interactive and takes between 10-15 minutes where install media is already cached.
 
 Once built two artefacts will be created in the `output` directory:
 
@@ -184,7 +184,7 @@ Note: Make sure to make all meta-data files world readable.
 
 ### OVA file
 
-VMs built from these templates can be imported directly using the Open Virtualisation Format, which is supported by all major virtualisation providers such as VMware and VirtualBox. An OVA (Open Virtualisation Archive) as its name suggests is simply an archive of an OVF package. 
+VMs built from these templates can be imported directly using the Open Virtualisation Format, which is supported by all major virtualisation providers such as VMware and VirtualBox. An OVA (Open Virtualisation Archive) as its name suggests is simply an archive of an OVF package.
 
 Since an OVA produces a single file at a smaller file size this is the preferred format for distribution of OVF packages.
 
