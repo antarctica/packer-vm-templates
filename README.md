@@ -100,12 +100,15 @@ Please log issues to the **BASWEB** project in [Jira](https://jira.ceh.ac.uk).
 
 Please contact: [felnne@bas.ac.uk](mailto:felnne@bas.ac.uk).
 
+## Building using a template
+
+Each Packer template contains the builders that will be used to create one or more VMs (e.g. VirtualBox and VMware), the provisioners that will configure each VM and the post-processors that will export each VM into one or more formats (Vagrant base box, OVA files, VMX packages, etc.).
 
 ### Requirements
 
-To build a packer template you will need Packer and any builders/provisioners the template calls. In this project we support two builders, VirtualBox and VMware, which you will need installed, provisioning is performed using shell scripts only.
+To build a packer template from this Project you will need Packer plus any builders/provisioners the template uses.
 
-It is assumed you are using Mac OS X or Linux, install the following:
+It is assumed you are using Mac OS X or Linux, ensure you have the following installed:
 
 * [Packer](http://www.packer.io/docs/installation.html)
 * [VirtualBox](http://www.virtualbox.org)
