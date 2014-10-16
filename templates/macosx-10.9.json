@@ -12,7 +12,7 @@
 
       "boot_wait": "2s",
 
-      "vm_name": "packer-macosx-10.9-vmware",
+      "vm_name": "vmware",
       "guest_os_type": "darwin12-64",
 
       "tools_upload_flavor": "darwin",

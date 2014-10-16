@@ -13,8 +13,8 @@
     {
       "type": "virtualbox-iso",
       
-      "vm_name": "packer-{{user `distro`}}",
       "format": "ova",
+      "vm_name": "virtualbox",
       "guest_os_type": "Ubuntu_64",
 
       "virtualbox_version_file": ".vbox_version",
@@ -80,7 +80,7 @@
     {
       "type": "vmware-iso",
 
-      "vm_name": "packer-{{user `distro`}}",
+      "vm_name": "vmware",
       "guest_os_type": "ubuntu-64",
       "tools_upload_flavor": "linux",
       
