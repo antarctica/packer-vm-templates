@@ -123,6 +123,7 @@ For testing Vagrant base boxes:
 
 ### Run build
 
+    $ cd /templates
     $ packer build <template>
 
 Where: `<template>` is the name of a template in `/templates`.
