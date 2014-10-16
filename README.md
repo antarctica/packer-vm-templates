@@ -54,7 +54,7 @@ In this README:
 
 Packer is a tool for taking an operating image (usually in the form of an ISO), installing it as a new VM, performing customisations (e.g. installing base packages) before packaging the resulting VM for use as a starting point with tools such as Vagrant.
 
-Packer provides a framework for performing automated installations of operating systems a *template* which uses a variety of *builders* (such as VirtualBox), *provisioners* (to configure the VM) and *post-processors* for exporting the built VM as an *artefact* (such as a Vagrant base box). A single template may create multiple artefacts using multiple builders for example in parallel.
+Packer provides a framework for performing automated installations of operating systems a *template* which uses a variety of *builders* (such as VirtualBox), *provisioners* (to configure the VM) and *post-processors* for exporting the built VM as an *artefact* (such as a Vagrant base box). A single template may create multiple artefacts using multiple builders running in parallel.
 
 * We focus on creating Vagrant base boxes (rather than AMIs for AWS or Images for Digital Ocean for example)
 * Artefacts are designed to be as minimal as possible, favouring provisioning of software packages and services to be performed by each project (for example a base box should not include ruby pre-installed)
@@ -105,6 +105,7 @@ It is assumed you are using Mac OS X or Linux, install the following:
 * [Packer](http://www.packer.io/docs/installation.html)
 * [VirtualBox](http://www.virtualbox.org)
 * [VMware Fusion](http://www.vmware.com/products/fusion) or [VMware Workstation](http://www.vmware.com/products/workstation)
+* The `ovftool` command (see [here](https://www.vmware.com/support/developer/ovf/) for installation instructions (on a Mac you will probably need to add this to your path i.e. `PATH="/Applications/VMware OVF Tool:$PATH"`))
 
 For testing Vagrant base boxes:
 
@@ -127,13 +128,14 @@ E.g.
 
 Packer will begin by downloading installation media (ISO) if not already cached, then boot a new VM and install the OS. After rebooting SSH will be used to configure the OS before shutting down the Vm and exporting it as a Vagrant box. This process is non-interactive and takes between 10-15 minutes where install media is cached.
 
-After  build completes you will see an output like:
+Once built two artefacts will be created in the `output` directory:
 
-    ==> Builds finished. The artifacts of successful builds are:
-    --> virtualbox-iso: 'virtualbox' provider box: ../base-boxes/boxes/ubuntu-14.04-amd64/virtualbox.box
-    --> vmware-iso: 'vmware' provider box: ../base-boxes/boxes/ubuntu-14.04-amd64/vmware.iso
+* Vagrant base box in `output/base-boxes/boxes`
+* The built VM as either an `.ova` file or `vmx` package in `output/vms`
 
-## Releasing a box
+Note: Neither base boxes or VM outputs should be checked into source control.
+
+## Releasing a build
 
 ### Box file
 
@@ -149,7 +151,7 @@ E.g.
 
 Note: Make sure to make all `.box` files world readable.
 
-### Meta-data file
+### Box meta-data file
 
 A meta-data JSON file is used to record details of the location of each version of a base box. These meta-data files are not straightly required as [Vagrant Cloud](https://vagrantcloud.com/) performs the same function for us, but these files are versioned and can be used where [Vagrant Cloud](https://vagrantcloud.com/) may be unsuitable.
 
@@ -166,8 +168,30 @@ E.g.
 Note: Make sure to make all meta-data files world readable.
 
 ### Project wiki
+### OVA file
+
+VMs built from these templates can be imported directly using the Open Virtualisation Format, which is supported by all major virtualisation providers such as VMware and VirtualBox. An OVA (Open Virtualisation Archive) as its name suggests is simply an archive of an OVF package. 
+
+Since an OVA produces a single file at a smaller file size this is the preferred format for distribution of OVF packages.
+
+As each builder creates VMs slightly differently, the steps to create an OVA file also differ.
+
+#### virtualbox-iso
+
+VirtualBox can produce an OVA file natively and therefore you shouldn't need to do anything.
+
+#### vmware-iso
 
 Details of all base boxes, including meta-data file links, raw `.box` links and SHA1 hashes are listed in the [project wiki](https://bitbucket.org/antarctica/packer-experiments/wiki/artefacts). Update this page as needed.
+The `ovftool` is used to convert the built VM into an OVA file.
+
+    $ ovftool <.vmx> <.ova>
+
+Where: `<.vmx>` is the path to the `.vmx` file and `<.ova>` is the path to the `.ova` file.
+
+E.g.
+
+    $ ovftool output/vms/ubuntu-14.04-amd-64-vmware-iso/vmware.vmx output/vms/ubuntu-14.04-amd-64-vmware-iso/vmware.ova
 
 ### Vagrant cloud
 

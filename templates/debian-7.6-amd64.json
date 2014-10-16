@@ -13,7 +13,8 @@
     {
       "type": "virtualbox-iso",
 
-      "vm_name": "packer-{{user `distro`}}",
+      "format": "ova",
+      "vm_name": "virtualbox",
       "guest_os_type": "Debian_64",
 
       "virtualbox_version_file": ".vbox_version",
@@ -56,12 +57,12 @@
       "ssh_wait_timeout": "10000s",
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
-      "output_directory": "packer-{{user `distro`}}-virtualbox-iso"
+      "output_directory": "../output/vms/{{user `distro`}}-virtualbox-iso"
     },
     {
       "type": "vmware-iso",
 
-      "vm_name": "packer-{{user `distro`}}",
+      "vm_name": "vmware",
       "guest_os_type": "debian5-64",
 
       "tools_upload_flavor": "linux",
@@ -105,7 +106,7 @@
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
 
-      "output_directory": "packer-{{user `distro`}}-vmware-iso"
+      "output_directory": "../output/vms/{{user `distro`}}-vmware-iso"
     }
   ],
   "provisioners": [
@@ -127,7 +128,8 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "../base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box"
+      "output": "../output/base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box",
+      "keep_input_artifact": true
     }
   ]
 
