@@ -110,6 +110,7 @@
     {
       "type": "vagrant",
       "output": "../base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box"
+      "keep_input_artifact": true
     }
   ]
 }
