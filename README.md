@@ -37,9 +37,9 @@ To use one of these base boxes simply list its name in a `Vagrantfile` or follow
 
 ### Old Base boxes
 
-Older base box versions/releases are deprecated and should not be used. See [here](https://bitbucket.org/antarctica/packer-experiments/wiki/artefacts) for a list of old boxes and locations if desperately needed.
+Older base box versions/releases are deprecated and should not be used.
 
-Note: Due to the un-advertised nature of base boxes prior to `1.0.0`, older boxes (i.e. `< 1.0.0`) will likely be removed permanently.
+Note: Due to the un-advertised and largely non-working nature, base boxes prior to `1.0.0` will likely be removed permanently.
 
 ## Conventions
 
@@ -167,7 +167,6 @@ E.g.
 
 Note: Make sure to make all meta-data files world readable.
 
-### Project wiki
 ### OVA file
 
 VMs built from these templates can be imported directly using the Open Virtualisation Format, which is supported by all major virtualisation providers such as VMware and VirtualBox. An OVA (Open Virtualisation Archive) as its name suggests is simply an archive of an OVF package. 
@@ -182,7 +181,6 @@ VirtualBox can produce an OVA file natively and therefore you shouldn't need to 
 
 #### vmware-iso
 
-Details of all base boxes, including meta-data file links, raw `.box` links and SHA1 hashes are listed in the [project wiki](https://bitbucket.org/antarctica/packer-experiments/wiki/artefacts). Update this page as needed.
 The `ovftool` is used to convert the built VM into an OVA file.
 
     $ ovftool <.vmx> <.ova>
