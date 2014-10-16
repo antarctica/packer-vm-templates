@@ -92,9 +92,14 @@ As with Bento this project is licensed under the Apache Licence:
 
 ## Bugs and issues
 
-Until a Jira project can be created please send all bug reports and questions to: [felnne@bas.ac.uk](mailto:felnne@bas.ac.uk).
+### NERC Users
 
-## Building a box
+Please log issues to the **BASWEB** project in [Jira](https://jira.ceh.ac.uk).
+
+### Non-NERC Users
+
+Please contact: [felnne@bas.ac.uk](mailto:felnne@bas.ac.uk).
+
 
 ### Requirements
 
