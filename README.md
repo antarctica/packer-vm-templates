@@ -68,7 +68,7 @@ Please refer to the [Packer documentation](http://www.packer.io/docs) for an int
 
 ### Vagrant
 
-Please refer to the [ansible experiments](https://bitbucket.org/antarctica/ansible-experiments) project's README for how Vagrant is used within BAS or the [Vagrant documentation](http://docs.vagrantup.com) for an introduction to what Vagrant is and its terminology.
+Please refer to the [Ansible experiments](https://bitbucket.org/antarctica/ansible-experiments) project's README for how Vagrant is used within BAS or the [Vagrant documentation](http://docs.vagrantup.com) for an introduction to what Vagrant is and its terminology.
 
 ## License and authors
 
@@ -153,9 +153,9 @@ Note: Make sure to make all `.box` files world readable.
 
 ### Box meta-data file
 
-A meta-data JSON file is used to record details of the location of each version of a base box. These meta-data files are not straightly required as [Vagrant Cloud](https://vagrantcloud.com/) performs the same function for us, but these files are versioned and can be used where [Vagrant Cloud](https://vagrantcloud.com/) may be unsuitable.
+A meta-data JSON file is used to record details of the location of each version of a base box. These meta-data files are not strictly required as [Vagrant Cloud](https://vagrantcloud.com/) performs the same function for us, but these files are versioned and can be used where [Vagrant Cloud](https://vagrantcloud.com/) may be unsuitable.
 
-Add a relevant entry to the relevant meta-data file in `/base-boxes/meta-files`. You will need to calculate an SHA1 hash of each `.box` file listed in the new version, on Mac OS X you can use `$ openssl sha1 <file>`.
+Add a relevant entry to the relevant meta-data file in `output/base-boxes/meta-files`. You will need to calculate an SHA1 hash of each `.box` file listed in the new version, on Mac OS X you can use `$ openssl sha1 <file>`.
 
 Upload this file to S3 (see box file sub-section for details) to the following location:
 

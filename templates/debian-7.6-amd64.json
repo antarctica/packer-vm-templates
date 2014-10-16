@@ -19,7 +19,7 @@
 
       "virtualbox_version_file": ".vbox_version",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      
+
       "vboxmanage": [
         [ "modifyvm", "{{.Name}}", "--memory", "{{user `io_ram_size`}}" ],
         [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
@@ -50,7 +50,7 @@
         "<enter><wait>"
       ],
       "boot_wait": "10s",
-      
+
       "ssh_username": "{{user `ssh_username`}}",
       "ssh_password": "{{user `ssh_password`}}",
       "ssh_port": 22,
@@ -66,7 +66,7 @@
       "guest_os_type": "debian5-64",
 
       "tools_upload_flavor": "linux",
-      
+
       "vmx_data": {
         "memsize": "{{user `io_ram_size`}}",
         "numvcpus": "1",

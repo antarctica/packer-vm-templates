@@ -63,7 +63,7 @@
       "guest_os_type": "centos-64",
 
       "tools_upload_flavor": "linux",
-      
+
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "memsize": "{{user `io_ram_size`}}",
@@ -113,4 +113,3 @@
     }
   ]
 }
-

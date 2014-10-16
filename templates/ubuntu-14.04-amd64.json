@@ -12,7 +12,7 @@
   "builders": [
     {
       "type": "virtualbox-iso",
-      
+
       "format": "ova",
       "vm_name": "virtualbox",
       "guest_os_type": "Ubuntu_64",
@@ -41,7 +41,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
       "http_directory": "../preseed",
-      
+
       "boot_command": [
         "<esc><wait>",
         "<esc><wait>",
@@ -67,7 +67,7 @@
         "<enter><wait>"
       ],
       "boot_wait": "10s",
-      
+
       "ssh_username": "{{user `ssh_username`}}",
       "ssh_password": "{{user `ssh_password`}}",
       "ssh_port": 22,
@@ -83,14 +83,14 @@
       "vm_name": "vmware",
       "guest_os_type": "ubuntu-64",
       "tools_upload_flavor": "linux",
-      
+
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "memsize": "{{user `io_ram_size`}}",
         "numvcpus": "1"
       },
       "disk_size": 40960,
-      
+
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
@@ -121,13 +121,13 @@
         " -- <wait>",
         "<enter><wait>"
       ],
-      "boot_wait": "10s",      
+      "boot_wait": "10s",
 
       "ssh_username": "{{user `ssh_username`}}",
       "ssh_password": "{{user `ssh_password`}}",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
-      
+
       "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
 
       "output_directory": "../output/vms/{{user `distro`}}-vmware-iso"

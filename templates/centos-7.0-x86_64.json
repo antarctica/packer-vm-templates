@@ -35,11 +35,11 @@
         ]
       ],
       "disk_size": 40960,
-      
+
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
-      
+
       "http_directory": "../preseed",
 
       "boot_command": [
@@ -63,7 +63,7 @@
       "guest_os_type": "centos-64",
 
       "tools_upload_flavor": "linux",
-      
+
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "memsize": "{{user `io_ram_size`}}",
@@ -114,4 +114,3 @@
     }
   ]
 }
-
