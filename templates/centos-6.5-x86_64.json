@@ -14,6 +14,7 @@
       "type": "virtualbox-iso",
 
       "vm_name": "packer-{{user `distro`}}",
+      "format": "ova",
       "guest_os_type": "RedHat_64",
 
       "virtualbox_version_file": ".vbox_version",
