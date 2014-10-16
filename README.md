@@ -206,6 +206,18 @@ E.g.
 
     $ ovftool output/vms/ubuntu-14.04-amd-64-vmware-iso/vmware.vmx output/vms/ubuntu-14.04-amd-64-vmware-iso/vmware.ova
 
+As with Vagrant boxes, OVA files are stored in an S3 bucket for public access. Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access details.
+
+Upload OVA files to the following location:
+
+    packages.calcifer.co/ovas/<distro>/<version>/<architecture>/<box_version>/
+
+E.g.
+
+    packages.calcifer.co/ovas/ubuntu/14.04/amd64/1.0.0/
+
+Note: Make sure to make all `.ova` files world readable.
+
 ### Vagrant cloud
 
 Base boxes are listed under the *antarctica* organisation on [Vagrant cloud](https://vagrantcloud.com/antarctica) for public access. Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access details.
