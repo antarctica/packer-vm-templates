@@ -204,7 +204,7 @@ Where: `<.vmx>` is the path to the `.vmx` file and `<.ova>` is the path to the `
 
 E.g.
 
-    $ ovftool output/vms/ubuntu-14.04-amd-64-vmware-iso/vmware.vmx output/vms/ubuntu-14.04-amd-64-vmware-iso/vmware.ova
+    $ ovftool output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.vmx output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.ova
 
 As with Vagrant boxes, OVA files are stored in an S3 bucket for public access. Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access details.
 
