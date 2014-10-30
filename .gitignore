@@ -8,3 +8,4 @@ Vagrantfile
 *.vmx
 *.vmxf
 *.ova
+output/vms
