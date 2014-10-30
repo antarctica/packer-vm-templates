@@ -133,13 +133,13 @@ Where: `<template>` is the name of a template in `/templates`.
 
 E.g.
 
-    $ packer build templates/ubuntu-14.04-amd64.json
+    $ packer build ubuntu-14.04-amd64.json
 
 Note: You can tell Packer to use a single builder using the `-only` flag.
 
 E.g.
 
-    $ packer build -only=vmware-iso templates/ubuntu-14.04-amd64.json
+    $ packer build -only=vmware-iso ubuntu-14.04-amd64.json
 
 Packer will begin by downloading installation media (ISO) if not already cached, then boot a new VM and install the OS. After rebooting the VM will be configured using SSH before being shut down and exported as a VM and as a Vagrant base box. This process is non-interactive and takes between 10-15 minutes where install media is already cached.
 
