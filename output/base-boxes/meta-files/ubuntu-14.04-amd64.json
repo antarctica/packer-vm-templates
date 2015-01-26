@@ -131,7 +131,7 @@
         }
       ]
     },
-        {
+    {
       "version": "1.0.1",
       "providers": [
         {
@@ -145,6 +145,23 @@
           "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.1/vmware.box",
           "checksum_type": "sha1",
           "checksum": "517380914c84912904a48b76292438619deb0355"
+        }
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.1.0/virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "b541b94f5218a39b5868cd59d884b93f0e743365"
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.1.0/vmware.box",
+          "checksum_type": "sha1",
+          "checksum": "02ddb46bbe3631cba83a3535c59693eb54f28022"
         }
       ]
     }
