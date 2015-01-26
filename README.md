@@ -31,9 +31,9 @@ To use one of these base boxes simply list its name in a `Vagrantfile` or follow
 
 **Note**:
 
-* VirtualBox base boxes use version `4.3.12`  and include VirtualBox Guest Additions (version: `4.3.12`).
-* VMware base boxes use VMware Fusion version `7.0.0` and include VMware Tools.
-* All base boxes are built using Packer version `0.7.1` on Mac OS X `10.9.4`.
+* VirtualBox base boxes use version `4.3.20`  and include VirtualBox Guest Additions (version: `4.3.20`).
+* VMware base boxes use VMware Fusion version `7.1.0` and include VMware Tools.
+* All base boxes are built using Packer version `0.7.5` on Mac OS X `10.9.5`.
 
 ### Old Base boxes
 
