@@ -11,21 +11,7 @@ The following base boxes are publicly available on [Vagrant cloud](https://vagra
 To use one of these base boxes simply list its name in a `Vagrantfile` or follow the instructions on [Vagrant cloud](https://vagrantcloud.com/) to add directly to Vagrant.
 
 ### Ubuntu
-* [antarctica/trusty](https://vagrantcloud.com/antarctica/boxes/trusty) 14.04 LTS amd64
-	* VirtualBox
-	* VMware
-
-### Debian
-* [antarctica/wheezy](https://vagrantcloud.com/antarctica/boxes/wheezy) 7.6 amd64
-	* VirtualBox
-	* VMware
-
-### CentOS
-* [antarctica/cent-6](https://vagrantcloud.com/antarctica/boxes/cent-6) 6.5 x86-64
-	* VirtualBox
-	* VMware
-
-* [antarctica/cent-7](https://vagrantcloud.com/antarctica/boxes/cent-7) 7.0 x86-64
+* [antarctica/trusty](https://vagrantcloud.com/antarctica/boxes/trusty) 14.04.1 LTS amd64
 	* VirtualBox
 	* VMware
 
@@ -37,7 +23,7 @@ To use one of these base boxes simply list its name in a `Vagrantfile` or follow
 
 ### Old Base boxes
 
-Older base box versions/releases are deprecated and should not be used.
+Older base box versions/releases are deprecated and should not be used. Contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access to these older boxes.
 
 Note: Due to the un-advertised and largely non-working nature, base boxes prior to `1.0.0` will likely be removed permanently.
 
@@ -68,7 +54,7 @@ Please refer to the [Packer documentation](http://www.packer.io/docs) for an int
 
 ### Vagrant
 
-Please refer to the [Ansible experiments](https://bitbucket.org/antarctica/ansible-experiments) project's README for how Vagrant is used within BAS or the [Vagrant documentation](http://docs.vagrantup.com) for an introduction to what Vagrant is and its terminology.
+Please refer to the [Vagrant documentation](http://docs.vagrantup.com) for an introduction to what Vagrant is and its terminology.
 
 ## License and authors
 
@@ -122,7 +108,7 @@ For testing Vagrant base boxes:
 
 ### Clone repo
 
-    $ git clone git@bitbucket.org:antarctica/packer-experiments.git
+    $ git clone ssh://git@stash.ceh.ac.uk:7999/baspack/packer-templates.git
 
 ### Run build
 
