@@ -13,7 +13,8 @@
     {
       "type": "virtualbox-iso",
 
-      "vm_name": "packer-{{user `distro`}}",
+      "format": "ova",
+      "vm_name": "virtualbox",
       "guest_os_type": "RedHat_64",
 
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
@@ -34,11 +35,11 @@
         ]
       ],
       "disk_size": 40960,
-      
+
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
-      
+
       "http_directory": "../preseed",
 
       "boot_command": [
@@ -53,16 +54,16 @@
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
 
-      "output_directory": "packer-{{user `distro`}}-virtualbox-iso"
+      "output_directory": "../output/vms/{{user `distro`}}-virtualbox-iso"
     },
     {
       "type": "vmware-iso",
 
-      "vm_name": "packer-{{user `distro`}}",
+      "vm_name": "vmware",
       "guest_os_type": "centos-64",
 
       "tools_upload_flavor": "linux",
-      
+
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "memsize": "{{user `io_ram_size`}}",
@@ -88,7 +89,7 @@
 
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
 
-      "output_directory": "packer-{{user `distro`}}-vmware-iso"
+      "output_directory": "../output/vms/{{user `distro`}}-vmware-iso"
     }
   ],
   "provisioners": [
@@ -108,8 +109,8 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "../base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box"
+      "output": "../output/base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box",
+      "keep_input_artifact": true
     }
   ]
 }
-
