@@ -1,8 +1,7 @@
-# Packer experiments
+# Packer templates
 
 Using [Packer](http://www.packer.io/) to create a [vagrant](http://www.vagrantup.com) base boxes for use in projects. These experiments are based on a subset of templates from the [Bento](https://github.com/opscode/bento) project, customised to remove all but essential packages and use the English - Great Britain locale.
 
-Note: The structure and contents of this repository will probably change considerably during this testing phase.
 
 ## Current Base boxes
 
