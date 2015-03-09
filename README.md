@@ -192,6 +192,34 @@ E.g.
 $ ovftool output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.vmx output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.ova
 ```
 
+## Acknowledgements
 
+Other than using the English Great Britain locale and an altered directory structure, these templates are the same as those found in the [Bento](https://github.com/opscode/bento) project from Chef. 
 
+Therefore 97% of any credit for this project should go to Bento. See their original `NOTICE.md` further licensing information.
 
+The authors of this project are incredibly grateful for their work.
+
+## Contributing
+
+This project welcomes contributions, see `CONTRIBUTING` for our general policy.
+
+## Developing
+
+### Committing changes
+
+The [Git flow](sian.com/git/tutorials/comparing-workflows/gitflow-workflow) workflow is used to manage development of this package.
+
+Discrete changes should be made within feature branches, created from and merged back into develop (where small one-line changes may be made directly).
+
+When ready to release a set of features/changes create a release branch from develop, update documentation as required and merge into master with a tagged, semantic version (e.g. v1.2.3).
+
+After releases the master branch should be merged with develop to restart the process. High impact bugs can be addressed in hotfix branches, created from and merged into master directly (and then into develop).
+
+### Issue tracking
+
+Issues, bugs, improvements, questions, suggestions and other tasks related to this package are managed through the BAS Web & Applications Team Jira project ([BASWEB](https://jira.ceh.ac.uk/browse/BASWEB)).
+
+### License
+
+Copyright 2015 NERC BAS. Licensed under the Apache License for compatibility with Bento, see `LICENSE` for details.
