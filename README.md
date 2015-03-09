@@ -1,225 +1,225 @@
-# Packer experiments
+# Packer templates
 
-Using [Packer](http://www.packer.io/) to create a [vagrant](http://www.vagrantup.com) base boxes for use in projects. These experiments are based on a subset of templates from the [Bento](https://github.com/opscode/bento) project, customised to remove all but essential packages and use the English - Great Britain locale.
+A subset of [Packer](http://www.packer.io/) templates from the [Bento](https://github.com/opscode/bento) project, customised to remove all but essential packages and use the English - Great Britain locale.
 
-Note: The structure and contents of this repository will probably change considerably during this testing phase.
+Artefacts produced from these templates are made available publicly as Vagrant base boxes and OVA files.
 
-## Current Base boxes
+* Artefacts created by these templates **SHOULD NOT** be used for production
+* Artefacts created by these templates **SHOULD NOT** be accessible on the public internet
 
-The following base boxes are publicly available on [Vagrant cloud](https://vagrantcloud.com/) (which is the preferred method of distribution). Click each release to view the latest build and release notes.
+## Vagrant base boxes
+
+Base boxes are available publicly through the *Antarctica* organisation on [Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant.
+
+* [`antarctica/trusty`](https://atlas.hashicorp.com/antarctica/boxes/trusty)
+    * Ubuntu Server 14.04.2 LTS (amd64) - For *VirtualBox* and *VMware Desktop*
 
 To use one of these base boxes simply list its name in a `Vagrantfile` or follow the instructions on [Vagrant cloud](https://vagrantcloud.com/) to add directly to Vagrant.
 
-### Ubuntu
-* [antarctica/trusty](https://vagrantcloud.com/antarctica/boxes/trusty) 14.04 LTS amd64
-	* VirtualBox
-	* VMware
+### Old base boxes
 
-### Debian
-* [antarctica/wheezy](https://vagrantcloud.com/antarctica/boxes/wheezy) 7.6 amd64
-	* VirtualBox
-	* VMware
+Older base box versions/releases are deprecated, non-supported and **SHOULD NOT** be used.
 
-### CentOS
-* [antarctica/cent-6](https://vagrantcloud.com/antarctica/boxes/cent-6) 6.5 x86-64
-	* VirtualBox
-	* VMware
+Contact [Felix Fennell](mailto:felnne@bas.ac.uk) if you need access to these older boxes.
 
-* [antarctica/cent-7](https://vagrantcloud.com/antarctica/boxes/cent-7) 7.0 x86-64
-	* VirtualBox
-	* VMware
+## OVA files
 
-**Note**:
+[OVA files](http://en.wikipedia.org/wiki/Open_Virtualization_Format) [1] are produced as part of the packer build process and retained for more generic purposes, however they are still configured for use with Vagrant (i.e. they contain a vagrant user).
 
-* VirtualBox base boxes use version `4.3.12`  and include VirtualBox Guest Additions (version: `4.3.12`).
-* VMware base boxes use VMware Fusion version `7.0.0` and include VMware Tools.
-* All base boxes are built using Packer version `0.7.1` on Mac OS X `10.9.4`.
+These artefacts are freely available by request, contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
-### Old Base boxes
+[1] An OVA produces a single file at a smaller file size than a OVF package, making it preferable for distribution.
 
-Older base box versions/releases are deprecated and should not be used.
+## Build environment
 
-Note: Due to the un-advertised and largely non-working nature, base boxes prior to `1.0.0` will likely be removed permanently.
+The following software versions were used to produce the latest released artefacts:
 
-## Conventions
+* VirtualBox: version `4.3.24` with version `4.3.24` of the VirtualBox Guest Additions
+* VMware: version `7.1.1` (and bundled VMware Tools version)
+* Packer: version `0.7.5`
 
-In this README:
+The host machine runs:
 
-* values such as `<foo>` are variables and should be substituted for some real value
-* directories are absolute to the project root / checkout location
-* commands are listed in the `this` style, e.g. `$ packer build`
-* important information is given in **bold**
+* Mac OS X: version `10.9.5`
 
-## Overview
+## Requirements
 
-Packer is a tool for taking an operating image (usually in the form of an ISO), installing it as a new VM, performing customisations (e.g. installing base packages) before packaging the resulting VM for use as a starting point with tools such as Vagrant.
+To create new artefacts from these templates you will need the following software installed locally:
 
-Packer provides a framework for performing automated installations of operating systems a *template* which uses a variety of *builders* (such as VirtualBox), *provisioners* (to configure the VM) and *post-processors* for exporting the built VM as an *artefact* (such as a Vagrant base box). A single template may create multiple artefacts using multiple builders running in parallel.
+* Mac OS X or Linux
+* [Packer](http://www.packer.io/docs/installation.html) `brew cask install packer` [1]
+* [VirtualBox](http://www.virtualbox.org) `brew cask install virtualbox` [1]
+* [VMware Fusion](http://www.vmware.com/products/fusion) or [VMware Workstation](http://www.vmware.com/products/workstation) `brew cask install vmware-fusion` [1]
+* [Ovftool](https://www.vmware.com/support/developer/ovf/) [2]
 
-* We focus on creating Vagrant base boxes (rather than AMIs for AWS or Images for Digital Ocean for example)
-* Artefacts are designed to be as minimal as possible, favouring provisioning of software packages and services to be performed by each project (for example a base box should not include ruby pre-installed)
-* Wherever possible we follow relevant best practice (i.e. Packer and Vagrant) and wherever possible artefacts should be usable outside of BAS (i.e. use the Vagrant insecure private key rather than a BAS specific key)
-* Artefacts created by this experiment are **not suitable for production**
-* Artefacts created by this experiment are **not not safe to be accessible on the public internet**
+If testing Vagrant base boxes you will also need:
 
-### Packer
+* [Vagrant](http://www.vagrantup.com) `brew cask install vagrant` [1]
+* [Vagrant VMware plugin](www.vagrantup.com/vmware) `vagrant plugin install vagrant-vmware-fusion` [3]
 
-Please refer to the [Packer documentation](http://www.packer.io/docs) for an introduction to what Packer is and its terminology.
+[1] `brew cask` is a binary package manager for Mac OS X, you may need to find these applications yourself.
 
-### Vagrant
+[2] On a Mac you will probably need to add this to your path i.e. `PATH="/Applications/VMware OVF Tool:$PATH"`
 
-Please refer to the [Ansible experiments](https://bitbucket.org/antarctica/ansible-experiments) project's README for how Vagrant is used within BAS or the [Vagrant documentation](http://docs.vagrantup.com) for an introduction to what Vagrant is and its terminology.
+[3] If testing Vagrant base boxes on Linux install `vagrant-vmware-workstation` instead.
 
-## License and authors
+## Setup
 
-These packer templates, provisioning and pre-seeding files are based on those from the [Bento](https://github.com/opscode/bento) project from Chef. They are all largely unchanged except for some light refactoring and using the English Great Britain locale.
+```shell
+$ git clone ssh://git@stash.ceh.ac.uk:7999/baspack/packer-templates.git
+$ cd packer-templates
+```
 
-Therefore 97% of the credit for this project should go to Bento. See NOTICE.md for further licensing information.
+## Usage
 
-As with Bento this project is licensed under the Apache Licence:
+```shell
+$ cd /templates
+$ packer build [template]
+```
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-## Bugs and issues
-
-### NERC Users
-
-Please log issues to the **BASWEB** project in [Jira](https://jira.ceh.ac.uk).
-
-### Non-NERC Users
-
-Please contact: [felnne@bas.ac.uk](mailto:felnne@bas.ac.uk).
-
-## Building using a template
-
-Each Packer template contains the builders that will be used to create one or more VMs (e.g. VirtualBox and VMware), the provisioners that will configure each VM and the post-processors that will export each VM into one or more formats (Vagrant base box, OVA files, VMX packages, etc.).
-
-### Requirements
-
-To build a packer template from this Project you will need Packer plus any builders/provisioners the template uses.
-
-It is assumed you are using Mac OS X or Linux, ensure you have the following installed:
-
-* [Packer](http://www.packer.io/docs/installation.html)
-* [VirtualBox](http://www.virtualbox.org)
-* [VMware Fusion](http://www.vmware.com/products/fusion) or [VMware Workstation](http://www.vmware.com/products/workstation)
-* The `ovftool` command (see [here](https://www.vmware.com/support/developer/ovf/) for installation instructions (on a Mac you will probably need to add this to your path i.e. `PATH="/Applications/VMware OVF Tool:$PATH"`))
-
-For testing Vagrant base boxes:
-
-* [Vagrant](http://www.vagrantup.com)
-* The [Vagrant VMware plugin](www.vagrantup.com/vmware) if testing VMware based base boxes
-
-### Clone repo
-
-    $ git clone git@bitbucket.org:antarctica/packer-experiments.git
-
-### Run build
-
-    $ cd /templates
-    $ packer build <template>
-
-Where: `<template>` is the name of a template in `/templates`.
+Where: `[template]` is the name of a template in `/templates`.
 
 E.g.
 
-    $ packer build ubuntu-14.04-amd64.json
+```shell
+$ packer build ubuntu-14.04-amd64.json
+```
 
-Note: You can tell Packer to use a single builder using the `-only` flag.
-
-E.g.
-
-    $ packer build -only=vmware-iso ubuntu-14.04-amd64.json
-
-Packer will begin by downloading installation media (ISO) if not already cached, then boot a new VM and install the OS. After rebooting the VM will be configured using SSH before being shut down and exported as a VM and as a Vagrant base box. This process is non-interactive and takes between 10-15 minutes where install media is already cached.
-
-Once built two artefacts will be created in the `output` directory:
-
-* Vagrant base box in `output/base-boxes/boxes`
-* The built VM as either an `.ova` file or `vmx` package in `output/vms`
-
-Note: Neither base boxes or VM outputs should be checked into source control.
-
-## Releasing a build
-
-### Box file
-
-Build boxes are stored in an S3 bucket for public access. Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access details.
-
-Upload boxes to the following location:
-
-    packages.calcifer.co/vagrant/baseboxes/<distro>/<version>/<architecture>/<box_version>/
+Note: You can tell Packer to use a single builder using the `-only` option.
 
 E.g.
 
-    packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.0/
+```shell
+$ packer build -only=vmware-iso ubuntu-14.04-amd64.json
+```
+
+Once built two types artefacts will be created in the `output` directory:
+
+* Vagrant base boxes in `output/base-boxes/boxes`
+* VMs in `output/vms` [1] 
+
+Note: The contents of `/output` **MUST NOT** be checked into source control.
+
+[1] As an `.ova` file for VirtualBox or `vmx` package for VMware
+
+## Release/Deployment 
+
+### Base boxes
+
+Base boxes are stored in a S3 bucket, please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+
+Upload boxes to:
+
+```
+packages.calcifer.co/vagrant/baseboxes/[distro]/[version]/[architecture]/[box_version]/
+```
+
+E.g.
+
+```
+packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.0/
+```
 
 Note: Make sure to make all `.box` files world readable.
 
-### Box meta-data file
+#### Atlas
 
-A meta-data JSON file is used to record details of the location of each version of a base box. These meta-data files are not strictly required as [Vagrant Cloud](https://vagrantcloud.com/) performs the same function for us, but these files are versioned and can be used where [Vagrant Cloud](https://vagrantcloud.com/) may be unsuitable.
+For discovery base boxes are available publicly through the *Antarctica* organisation on [Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant. Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
-Add a relevant entry to the relevant meta-data file in `output/base-boxes/meta-files`. You will need to calculate an SHA1 hash of each `.box` file listed in the new version, on Mac OS X you can use `$ openssl sha1 <file>`.
+Create a new box/version as needed and enter a relevant description. When adding boxes use the self-hosted option and enter the URL of the `.box` file from S3.
 
-Upload this file to S3 (see box file sub-section for details) to the following location:
+#### Base box meta-data file
 
-    packages.calcifer.co/vagrant/baseboxes/<distro>/<version>/<architecture>/
+A meta-data JSON file is used to record details of the location of each version of a base box. These meta-data files are not strictly required but is recommended for forwards compatibility.
+
+Add a relevant entry to the relevant meta-data file in `output/base-boxes/meta-files`.
+
+You will need to calculate an SHA1 hash of each `.box` file listed in the new version [1].
+
+Upload this file to S3 (see *base boxes* file sub-section for details) to the following location:
+
+```
+packages.calcifer.co/vagrant/baseboxes/[distro]/[version]/[architecture]/
+```
 
 E.g.
 
-    packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/
+```
+packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/
+```
 
 Note: Make sure to make all meta-data files world readable.
 
-### OVA file
+[1] on Mac OS X you can use `$ openssl sha1 <file>`.
 
-VMs built from these templates can be imported directly using the Open Virtualisation Format, which is supported by all major virtualisation providers such as VMware and VirtualBox. An OVA (Open Virtualisation Archive) as its name suggests is simply an archive of an OVF package.
-
-Since an OVA produces a single file at a smaller file size this is the preferred format for distribution of OVF packages.
+### OVA files
 
 As each builder creates VMs slightly differently, the steps to create an OVA file also differ.
 
-#### virtualbox-iso
+OVA files are stored in a S3 bucket for public access, please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
-VirtualBox can produce an OVA file natively and therefore you shouldn't need to do anything.
+Upload OVA files to:
 
-#### vmware-iso
-
-The `ovftool` is used to convert the built VM into an OVA file.
-
-    $ ovftool <.vmx> <.ova>
-
-Where: `<.vmx>` is the path to the `.vmx` file and `<.ova>` is the path to the `.ova` file.
+```
+packages.calcifer.co/ovas/[distro]/[version]/[architecture]/[box_version]/
+```
 
 E.g.
 
-    $ ovftool output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.vmx output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.ova
-
-As with Vagrant boxes, OVA files are stored in an S3 bucket for public access. Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access details.
-
-Upload OVA files to the following location:
-
-    packages.calcifer.co/ovas/<distro>/<version>/<architecture>/<box_version>/
-
-E.g.
-
-    packages.calcifer.co/ovas/ubuntu/14.04/amd64/1.0.0/
+```
+packages.calcifer.co/ovas/ubuntu/14.04/amd64/1.0.0/
+```
 
 Note: Make sure to make all `.ova` files world readable.
 
-### Vagrant cloud
+#### VirtualBox (`virtualbox-iso`)
 
-Base boxes are listed under the *antarctica* organisation on [Vagrant cloud](https://vagrantcloud.com/antarctica) for public access. Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access details.
+VirtualBox produces an OVA file natively, therefore no extra work is needed.
 
-Create a new box/version as needed and enter a relevant description. When adding boxes use the self-hosted option and enter the URL of the `.box` file from S3.
+#### VMware (`vmware-iso`)
+
+The `ovftool` can convert the VMX packages into OVA files:
+
+```shell
+$ ovftool [.vmx] [.ova]
+```
+
+Where: `[.vmx]` is the path to the `.vmx` file and `[.ova>]` is the path to the `.ova` file.
+
+E.g.
+
+```shell
+$ ovftool output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.vmx output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.ova
+```
+
+## Acknowledgements
+
+Other than using the English Great Britain locale and an altered directory structure, these templates are the same as those found in the [Bento](https://github.com/opscode/bento) project from Chef. 
+
+Therefore 97% of any credit for this project should go to Bento. See their original `NOTICE.md` further licensing information.
+
+The authors of this project are incredibly grateful for their work.
+
+## Contributing
+
+This project welcomes contributions, see `CONTRIBUTING` for our general policy.
+
+## Developing
+
+### Committing changes
+
+The [Git flow](sian.com/git/tutorials/comparing-workflows/gitflow-workflow) workflow is used to manage development of this package.
+
+Discrete changes should be made within feature branches, created from and merged back into develop (where small one-line changes may be made directly).
+
+When ready to release a set of features/changes create a release branch from develop, update documentation as required and merge into master with a tagged, semantic version (e.g. v1.2.3).
+
+After releases the master branch should be merged with develop to restart the process. High impact bugs can be addressed in hotfix branches, created from and merged into master directly (and then into develop).
+
+### Issue tracking
+
+Issues, bugs, improvements, questions, suggestions and other tasks related to this package are managed through the BAS Web & Applications Team Jira project ([BASWEB](https://jira.ceh.ac.uk/browse/BASWEB)).
+
+### License
+
+Copyright 2015 NERC BAS. Licensed under the Apache License for compatibility with Bento, see `LICENSE` for details.
