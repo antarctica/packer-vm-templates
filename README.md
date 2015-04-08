@@ -178,18 +178,35 @@ VirtualBox produces an OVA file natively, therefore no extra work is needed.
 
 #### VMware (`vmware-iso`)
 
-The `ovftool` can convert the VMX packages into OVA files:
+The `ovftool` is used to convert the `VMX` package to an `OVF` package, this is then converted manually into an `OVA` file.
+
+Note: The `ovftool` can convert the `VMX` packages directly into `OVA` files, however critical meta-data is omitted.
 
 ```shell
-$ ovftool [.vmx] [.ova]
+$ mkdir scratch
+$ ovftool [VMX] scratch/[OVF]
+$ cd scratch
+$ tar cf ../[OVA] *.ovf *.mf *-disk1.vmdk
+$ cd ..
+$ ovftool --schemaValidate [OVA]
+$ rm -rf scratch
 ```
 
-Where: `[.vmx]` is the path to the `.vmx` file and `[.ova>]` is the path to the `.ova` file.
+Where: `[VMX]` is the path to the `.vmx` file, `[OVF]` is the path of the `.ovf` file to create, `*` will be then name of VM produced (usually `vmware`) and `[OVA]`, the path of the `.ova` file to create.
+
+Note: If `ovftool --schemaValidate` fails the OVA file will not work with ESXI (or other VMware products).
 
 E.g.
 
 ```shell
-$ ovftool output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.vmx output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.ova
+$ cd output/vms/ubuntu-14.04-amd64-vmware-iso
+$ mkdir scratch
+$ ovftool vmware.vmx scratch/vmware.ovf
+$ cd scratch
+$ tar cf ../vmware.ova vmware.ovf vmware.mf vmware-disk1.vmdk
+$ cd ..
+$ ovftool --schemaValidate vmware.ova
+$ rm -f scratch
 ```
 
 ## Acknowledgements
