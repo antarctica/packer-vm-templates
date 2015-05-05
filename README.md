@@ -34,13 +34,13 @@ These artefacts are freely available by request, contact [Felix Fennell](mailto:
 
 The following software versions were used to produce the latest released artefacts:
 
-* VirtualBox: version `4.3.24` with version `4.3.24` of the VirtualBox Guest Additions
+* VirtualBox: version `4.3.26` with version `4.3.26` of the VirtualBox Guest Additions
 * VMware: version `7.1.1` (and bundled VMware Tools version)
 * Packer: version `0.7.5`
 
 The host machine runs:
 
-* Mac OS X: version `10.9.5`
+* Mac OS X: version `10.10.3`
 
 ## Requirements
 
