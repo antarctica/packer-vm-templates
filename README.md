@@ -106,9 +106,13 @@ Note: The contents of `/output` **MUST NOT** be checked into source control.
 
 ### Base boxes
 
-Base boxes are stored in a S3 bucket, please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+Base boxes are currently stored in a S3 bucket for public access, please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
-Upload boxes to:
+In future base boxes will be stored on the BAS SAN within the `/data/softwaredist` directory. They will then be accessible through [BAS Ramadda instance](ramadda.nerc-bas.ac.uk).
+
+Relevant staff should already have write access to this directory, if not please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+
+Currently upload boxes to S3:
 
 ```
 packages.calcifer.co/vagrant/baseboxes/[distro]/[version]/[architecture]/[box_version]/
@@ -122,11 +126,25 @@ packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.0/
 
 Note: Make sure to make all `.box` files world readable.
 
+In future upload boxes to the SAN:
+
+```
+/data/softwaredist/vagrant/baseboxes/[distro]/[version]/[architecture]/[box_version]/
+```
+
+E.g.
+
+```
+/data/softwaredist/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.0/
+```
+
 #### Atlas
 
 For discovery base boxes are available publicly through the *Antarctica* organisation on [Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant. Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
-Create a new box/version as needed and enter a relevant description. When adding boxes use the self-hosted option and enter the URL of the `.box` file from S3.
+Create a new box/version as needed and enter a relevant description. When adding boxes use the self-hosted option and, enter the URL of the `.box` file from S3.
+
+Note: In future Ramadda will be used instead of S3.
 
 #### Base box meta-data file
 
@@ -136,7 +154,7 @@ Add a relevant entry to the relevant meta-data file in `output/base-boxes/meta-f
 
 You will need to calculate an SHA1 hash of each `.box` file listed in the new version [1].
 
-Upload this file to S3 (see *base boxes* file sub-section for details) to the following location:
+Currently upload this file to S3 (see *base boxes* file sub-section for details) to the following location:
 
 ```
 packages.calcifer.co/vagrant/baseboxes/[distro]/[version]/[architecture]/
@@ -150,15 +168,31 @@ packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/
 
 Note: Make sure to make all meta-data files world readable.
 
+In future upload this file to the SAN:
+
+```
+/data/softwaredist/vagrant/baseboxes/[distro]/[version]/[architecture]/
+```
+
+E.g.
+
+```
+/data/softwaredist/vagrant/baseboxes/ubuntu/14.04/amd64/
+```
+
 [1] on Mac OS X you can use `$ openssl sha1 <file>`.
 
 ### OVA files
 
 As each builder creates VMs slightly differently, the steps to create an OVA file also differ.
 
-OVA files are stored in a S3 bucket for public access, please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+OVA files are currently stored in a S3 bucket for public access, please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
-Upload OVA files to:
+In future OVA files will be stored on the BAS SAN within the `/data/softwaredist` directory. They will then be accessible through the [BAS Ramadda instance](ramadda.nerc-bas.ac.uk).
+
+Relevant staff should already have write access to this directory, if not please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+
+Currently upload OVAs to S3:
 
 ```
 packages.calcifer.co/ovas/[distro]/[version]/[architecture]/[box_version]/
@@ -171,6 +205,18 @@ packages.calcifer.co/ovas/ubuntu/14.04/amd64/1.0.0/
 ```
 
 Note: Make sure to make all `.ova` files world readable.
+
+In future upload OVAs to the SAN:
+
+```
+/data/softwaredist/ovas/[distro]/[version]/[architecture]/[box_version]/
+```
+
+E.g.
+
+```
+/data/softwaredist/ovas/ubuntu/14.04/amd64/1.0.0/
+```
 
 #### VirtualBox (`virtualbox-iso`)
 
