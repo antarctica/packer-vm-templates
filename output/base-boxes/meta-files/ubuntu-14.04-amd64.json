@@ -193,7 +193,7 @@
         },
         {
           "name": "vmware_desktop",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/2..0/vmware.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/2.0.0/vmware.box",
           "checksum_type": "sha1",
           "checksum": "17f5c1beedb4c4f473629c9c7f3be3ee3067fc82"
         }
