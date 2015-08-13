@@ -57,6 +57,7 @@ To create new artefact's from these templates you will need the following softwa
 * [VMware Fusion](http://www.vmware.com/products/fusion) `brew cask install vmware-fusion` [1] 
 or [VMware Workstation](http://www.vmware.com/products/workstation) [3]
 * [Ovftool](https://www.vmware.com/support/developer/ovf/) [2]
+* An `ATLAS_TOKEN` environment variable set to your [Atlas access token](https://atlas.hashicorp.com/settings/tokens)
 
 If testing Vagrant base boxes you will also need:
 
@@ -77,6 +78,9 @@ $ cd packer-templates
 ```
 
 ## Usage
+
+Note: You **MUST** set the release version to the next release (e.g. from 1.2.3, 2.0.0 for major, 1.3.0 for minor, 
+1.2.4 for patch), by setting the `release_version` user variable in each template.
 
 ```shell
 $ cd /templates
@@ -112,14 +116,26 @@ Note: The contents of `/output` **MUST NOT** be checked into source control.
 
 ### Base boxes
 
-Base boxes are currently stored in a S3 bucket for public access, 
-please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+#### Atlas
+
+For discovery base boxes are automatically uploaded to Atlas, the default source of discovery for Vagrant.
+These boxes are available publicly under the [Antarctica organisation](https://atlas.hashicorp.com/antarctica),
+please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access. Once uploaded you will need to add a description 
+for the new version, which should a change log since the last version.
+
+#### S3
+
+In addition, base boxes are currently stored in a S3 bucket for public access, this is to ensure boxes can be easily be
+hosted elsewhere if Atlas is not a valid option in future (due to pricing, service changes, etc.). Please contact 
+[Felix Fennell](mailto:felnne@bas.ac.uk) to access this bucket.
 
 In future base boxes will be stored on the BAS SAN within the `/data/softwaredist` directory. 
 They will then be accessible through [BAS Ramadda instance](ramadda.nerc-bas.ac.uk).
 
 Relevant staff should already have write access to this directory, 
 if not please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+
+Note: In future Ramadda will be used instead of S3.
 
 Currently upload boxes to S3:
 
@@ -146,17 +162,6 @@ E.g.
 ```
 /data/softwaredist/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.0/
 ```
-
-#### Atlas
-
-For discovery base boxes are available publicly through the *Antarctica* organisation on 
-[Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant. 
-Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
-
-Create a new box/version as needed and enter a relevant description. 
-When adding boxes use the self-hosted option and, enter the URL of the `.box` file from S3.
-
-Note: In future Ramadda will be used instead of S3.
 
 #### Base box meta-data file
 
