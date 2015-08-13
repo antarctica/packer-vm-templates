@@ -16,8 +16,8 @@ Base boxes are available publicly through the *Antarctica* organisation on
 * [`antarctica/trusty`](https://atlas.hashicorp.com/antarctica/boxes/trusty)
     * Ubuntu Server 14.04.2 LTS (amd64) - For *VirtualBox* and *VMware Desktop*
 
-To use one of these base boxes simply list its name in a `Vagrantfile` or follow the instructions on 
-[Vagrant cloud](https://vagrantcloud.com/) to add directly to Vagrant.
+To use one of these base boxes simply list its name in a `Vagrantfile`, 
+or follow the instructions in the [Atlas documentation](https://atlas.hashicorp.com/help/vagrant/boxes/catalog).
 
 ### Old base boxes
 
