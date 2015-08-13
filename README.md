@@ -14,7 +14,7 @@ Base boxes are available publicly through the *Antarctica* organisation on
 [Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant.
 
 * [`antarctica/trusty`](https://atlas.hashicorp.com/antarctica/boxes/trusty)
-    * Ubuntu Server 14.04.2 LTS (amd64) - For *VirtualBox* and *VMware Desktop*
+    * Ubuntu Server 14.04.3 LTS (amd64) - For *VirtualBox* and *VMware Desktop*
 
 To use one of these base boxes simply list its name in a `Vagrantfile`, 
 or follow the instructions in the [Atlas documentation](https://atlas.hashicorp.com/help/vagrant/boxes/catalog).
@@ -39,13 +39,13 @@ These artefact's are freely available by request, contact [Felix Fennell](mailto
 
 The following software versions were used to produce the latest released artefact's:
 
-* VirtualBox: version `4.3.26` with version `4.3.26` of the VirtualBox Guest Additions
-* VMware: version `7.1.1` (and bundled VMware Tools version)
-* Packer: version `0.7.5`
+* VirtualBox: version `4.3.30` with version `4.3.30` of the VirtualBox Guest Additions
+* VMware: version `7.1.2` (and bundled VMware Tools version)
+* Packer: version `0.8.5`
 
 The host machine runs:
 
-* Mac OS X: version `10.10.3`
+* Mac OS X: version `10.10.4`
 
 ## Requirements
 
