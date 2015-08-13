@@ -5,7 +5,7 @@ customised to remove all but essential packages and use the English - Great Brit
 
 Artefact's produced from these templates are made available publicly as Vagrant base boxes and OVA files.
 
-* Artefacts created by these templates **SHOULD NOT** be used for production
+* Artefact's created by these templates **MAY** be used for production
 * Artefact's created by these templates **SHOULD NOT** be accessible on the public internet
 
 ## Vagrant base boxes
