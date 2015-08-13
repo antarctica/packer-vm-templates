@@ -1,20 +1,23 @@
 # Packer templates
 
-A subset of [Packer](http://www.packer.io/) templates from the [Bento](https://github.com/opscode/bento) project, customised to remove all but essential packages and use the English - Great Britain locale.
+A subset of [Packer](http://www.packer.io/) templates from the [Bento](https://github.com/opscode/bento) project, 
+customised to remove all but essential packages and use the English - Great Britain locale.
 
-Artefacts produced from these templates are made available publicly as Vagrant base boxes and OVA files.
+Artefact's produced from these templates are made available publicly as Vagrant base boxes and OVA files.
 
 * Artefacts created by these templates **SHOULD NOT** be used for production
-* Artefacts created by these templates **SHOULD NOT** be accessible on the public internet
+* Artefact's created by these templates **SHOULD NOT** be accessible on the public internet
 
 ## Vagrant base boxes
 
-Base boxes are available publicly through the *Antarctica* organisation on [Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant.
+Base boxes are available publicly through the *Antarctica* organisation on 
+[Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant.
 
 * [`antarctica/trusty`](https://atlas.hashicorp.com/antarctica/boxes/trusty)
     * Ubuntu Server 14.04.2 LTS (amd64) - For *VirtualBox* and *VMware Desktop*
 
-To use one of these base boxes simply list its name in a `Vagrantfile` or follow the instructions on [Vagrant cloud](https://vagrantcloud.com/) to add directly to Vagrant.
+To use one of these base boxes simply list its name in a `Vagrantfile` or follow the instructions on 
+[Vagrant cloud](https://vagrantcloud.com/) to add directly to Vagrant.
 
 ### Old base boxes
 
@@ -24,15 +27,17 @@ Contact [Felix Fennell](mailto:felnne@bas.ac.uk) if you need access to these old
 
 ## OVA files
 
-[OVA files](http://en.wikipedia.org/wiki/Open_Virtualization_Format) [1] are produced as part of the packer build process and retained for more generic purposes, however they are still configured for use with Vagrant (i.e. they contain a vagrant user).
+[OVA files](http://en.wikipedia.org/wiki/Open_Virtualization_Format) [1] are produced as part of the packer build 
+process and retained for more generic purposes. These images are a by-product of creating Vagrant base boxes, 
+they therefore are configured with a vagrant user etc.
 
-These artefacts are freely available by request, contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+These artefact's are freely available by request, contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
 [1] An OVA produces a single file at a smaller file size than a OVF package, making it preferable for distribution.
 
 ## Build environment
 
-The following software versions were used to produce the latest released artefacts:
+The following software versions were used to produce the latest released artefact's:
 
 * VirtualBox: version `4.3.26` with version `4.3.26` of the VirtualBox Guest Additions
 * VMware: version `7.1.1` (and bundled VMware Tools version)
@@ -44,12 +49,13 @@ The host machine runs:
 
 ## Requirements
 
-To create new artefacts from these templates you will need the following software installed locally:
+To create new artefact's from these templates you will need the following software installed locally:
 
 * Mac OS X or Linux
 * [Packer](http://www.packer.io/docs/installation.html) `brew cask install packer` [1]
 * [VirtualBox](http://www.virtualbox.org) `brew cask install virtualbox` [1]
-* [VMware Fusion](http://www.vmware.com/products/fusion) or [VMware Workstation](http://www.vmware.com/products/workstation) `brew cask install vmware-fusion` [1]
+* [VMware Fusion](http://www.vmware.com/products/fusion) `brew cask install vmware-fusion` [1] 
+or [VMware Workstation](http://www.vmware.com/products/workstation) [3]
 * [Ovftool](https://www.vmware.com/support/developer/ovf/) [2]
 
 If testing Vagrant base boxes you will also need:
@@ -59,7 +65,7 @@ If testing Vagrant base boxes you will also need:
 
 [1] `brew cask` is a binary package manager for Mac OS X, you may need to find these applications yourself.
 
-[2] On a Mac you will probably need to add this to your path i.e. `PATH="/Applications/VMware OVF Tool:$PATH"`
+[2] On a Mac OS X you will probably need to add this to your path, i.e. `PATH="/Applications/VMware OVF Tool:$PATH"`
 
 [3] If testing Vagrant base boxes on Linux install `vagrant-vmware-workstation` instead.
 
@@ -93,24 +99,27 @@ E.g.
 $ packer build -only=vmware-iso ubuntu-14.04-amd64.json
 ```
 
-Once built two types artefacts will be created in the `output` directory:
+Once built two types artefact's will be created in the `output` directory per template:
 
 * Vagrant base boxes in `output/base-boxes/boxes`
 * VMs in `output/vms` [1] 
 
 Note: The contents of `/output` **MUST NOT** be checked into source control.
 
-[1] As an `.ova` file for VirtualBox or `vmx` package for VMware
+[1] As an `.ova` file for VirtualBox and `vmx` directory for VMware
 
 ## Release/Deployment 
 
 ### Base boxes
 
-Base boxes are currently stored in a S3 bucket for public access, please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+Base boxes are currently stored in a S3 bucket for public access, 
+please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
-In future base boxes will be stored on the BAS SAN within the `/data/softwaredist` directory. They will then be accessible through [BAS Ramadda instance](ramadda.nerc-bas.ac.uk).
+In future base boxes will be stored on the BAS SAN within the `/data/softwaredist` directory. 
+They will then be accessible through [BAS Ramadda instance](ramadda.nerc-bas.ac.uk).
 
-Relevant staff should already have write access to this directory, if not please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+Relevant staff should already have write access to this directory, 
+if not please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
 Currently upload boxes to S3:
 
@@ -140,15 +149,19 @@ E.g.
 
 #### Atlas
 
-For discovery base boxes are available publicly through the *Antarctica* organisation on [Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant. Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+For discovery base boxes are available publicly through the *Antarctica* organisation on 
+[Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant. 
+Please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
-Create a new box/version as needed and enter a relevant description. When adding boxes use the self-hosted option and, enter the URL of the `.box` file from S3.
+Create a new box/version as needed and enter a relevant description. 
+When adding boxes use the self-hosted option and, enter the URL of the `.box` file from S3.
 
 Note: In future Ramadda will be used instead of S3.
 
 #### Base box meta-data file
 
-A meta-data JSON file is used to record details of the location of each version of a base box. These meta-data files are not strictly required but is recommended for forwards compatibility.
+A meta-data JSON file is used to record details of the location of each version of a base box. 
+These meta-data files are not strictly required but is recommended for forwards compatibility.
 
 Add a relevant entry to the relevant meta-data file in `output/base-boxes/meta-files`.
 
@@ -186,11 +199,14 @@ E.g.
 
 As each builder creates VMs slightly differently, the steps to create an OVA file also differ.
 
-OVA files are currently stored in a S3 bucket for public access, please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+OVA files are currently stored in a S3 bucket for public access, 
+please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
-In future OVA files will be stored on the BAS SAN within the `/data/softwaredist` directory. They will then be accessible through the [BAS Ramadda instance](ramadda.nerc-bas.ac.uk).
+In future OVA files will be stored on the BAS SAN within the `/data/softwaredist` directory. 
+They will then be accessible through the [BAS Ramadda instance](ramadda.nerc-bas.ac.uk).
 
-Relevant staff should already have write access to this directory, if not please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
+Relevant staff should already have write access to this directory, 
+if not please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
 Currently upload OVAs to S3:
 
@@ -224,7 +240,8 @@ VirtualBox produces an OVA file natively, therefore no extra work is needed.
 
 #### VMware (`vmware-iso`)
 
-The `ovftool` is used to convert the `VMX` package to an `OVF` package, this is then converted manually into an `OVA` file.
+The `ovftool` is used to convert the `VMX` package to an `OVF` package, 
+this is then converted manually into an `OVA` file.
 
 Note: The `ovftool` can convert the `VMX` packages directly into `OVA` files, however critical meta-data is omitted.
 
@@ -238,7 +255,8 @@ $ ovftool --schemaValidate [OVA]
 $ rm -rf scratch
 ```
 
-Where: `[VMX]` is the path to the `.vmx` file, `[OVF]` is the path of the `.ovf` file to create, `*` will be then name of VM produced (usually `vmware`) and `[OVA]`, the path of the `.ova` file to create.
+Where: `[VMX]` is the path to the `.vmx` file, `[OVF]` is the path of the `.ovf` file to create, 
+`*` will be then name of VM produced (usually `vmware`) and `[OVA]`, the path of the `.ova` file to create.
 
 Note: If `ovftool --schemaValidate` fails the OVA file will not work with ESXI (or other VMware products).
 
@@ -257,9 +275,11 @@ $ rm -f scratch
 
 ## Acknowledgements
 
-Other than using the English Great Britain locale and an altered directory structure, these templates are the same as those found in the [Bento](https://github.com/opscode/bento) project from Chef. 
+Other than using the English Great Britain locale and an altered directory structure, 
+these templates are the same as those found in the [Bento](https://github.com/opscode/bento) project from Chef. 
 
-Therefore 97% of any credit for this project should go to Bento. See their original `NOTICE.md` further licensing information.
+Therefore 97% of any credit for this project should go to Bento.
+See their original notice file, `BENTO-NOTICE.md`, for further licensing information.
 
 The authors of this project are incredibly grateful for their work.
 
@@ -271,17 +291,20 @@ This project welcomes contributions, see `CONTRIBUTING` for our general policy.
 
 ### Committing changes
 
-The [Git flow](sian.com/git/tutorials/comparing-workflows/gitflow-workflow) workflow is used to manage development of this package.
+The [Git flow](sian.com/git/tutorials/comparing-workflows/gitflow-workflow) workflow is used to manage the development 
+of this package.
 
-Discrete changes should be made within feature branches, created from and merged back into develop (where small one-line changes may be made directly).
-
-When ready to release a set of features/changes create a release branch from develop, update documentation as required and merge into master with a tagged, semantic version (e.g. v1.2.3).
-
-After releases the master branch should be merged with develop to restart the process. High impact bugs can be addressed in hotfix branches, created from and merged into master directly (and then into develop).
+* Discrete changes should be made within feature branches, created from and merged back into develop (where small 
+changes may be made directly)
+* When ready to release a set of features/changes, create a release branch from develop, update documentation as 
+required and merge into master with a tagged, semantic version (e.g. v1.2.3)
+* After each release, the master branch should be merged with develop to restart the process
+* High impact bugs can be addressed in hotfix branches, created from and merged into master (then develop) directly
 
 ### Issue tracking
 
-Issues, bugs, improvements, questions, suggestions and other tasks related to this package are managed through the BAS Web & Applications Team Jira project ([BASWEB](https://jira.ceh.ac.uk/browse/BASWEB)).
+Issues, bugs, improvements, questions, suggestions and other tasks related to this package are managed through the 
+BAS Web & Applications Team Jira project ([BASWEB](https://jira.ceh.ac.uk/browse/BASWEB)).
 
 ### License
 
