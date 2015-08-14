@@ -10,11 +10,11 @@ Artefact's produced from these templates are made available publicly as Vagrant 
 
 ## Vagrant base boxes
 
-Base boxes are available publicly through the *Antarctica* organisation on 
-[Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant.
-
 * [`antarctica/trusty`](https://atlas.hashicorp.com/antarctica/boxes/trusty)
     * Ubuntu Server 14.04.3 LTS (amd64) - For *VirtualBox* and *VMware Desktop*
+
+Base boxes are available publicly through the *Antarctica* organisation on 
+[Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant.
 
 To use one of these base boxes simply list its name in a `Vagrantfile`, 
 or follow the instructions in the [Atlas documentation](https://atlas.hashicorp.com/help/vagrant/boxes/catalog).
@@ -27,6 +27,8 @@ Contact [Felix Fennell](mailto:felnne@bas.ac.uk) if you need access to these old
 
 ## OVA files
 
+* Ubuntu Server 14.04.3 LTS (amd64) - For *VirtualBox* and *VMware Desktop*
+
 [OVA files](http://en.wikipedia.org/wiki/Open_Virtualization_Format) [1] are produced as part of the packer build 
 process and retained for more generic purposes. These images are a by-product of creating Vagrant base boxes, 
 they therefore are configured with a vagrant user etc.
@@ -34,6 +36,37 @@ they therefore are configured with a vagrant user etc.
 These artefact's are freely available by request, contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
 
 [1] An OVA produces a single file at a smaller file size than a OVF package, making it preferable for distribution.
+
+## DigitalOcean base images
+
+* template-ubuntu-14.04-amd64
+    * Image ID: `13126041`
+    * Ubuntu Server 14.04.3 LTS (amd64)
+    * Available features:
+        * Backups: *false*
+        * Private networking: *true*
+    * Available region(s):
+        * `lon1`
+
+DigitalOcean supports the concept of an *image*, made by creating a *droplet* (VM) customising it and then saving as an
+image. New VMs can be based on this image, rather than a default distribution. The degree to which an image is 
+customised is down to the user, it could be very minimal, or could include a range of pre-installed packages, users and
+other configuration.
+
+As part of these templates Packer is used to build an image using, as far as possible, the same provisioning steps used
+for Vagrant base boxes and OVA images. The major differences between the DigitalOcean image and these other types are:
+
+* Source image - we cannot use our own ISO and instead pick from the set of base images that DigitalOcean supports. In
+most cases has no consequence since the DigitalOcean base image and ISO we use are the same.
+* No vagrant user is created - as these VMs are public (though not advertised) using a pre-shared private key is not a
+good idea.
+
+Images produced by this project are stored within the BAS DigitalOcean account [1] and **SHOULD** be used for any VM 
+created within this service. This ensures consistency with other providers, and ensures that any customisations for
+security or access are enforced or set out of the box.
+
+The recommended method to create VMs using this image is to use [Terraform](https://www.terraform.io), with the BAS 
+[terraform-module-digital-ocean-droplet](https://github.com/antarctica/terraform-module-digital-ocean-droplet) module.
 
 ## Build environment
 
@@ -58,6 +91,7 @@ To create new artefact's from these templates you will need the following softwa
 or [VMware Workstation](http://www.vmware.com/products/workstation) [3]
 * [Ovftool](https://www.vmware.com/support/developer/ovf/) [2]
 * An `ATLAS_TOKEN` environment variable set to your [Atlas access token](https://atlas.hashicorp.com/settings/tokens)
+* An `DIGITALOCEAN_API_TOKEN` environment variable set to your DigitalOcean personal access token [4]
 
 If testing Vagrant base boxes you will also need:
 
@@ -69,6 +103,8 @@ If testing Vagrant base boxes you will also need:
 [2] On a Mac OS X you will probably need to add this to your path, i.e. `PATH="/Applications/VMware OVF Tool:$PATH"`
 
 [3] If testing Vagrant base boxes on Linux install `vagrant-vmware-workstation` instead.
+
+[4] Specifically for an account under the *basweb@bas.ac.uk* user.
 
 ## Setup
 
@@ -82,6 +118,16 @@ $ cd packer-templates
 Note: You **MUST** set the release version to the next release (e.g. from 1.2.3, 2.0.0 for major, 1.3.0 for minor, 
 1.2.4 for patch), by setting the `release_version` user variable in each template.
 
+For each template there are two kinds, *desktop* and *cloud*:
+
+* *Desktop* templates build from either a ISO image or existing VM files (e.g. a `.vmx`). They produce artifact's for 
+desktop virtualisation tools, and also things like VMware vSphere and vCloud. 
+* *Cloud* templates build from images provided by cloud providers. They produce artifacts specific to each provider,
+such as DigitalOcean images or Amazon Web Services AMI's.
+
+Typically you will build both kinds of template, 
+e.g. `ubuntu-14.04-amd64-desktop.json` and `ubuntu-14.04-amd64-cloud.json`.
+
 ```shell
 $ cd /templates
 $ packer build [template]
@@ -92,7 +138,7 @@ Where: `[template]` is the name of a template in `/templates`.
 E.g.
 
 ```shell
-$ packer build ubuntu-14.04-amd64.json
+$ packer build ubuntu-14.04-amd64-desktop.json
 ```
 
 Note: You can tell Packer to use a single builder using the `-only` option.
@@ -100,10 +146,10 @@ Note: You can tell Packer to use a single builder using the `-only` option.
 E.g.
 
 ```shell
-$ packer build -only=vmware-iso ubuntu-14.04-amd64.json
+$ packer build -only=vmware-iso ubuntu-14.04-amd64-desktop.json
 ```
 
-Once built two types artefact's will be created in the `output` directory per template:
+For *desktop* templates, once built two types of artifact will be created in the `output` directory (per template):
 
 * Vagrant base boxes in `output/base-boxes/boxes`
 * VMs in `output/vms` [1] 
@@ -111,6 +157,8 @@ Once built two types artefact's will be created in the `output` directory per te
 Note: The contents of `/output` **MUST NOT** be checked into source control.
 
 [1] As an `.ova` file for VirtualBox and `vmx` directory for VMware
+
+For *cloud* templates artifacts will be created and stored within each provider directly.
 
 ## Release/Deployment 
 
@@ -277,6 +325,10 @@ $ cd ..
 $ ovftool --schemaValidate vmware.ova
 $ rm -f scratch
 ```
+
+### DigitalOcean base images
+
+Packer will automatically produce images from a temporary droplet created by Packer during building.
 
 ## Acknowledgements
 
