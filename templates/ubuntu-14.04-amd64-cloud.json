@@ -1,0 +1,31 @@
+{
+  "variables": {
+    "hostname": "cloud",
+    "distro": "ubuntu-14.04-amd64",
+    "release_version": "2.1.0"
+  },
+  "builders": [
+    {
+      "type": "digitalocean",
+      "image": "ubuntu-14-04-x64",
+      "region": "lon1",
+      "size": "512mb",
+      "droplet_name": "{{user `hostname`}}",
+      "private_networking": true,
+      "snapshot_name": "template-{{user `distro`}}-{{user `release_version`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "scripts": [
+        "../provisioining/scripts/ubuntu/update.sh",
+        "../provisioining/scripts/common/sshd.sh",
+        "../provisioining/scripts/ubuntu/networking.sh",
+        "../provisioining/scripts/ubuntu/sudoers.sh",
+        "../provisioining/scripts/ubuntu/cleanup.sh"
+      ],
+      "type": "shell"
+    }
+  ]
+}

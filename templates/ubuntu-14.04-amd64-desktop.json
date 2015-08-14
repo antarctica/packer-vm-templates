@@ -1,13 +1,15 @@
 {
   "variables": {
-    "iso_url": "http://gb.releases.ubuntu.com/trusty/ubuntu-14.04.2-server-amd64.iso",
-    "iso_checksum": "3bfa6eac84d527380d0cc52db9092cde127f161e",
+    "iso_url": "http://gb.releases.ubuntu.com/trusty/ubuntu-14.04.3-server-amd64.iso",
+    "iso_checksum": "0501c446929f713eb162ae2088d8dc8b6426224a",
     "iso_checksum_type": "sha1",
-    "io_ram_size": 384,
+    "io_ram_size": "384",
     "hostname": "vagrant",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
-    "distro": "ubuntu-14.04-amd64"
+    "distro": "ubuntu-14.04-amd64",
+    "disk_size": "40960",
+    "release_version": "2.1.0"
   },
   "builders": [
     {
@@ -34,7 +36,7 @@
           "1"
         ]
       ],
-      "disk_size": 40960,
+      "disk_size": "{{user `disk_size`}}",
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
@@ -89,7 +91,7 @@
         "memsize": "{{user `io_ram_size`}}",
         "numvcpus": "1"
       },
-      "disk_size": 40960,
+      "disk_size": "{{user `disk_size`}}",
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
@@ -154,6 +156,26 @@
       "type": "vagrant",
       "output": "../output/base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box",
       "keep_input_artifact": true
+    },
+    {
+      "type": "atlas",
+      "only": ["virtualbox-iso"],
+      "artifact": "antarctica/trusty",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "virtualbox",
+        "version": "{{user `release_version`}}"
+      }
+    },
+    {
+      "type": "atlas",
+      "only": ["vmware-iso"],
+      "artifact": "antarctica/trusty",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "vmware_desktop",
+        "version": "{{user `release_version`}}"
+      }
     }
   ]
 }
