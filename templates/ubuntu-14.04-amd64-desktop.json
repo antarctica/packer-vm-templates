@@ -9,7 +9,8 @@
     "ssh_password": "vagrant",
     "distro": "ubuntu-14.04-amd64",
     "disk_size": "40960",
-    "release_version": "2.1.0"
+    "release_version": "2.1.0",
+    "atlas_artifact": "antarctica/trusty"
   },
   "builders": [
     {
@@ -37,6 +38,7 @@
         ]
       ],
       "disk_size": "{{user `disk_size`}}",
+      "hard_drive_interface": "sata",
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
@@ -160,21 +162,23 @@
     {
       "type": "atlas",
       "only": ["virtualbox-iso"],
-      "artifact": "antarctica/trusty",
+      "artifact": "{{user `atlas_artifact`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "virtualbox",
-        "version": "{{user `release_version`}}"
+        "version": "{{user `release_version`}}",
+        "created_at": "{{timestamp}}"
       }
     },
     {
       "type": "atlas",
       "only": ["vmware-iso"],
-      "artifact": "antarctica/trusty",
+      "artifact": "{{user `atlas_artifact`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "vmware_desktop",
-        "version": "{{user `release_version`}}"
+        "version": "{{user `release_version`}}",
+        "created_at": "{{timestamp}}"
       }
     }
   ]
