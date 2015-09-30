@@ -12,6 +12,8 @@ Artefact's produced from these templates are made available publicly as Vagrant 
 
 * [`antarctica/trusty`](https://atlas.hashicorp.com/antarctica/boxes/trusty)
     * Ubuntu Server 14.04.3 LTS (amd64) - For *VirtualBox* and *VMware Desktop*
+* [`antarctica/centos7`](https://atlas.hashicorp.com/antarctica/boxes/centos7)
+    * CentOS 7.1 (x86_64) - For *VirtualBox* and *VMware Desktop*
 
 Base boxes are available publicly through the *Antarctica* organisation on 
 [Atlas](https://atlas.hashicorp.com/antarctica), the default source of discovery for Vagrant.
@@ -28,6 +30,7 @@ Contact [Felix Fennell](mailto:felnne@bas.ac.uk) if you need access to these old
 ## OVA files
 
 * Ubuntu Server 14.04.3 LTS (amd64) - For *VirtualBox* and *VMware Desktop*
+* CentOS 7.1 (x86_64) - For *VirtualBox* and *VMware Desktop*
 
 [OVA files](http://en.wikipedia.org/wiki/Open_Virtualization_Format) [1] are produced as part of the packer build 
 process and retained for more generic purposes. These images are a by-product of creating Vagrant base boxes, 
@@ -74,11 +77,11 @@ The following software versions were used to produce the latest released artefac
 
 * VirtualBox: version `4.3.30` with version `4.3.30` of the VirtualBox Guest Additions
 * VMware: version `7.1.2` (and bundled VMware Tools version)
-* Packer: version `0.8.5`
+* Packer: version `0.8.6`
 
 The host machine runs:
 
-* Mac OS X: version `10.10.4`
+* Mac OS X: version `10.10.5`
 
 ## Requirements
 
@@ -323,7 +326,7 @@ $ cd scratch
 $ tar cf ../vmware.ova vmware.ovf vmware.mf vmware-disk1.vmdk
 $ cd ..
 $ ovftool --schemaValidate vmware.ova
-$ rm -f scratch
+$ rm -rf scratch
 ```
 
 ### DigitalOcean base images
