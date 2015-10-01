@@ -3,9 +3,10 @@
 A subset of [Packer](http://www.packer.io/) templates from the [Bento](https://github.com/opscode/bento) project, 
 customised to remove all but essential packages and use the English - Great Britain locale.
 
-Artefact's produced from these templates are made available publicly as Vagrant base boxes and OVA files.
+Artefact's produced from these templates are made available publicly as Vagrant base boxes and OVA files, and privately 
+as DigitalOcean images.
 
-* Artefact's created by these templates **MAY** be used for production
+* Artefact's created by these templates **MAY** be used for production, providing you understand the risks when doing so
 * Artefact's created by these templates **SHOULD NOT** be accessible on the public internet
 
 ## Vagrant base boxes
@@ -57,9 +58,8 @@ As part of these templates Packer is used to build an image using, as far as pos
 for Vagrant base boxes and OVA images. The major differences between the DigitalOcean image and these other types are:
 
 * Source image - we cannot use our own ISO and instead pick from the set of base images that DigitalOcean supports. In
-most cases has no consequence since the DigitalOcean base image and ISO we use are the same.
-* No vagrant user is created - as these VMs are public (though not advertised) using a pre-shared private key is not a
-good idea.
+most cases this is of no consequence since the DigitalOcean base image and ISO we use are both minimal installations.
+* The *Vagrant* user is not created and no pre-shared keys are added (as this is not needed and is security risk).
 
 Images produced by this project are stored within the BAS DigitalOcean account [1] and **SHOULD** be used for any VM 
 created within this service. This ensures consistency with other providers, and ensures that any customisations for
@@ -104,12 +104,12 @@ If testing Vagrant base boxes you will also need:
 
 [3] If testing Vagrant base boxes on Linux install `vagrant-vmware-workstation` instead.
 
-[4] Specifically for an account under the *basweb@bas.ac.uk* user.
+[4] Specifically for a team account delegated from the *basweb@bas.ac.uk* user.
 
 ## Setup
 
 ```shell
-$ git clone ssh://git@stash.ceh.ac.uk:7999/baspack/packer-templates.git
+$ git clone git@github.com:antarctica/packer-templates.git
 $ cd packer-templates
 ```
 
@@ -118,11 +118,11 @@ $ cd packer-templates
 Note: You **MUST** set the release version to the next release (e.g. from 1.2.3, 2.0.0 for major, 1.3.0 for minor, 
 1.2.4 for patch), by setting the `release_version` user variable in each template.
 
-For each template there are two kinds, *desktop* and *cloud*:
+Each template targets multiple environments using different template files:
 
-* *Desktop* templates build from either a ISO image or existing VM files (e.g. a `.vmx`). They produce artifact's for 
+* *Desktop* templates build from either a ISO image or existing VM files (e.g. a `.vmx`). They produce artefact's for 
 desktop virtualisation tools, and also things like VMware vSphere and vCloud. 
-* *Cloud* templates build from images provided by cloud providers. They produce artifacts specific to each provider,
+* *Cloud* templates build from images provided by cloud providers. They produce artefacts specific to each provider,
 such as DigitalOcean images or Amazon Web Services AMI's.
 
 Typically you will build both kinds of template, 
@@ -149,7 +149,7 @@ E.g.
 $ packer build -only=vmware-iso ubuntu-14.04-amd64-desktop.json
 ```
 
-For *desktop* templates, once built two types of artifact will be created in the `output` directory (per template):
+For each *desktop* template environment, two types of artefact will be created in the `output` directory:
 
 * Vagrant base boxes in `output/base-boxes/boxes`
 * VMs in `output/vms` [1] 
@@ -158,7 +158,7 @@ Note: The contents of `/output` **MUST NOT** be checked into source control.
 
 [1] As an `.ova` file for VirtualBox and `vmx` directory for VMware
 
-For *cloud* templates artifacts will be created and stored within each provider directly.
+For each *cloud* template environment, relevant artefacts will be created and stored within each provider directly.
 
 ## Release/Deployment 
 
@@ -166,10 +166,10 @@ For *cloud* templates artifacts will be created and stored within each provider 
 
 #### Atlas
 
-For discovery base boxes are automatically uploaded to Atlas, the default source of discovery for Vagrant.
+Packer will automatically upload base boxes to Atlas, the default source of discovery for Vagrant.
 These boxes are available publicly under the [Antarctica organisation](https://atlas.hashicorp.com/antarctica),
 please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access. Once uploaded you will need to add a description 
-for the new version, which should a change log since the last version.
+for the new version, which should be a change log since the last version.
 
 #### S3
 
@@ -214,7 +214,7 @@ E.g.
 #### Base box meta-data file
 
 A meta-data JSON file is used to record details of the location of each version of a base box. 
-These meta-data files are not strictly required but is recommended for forwards compatibility.
+These meta-data files are not strictly required but are recommended for forwards compatibility.
 
 Add a relevant entry to the relevant meta-data file in `output/base-boxes/meta-files`.
 
@@ -249,8 +249,6 @@ E.g.
 [1] on Mac OS X you can use `$ openssl sha1 <file>`.
 
 ### OVA files
-
-As each builder creates VMs slightly differently, the steps to create an OVA file also differ.
 
 OVA files are currently stored in a S3 bucket for public access, 
 please contact [Felix Fennell](mailto:felnne@bas.ac.uk) for access.
@@ -287,6 +285,8 @@ E.g.
 /data/softwaredist/ovas/ubuntu/14.04/amd64/1.0.0/
 ```
 
+As each builder creates VMs slightly differently, the steps to create an OVA file differ.
+
 #### VirtualBox (`virtualbox-iso`)
 
 VirtualBox produces an OVA file natively, therefore no extra work is needed.
@@ -318,7 +318,7 @@ E.g.
 ```shell
 $ cd output/vms/ubuntu-14.04-amd64-vmware-iso
 $ mkdir scratch
-$ ovftool vmware.vmx scratch/vmware.ovf
+$ ovftool packer-vmware-iso.vmx scratch/vmware.ovf
 $ cd scratch
 $ tar cf ../vmware.ova vmware.ovf vmware.mf vmware-disk1.vmdk
 $ cd ..
