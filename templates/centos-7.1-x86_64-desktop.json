@@ -9,7 +9,7 @@
     "ssh_password": "vagrant",
     "distro": "centos-7.1-x86_64",
     "disk_size": "40960",
-    "release_version": "0.1.0-alpha",
+    "release_version": "0.1.0-beta",
     "atlas_artifact": "antarctica/centos7",
 
     "http_proxy": "{{env `http_proxy`}}",
@@ -110,6 +110,7 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
         "../provisioining/scripts/common/sshd.sh",
+        "../provisioining/scripts/centos/sudoers.sh",
         "../provisioining/scripts/centos/networking.sh",
         "../provisioining/scripts/common/vagrant.sh",
         "../provisioining/scripts/common/vmtools.sh",
