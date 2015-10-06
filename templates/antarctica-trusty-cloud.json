@@ -1,7 +1,10 @@
 {
   "variables": {
-    "hostname": "cloud",
     "distro": "ubuntu-14.04-amd64",
+
+    "hostname": "cloud",
+
+    "artefact": "antarctica-trusty",
     "release_version": "2.1.0",
     "atlas_artifact": "antarctica/trusty"
   },
@@ -20,11 +23,11 @@
     {
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
-        "../provisioining/scripts/ubuntu/update.sh",
-        "../provisioining/scripts/common/sshd.sh",
-        "../provisioining/scripts/ubuntu/networking.sh",
-        "../provisioining/scripts/ubuntu/sudoers.sh",
-        "../provisioining/scripts/ubuntu/cleanup.sh"
+        "provisioning/scripts/ubuntu/update.sh",
+        "provisioning/scripts/common/sshd.sh",
+        "provisioning/scripts/ubuntu/networking.sh",
+        "provisioning/scripts/ubuntu/sudoers.sh",
+        "provisioning/scripts/ubuntu/cleanup.sh"
       ],
       "type": "shell"
     }
