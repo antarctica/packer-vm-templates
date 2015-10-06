@@ -291,7 +291,7 @@ Packaged base boxes will be uploaded to Atlas automatically (this may take some 
 Uploaded artefacts will be versioned using the `release_version` user variable set in the Packer template file.
 Artefacts for each provider are grouped by release.
 
-Additional meta-data will need to be added to provide a relevant change log since the last version.
+Additional meta-data will need to be manually added to provide a relevant change log since the last version.
 
 #### S3
 
