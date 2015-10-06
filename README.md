@@ -16,6 +16,9 @@ Note: The *status* attribute represents how stable a template is. New templates 
 teething issues, such as small bugs or performance issues. Once these are fixed, templates will marked as *Mature*. This 
 does not mean mature templates cannot be improved, rather that they are expected to work in most cases.
 
+Note: As using the `/` character is problematic with file systems an alternative template using a `-` character is used
+instead. For example a template named `antarctica/trusty` would alternatively be referred to as `antarctica-trusty`.
+
 ### Operating system customisations
 
 Some customisations are made to these Operating systems using  provisioning scripts and installation options, these are 
@@ -111,7 +114,7 @@ They may be removed at any time.
 
 | Template Name       | Index URL                                                                                                                  | Notes |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `antarctica/trusty` | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/ubuntu-14.04-amd64.json) | -     |
+| `antarctica/trusty` | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/antarctica-trusty.json) | -     |
 
 ## Building artefacts
 
@@ -231,16 +234,13 @@ Note: Before building, you **MUST** set the `release_version` user variable in e
 [semantic versioning](http://semver.org/spec/v2.0.0.html).
 
 ```shell
-$ cd /templates
-$ packer build [template]
+$ packer build templates/[Template alternate name]-[Template file (desktop/cloud)]
 ```
-
-Where: `[template]` is the a template file of a template in `/templates`.
 
 E.g.
 
 ```shell
-$ packer build ubuntu-14.04-amd64-desktop.json
+$ packer build templates/antarctica-trusty-desktop.json
 ```
 
 Note: You can tell Packer to use a single builder (provider) using the `-only` option.
@@ -248,7 +248,7 @@ Note: You can tell Packer to use a single builder (provider) using the `-only` o
 E.g.
 
 ```shell
-$ packer build -only=vmware-iso ubuntu-14.04-amd64-desktop.json
+$ packer build -only=vmware-iso templates/antarctica-trusty-desktop.json
 ```
 
 ## Packaging/Distribution
@@ -265,8 +265,8 @@ Packer will automatically compress and package Vagrant base boxes as required.
 A JSON file is provided for each template containing Vagrant base box artefacts. It lists, for each artefact version, 
 the HTTPS distribution URL, SHA1 checksum of the box and the provider it targets.
 
-Add a new entry to the relevant artefact list in `output/base-boxes/meta-files`, following the pattern for previous 
-releases. You will need to calculate an SHA1 hash for each `.box` file [1].
+Add a new entry to the relevant artefact list in `artefacts/vagrant-base-boxes/artefact-lists`, following the pattern 
+for previous releases. You will need to calculate an SHA1 hash for each `.box` file [1].
 
 The `bas-packages-prod` bucket is used to hold these lists. This bucket is stored under the BAS AWS account and should 
 be accessible to all account users by default. If this is not the case please get in touch using the information in the 
@@ -277,13 +277,13 @@ Note: This bucket has a permissions policy to allow anonymous read on all object
 Artefact lists should be stored using the following directory and file name structure:
 
 ```shell
-$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Template]-[Provider].json ../output/base-boxes/meta-files/[Template]-[Provider].json
+$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Template alternate name].json artefacts/vagrant-base-boxes/artefact-lists/[Template alternate name].json
 ```
 
 E.g.
 
 ```shell
-$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/ubuntu-14.04-amd64.box ../output/base-boxes/meta-files/ubuntu-14.04-amd64.json
+$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/antarctica-trusty.json artefacts/vagrant-base-boxes/artefact-lists/antarctica-trusty.json
 ```
 
 [1] on Mac OS X you can use `$ openssl sha1 <file>`.
@@ -294,7 +294,7 @@ Packaged base boxes will be uploaded to Atlas automatically (this may take some 
 Uploaded artefacts will be versioned using the `release_version` user variable set in the Packer template file.
 Artefacts for each provider are grouped by release.
 
-Additional meta-data will need to be added to provide a relevant change log since the last version.
+Additional meta-data will need to be manually added to provide a relevant change log since the last version.
 
 #### S3
 
@@ -310,13 +310,13 @@ Note: This bucket has a permissions policy to allow anonymous read on all object
 Base boxes should be stored using the following directory and file name structure:
 
 ```shell
-$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Base box provider].box ../output/base-boxes/boxes/[Template]/[Provider].box
+$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Base box provider].box artefacts/vagrant-base-boxes/base-boxes/[Template alternate name]/[Packer builder].box
 ```
 
 E.g.
 
 ```shell
-$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/0.0.0/vmware.box ../output/base-boxes/boxes/ubuntu-14.04-amd64/vmware.box
+$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/0.0.0/vmware.box artefacts/vagrant-base-boxes/base-boxes/antarctica-trusty/vmware.box
 ```
 
 #### BAS SAN
@@ -342,7 +342,7 @@ $ logout
 Base boxes should be stored using the following file name structure:
 
 ```shell
-$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/sofwaredist/vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Base box provider].box ../output/base-boxes/boxes/[Template]/[Provider].box
+$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/sofwaredist/vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Base box provider].box artefacts/vagrant-base-boxes/base-boxes/[Template alternate name]/[Packer builder].box
 ```
 
 E.g.
@@ -353,7 +353,7 @@ $ cd /data/sofwaredist
 $ mkdir -p vagrant/baseboxes/ubuntu/14.04/amd64/0.0.0
 $ logout
 
-$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/softwaredist/vagrant/baseboxes/ubuntu/14.04/amd64/0.0.0/vmware.box ../output/base-boxes/boxes/[Template]/vmware.box
+$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/softwaredist/vagrant/baseboxes/ubuntu/14.04/amd64/0.0.0/vmware.box artefacts/vagrant-base-boxes/base-boxes/antarctica-trusty/vmware.box
 ```
 
 ### OVA files
@@ -396,7 +396,7 @@ Note: If `ovftool --schemaValidate` fails the OVA file will not work when deploy
 E.g.
 
 ```shell
-$ cd output/vms/ubuntu-14.04-amd64-vmware-iso
+$ cd artefacts/ovas/antarctica-trusty-vmware-iso
 
 $ mkdir scratch
 $ ovftool packer-vmware-iso.vmx scratch/vmware.ovf
@@ -421,13 +421,13 @@ Note: This bucket has a permissions policy to allow anonymous read on all object
 OVA files should be stored using the following directory and file name structure:
 
 ```shell
-$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/ovas/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Provider].ova ../output/vms/[Template]-[Provider]/[Provider].ova
+$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/ovas/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Provider].ova artefacts/ovas/[Template alternate name]-[Packer builder]/[Provider].ova
 ```
 
 E.g.
 
 ```shell
-$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/ovas/ubuntu/14.04/amd64/0.0.0/vmware.ova ../output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.ova
+$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/ovas/ubuntu/14.04/amd64/0.0.0/vmware.ova artefacts/ovas/antarctica-trusty-vmware-iso/vmware.ova
 ```
 
 #### BAS SAN
@@ -453,7 +453,7 @@ $ logout
 OVA files should then be stored using the following file name structure:
 
 ```shell
-$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/sofwaredist/ovas/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Provider].ova ../output/vms/[Template]-[Provider]/[Provider].ova
+$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/sofwaredist/ovas/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Provider].ova artefacts/ovas/[Template alternate name]-[Packer builder]/[Provider].ova
 ```
 
 E.g.
@@ -464,7 +464,7 @@ $ cd /data/sofwaredist
 $ mkdir -p ovas/ubuntu/14.04/amd64/0.0.0
 $ logout
 
-$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/softwaredist/ovas/ubuntu/14.04/amd64/0.0.0/vmware.ova ../output/vms/ubuntu-14.04-amd64-vmware-iso/vmware.ova
+$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/softwaredist/ovas/ubuntu/14.04/amd64/0.0.0/vmware.ova artefacts/ovas/antarctica-trusty-vmware-iso/vmware.ova
 ```
 
 ### DigitalOcean images
