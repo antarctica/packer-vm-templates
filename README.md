@@ -3,10 +3,6 @@
 A subset of [Packer](http://www.packer.io/) templates from the [Bento](https://github.com/opscode/bento) project for
 desktop and cloud providers, customised to the English - Great Britain locale.
 
-## TODO:
-
-* Name template output directories after their template name (e.g. `antarctica/trusty` not `ubuntu-14.04-amd64`).
-
 ## Supported operating systems
 
 Active support is provided for these operating systems, for the versions specified.
@@ -266,7 +262,31 @@ Packer will automatically compress and package Vagrant base boxes as required.
 
 #### Artefact lists
 
-TODO
+A JSON file is provided for each template containing Vagrant base box artefacts. It lists, for each artefact version, 
+the HTTPS distribution URL, SHA1 checksum of the box and the provider it targets.
+
+Add a new entry to the relevant artefact list in `output/base-boxes/meta-files`, following the pattern for previous 
+releases. You will need to calculate an SHA1 hash for each `.box` file [1].
+
+The `bas-packages-prod` bucket is used to hold these lists. This bucket is stored under the BAS AWS account and should 
+be accessible to all account users by default. If this is not the case please get in touch using the information in the 
+*feedback* section.
+
+Note: This bucket has a permissions policy to allow anonymous read on all objects (but not directories or ACLs).
+
+Artefact lists should be stored using the following directory and file name structure:
+
+```shell
+$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Template]-[Provider].json ../output/base-boxes/meta-files/[Template]-[Provider].json
+```
+
+E.g.
+
+```shell
+$ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region eu-west-1 --upload s3://bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/ubuntu-14.04-amd64.box ../output/base-boxes/meta-files/ubuntu-14.04-amd64.json
+```
+
+[1] on Mac OS X you can use `$ openssl sha1 <file>`.
 
 #### Atlas
 
@@ -453,16 +473,6 @@ Packer will automatically store DigitalOcean images within the DigitalOcean acco
 
 ## Acknowledgements
 
-Other than using the English Great Britain locale and an altered directory structure,
-these templates are the same as those found in the [Bento](https://github.com/opscode/bento) project from Chef.
-
-Therefore 97% of any credit for this project should go to Bento.
-See their original notice file, `BENTO-NOTICE.md`, for further licensing information.
-
-The authors of this project are incredibly grateful for their work.
-
-## Acknowledgements
-
 Other than the changes listed in the *Operating system customisations* section, and an altered directory structure,
 these templates are the same as those found in the [Bento](https://github.com/opscode/bento) project from Chef.
 
@@ -471,78 +481,23 @@ grateful for their work.
 
 See their original notice file, `BENTO-NOTICE.md`, for further licensing information.
 
-### License
-
-Copyright 2015 NERC BAS. Licensed under the Apache License for compatibility with Bento, see `LICENSE.md` for details.
-
-
-
-
-
-
-
-
-
-
-
-
-> Not refactored below this line!
-
-
-
-
-
-
-
-#### Base box meta-data file
-
-A meta-data JSON file is used to record details of the location of each version of a base box.
-These meta-data files are not strictly required but are recommended for forwards compatibility.
-
-Add a relevant entry to the relevant meta-data file in `output/base-boxes/meta-files`.
-
-You will need to calculate an SHA1 hash of each `.box` file listed in the new version [1].
-
-Currently upload this file to S3 (see *base boxes* file sub-section for details) to the following location:
-
-```
-packages.calcifer.co/vagrant/baseboxes/[distro]/[version]/[architecture]/
-```
-
-E.g.
-
-```
-packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/
-```
-
-Note: Make sure to make all meta-data files world readable.
-
-In future upload this file to the SAN:
-
-```
-/data/softwaredist/vagrant/baseboxes/[distro]/[version]/[architecture]/
-```
-
-E.g.
-
-```
-/data/softwaredist/vagrant/baseboxes/ubuntu/14.04/amd64/
-```
-
-[1] on Mac OS X you can use `$ openssl sha1 <file>`.
-
-
-
-
-
-
-
-
 ## Contributing
 
 This project welcomes contributions, see `CONTRIBUTING` for our general policy.
 
+## Feedback
+
+Please log all feedback to the BAS Web and Applications Team:
+
+* If you are a BAS/NERC staff member please use our [Jira project](https://jira.ceh.ac.uk/browse/BASWEB) with the 
+*Project - Packer* component.
+* If you are external to BAS/NERC please email [basweb@bas.ac.uk](mailto:basweb@bas.ac.uk) to log feedback directly.
+
 ## Developing
+
+### Project management
+
+The Project Maintainer for this project is: [Felix Fennell](mailto:felnne@bas.ac.uk) [1].
 
 ### Committing changes
 
@@ -558,7 +513,13 @@ required and merge into master with a tagged, semantic version (e.g. v1.2.3)
 
 ### Issue tracking
 
-Issues, bugs, improvements, questions, suggestions and other tasks related to this package are managed through the
-BAS Web & Applications Team Jira project ([BASWEB](https://jira.ceh.ac.uk/browse/BASWEB)).
+Issues, bugs, improvements, questions, suggestions and other tasks related to this project are managed through our 
+[Jira project](https://jira.ceh.ac.uk/browse/BASWEB) using the *Project - Packer* component [2].
 
+[1] Please use the contact information in the *Feedback* section, rather than direct contact.
 
+[2] Please use the contact information in the *Feedback* section to request new accounts [BAS/NERC Staff only].
+
+### License
+
+Copyright 2015 NERC BAS. Licensed under the Apache License for compatibility with Bento, see `LICENSE.md` for details.
