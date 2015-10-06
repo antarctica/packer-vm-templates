@@ -16,6 +16,9 @@ Note: The *status* attribute represents how stable a template is. New templates 
 teething issues, such as small bugs or performance issues. Once these are fixed, templates will marked as *Mature*. This 
 does not mean mature templates cannot be improved, rather that they are expected to work in most cases.
 
+Note: As using the `/` character is problematic with file systems an alternative template using a `-` character is used
+instead. For example a template named `antarctica/trusty` would alternatively be referred to as `antarctica-trusty`.
+
 ### Operating system customisations
 
 Some customisations are made to these Operating systems using  provisioning scripts and installation options, these are 
