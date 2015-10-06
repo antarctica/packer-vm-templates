@@ -4,17 +4,21 @@
     "iso_url": "http://mirrors.kernel.org/centos/7.1.1503/isos/x86_64/CentOS-7-x86_64-DVD-1503-01.iso",
     "iso_checksum": "1795184136b8bdddabe50453cc2cc2d46f0f7c5e",
     "iso_checksum_type": "sha1",
-    "io_ram_size": "512",
-    "ssh_username": "vagrant",
-    "ssh_password": "vagrant",
+
     "distro": "centos-7.1-x86_64",
     "disk_size": "40960",
-    "release_version": "0.1.0-beta",
-    "atlas_artifact": "antarctica/centos7",
+    "io_ram_size": "612",
 
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
-    "no_proxy": "{{env `no_proxy`}}"
+    "no_proxy": "{{env `no_proxy`}}",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+
+    "artefact": "antarctica-centos7",
+    "release_version": "0.1.0",
+    "atlas_artifact": "antarctica/centos7"
   },
   "builders": [
     {
@@ -48,10 +52,10 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "http_directory": "../preseed",
+      "http_directory": "preseed",
 
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `distro`}}/ks.cfg<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `artefact`}}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
 
@@ -62,7 +66,7 @@
 
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
 
-      "output_directory": "../output/vms/{{user `distro`}}-virtualbox-iso"
+      "output_directory": "artefacts/ovas/{{user `artefact`}}-virtualbox-iso"
     },
     {
       "type": "vmware-iso",
@@ -82,10 +86,10 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "http_directory": "../preseed",
+      "http_directory": "preseed",
 
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `distro`}}/ks.cfg<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `artefact`}}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
 
@@ -96,7 +100,7 @@
 
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
 
-      "output_directory": "../output/vms/{{user `distro`}}-vmware-iso"
+      "output_directory": "artefacts/ovas/{{user `artefact`}}-vmware-iso"
     }
   ],
   "provisioners": [
@@ -109,13 +113,13 @@
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
-        "../provisioining/scripts/common/sshd.sh",
-        "../provisioining/scripts/centos/sudoers.sh",
-        "../provisioining/scripts/centos/networking.sh",
-        "../provisioining/scripts/common/vagrant.sh",
-        "../provisioining/scripts/common/vmtools.sh",
-        "../provisioining/scripts/centos/cleanup.sh",
-        "../provisioining/scripts/common/minimize.sh"
+        "provisioning/scripts/common/sshd.sh",
+        "provisioning/scripts/centos/sudoers.sh",
+        "provisioning/scripts/centos/networking.sh",
+        "provisioning/scripts/common/vagrant.sh",
+        "provisioning/scripts/common/vmtools.sh",
+        "provisioning/scripts/centos/cleanup.sh",
+        "provisioning/scripts/common/minimize.sh"
       ],
       "type": "shell"
     }
@@ -123,7 +127,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "../output/base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box",
+      "output": "artefacts/vagrant-base-boxes/base-boxes/{{user `artefact`}}/{{.Provider}}.box",
       "keep_input_artifact": true
     }
   ]
