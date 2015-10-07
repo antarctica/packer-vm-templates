@@ -13,8 +13,8 @@ See the *pre-built artefacts* section for distribution/download links.
 | `antarctica/trusty`  | 2.0.0            | Mature |[Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | -     |
 | `antarctica/centos7` | 0.1.0            | New    |[CentOS](https://www.centos.org/) | 7.1                  | x86_64 64                 | -     |
 
-Note: The *status* attribute represents how stable a template is. New templates will be listed as *New* and may contain 
-teething issues, such as small bugs or performance issues. Once these are fixed, templates will marked as *Mature*. This 
+Note: The *status* attribute represents how stable a template is. New templates will be listed as *New* and may contain
+teething issues, such as small bugs or performance issues. Once these are fixed, templates will marked as *Mature*. This
 does not mean mature templates cannot be improved, rather that they are expected to work in most cases.
 
 Note: As using the `/` character is problematic with file systems an alternative template using a `-` character is used
@@ -22,7 +22,7 @@ instead. For example a template named `antarctica/trusty` would alternatively be
 
 ### Operating system customisations
 
-Some customisations are made to these Operating systems using  provisioning scripts and installation options, these are 
+Some customisations are made to these Operating systems using  provisioning scripts and installation options, these are
 summarised below:
 
 | Template Name(s)     | Customisation                      | Rational                                             | Applicable Artefact Formats  | Notes |
@@ -126,7 +126,7 @@ See the *Feedback* section for contact information if you wish to request these 
 
 ### Artefact indexes
 
-A JSON file is provided for each template containing Vagrant base box artefacts. It lists, for each artefact version, 
+A JSON file is provided for each template containing Vagrant base box artefacts. It lists, for each artefact version,
 the HTTPS distribution URL, SHA1 checksum of the box and the provider it targets.
 
 Note: These indexes are not supported, they are provided for legacy reasons when Vagrant base boxes were self hosted.
@@ -159,7 +159,7 @@ Base boxes have to meet certain criteria to be compatible with Vagrant. For temp
 is provided by the Bento project. Base boxes are provider specific and in some cases require additional Vagrant plugins
 before they can be used. For more information see the [Vagrant documentation](https://docs.vagrantup.com/v2/).
 
-Packer will package base boxes and upload them to Atlas automatically for distribution. Boxes will need to be manually 
+Packer will package base boxes and upload them to Atlas automatically for distribution. Boxes will need to be manually
 copied to Amazon S3 (for HTTPS distribution) and the BAS SAN (for BAS SAN distribution).
 
 #### OVA files
@@ -168,16 +168,16 @@ A compressed [OVF](http://en.wikipedia.org/wiki/Open_Virtualization_Format) imag
 products.
 
 OVA files are produced as a by-product of Vagrant base boxes, they are therefore identical except in how they are
-packaged. This means OVA files are built from the same ISO file and include things required for Vagrant, such as a 
+packaged. This means OVA files are built from the same ISO file and include things required for Vagrant, such as a
 `vagrant` user and password-less sudo.
 
-Packer will create OVA files for some providers, whereas others require manual creation. OVAs will need to be manually 
+Packer will create OVA files for some providers, whereas others require manual creation. OVAs will need to be manually
 copied to Amazon S3 (for HTTPS distribution) and the BAS SAN (for BAS SAN distribution).
 
 #### DigitalOcean images
 
-A DigitalOcean image represents the saved state of a previously created Droplet (VM) from which new Droplets can be 
-based upon. 
+A DigitalOcean image represents the saved state of a previously created Droplet (VM) from which new Droplets can be
+based upon.
 
 Packer builds DigitalOcean images using one the pre-defined base images provided by DigitalOcean [1] to create a new 
 Droplet. It then configures the droplet, saves it as an image with the users DigitalOcean account and destroys before 
@@ -251,7 +251,7 @@ If testing Vagrant base boxes you will also need:
 
 [4] Specifically for a user account delegated from the *basweb@bas.ac.uk* team account.
 
-[5] Specifically for a user account delegated from the BAS AWS account, use the 
+[5] Specifically for a user account delegated from the BAS AWS account, use the
 [IAM Console](https://console.aws.amazon.com/iam/home?region=eu-west-1) to generate access keys.
 
 [6] See [here]() for instructions on how to generate a private key, contact the 
@@ -278,7 +278,7 @@ Each template within this project is split into multiple template files, each ta
 Template files are built separately using the `packer build` command, typically all template files for a template will
 be built.
 
-Note: Before building, you **MUST** set the `release_version` user variable in each template file using 
+Note: Before building, you **MUST** set the `release_version` user variable in each template file using
 [semantic versioning](http://semver.org/spec/v2.0.0.html).
 
 ```shell
@@ -301,23 +301,23 @@ $ packer build -only=vmware-iso templates/antarctica-trusty-desktop.json
 
 ## Packaging/Distribution
 
-Some artefact formats are packages and uploaded from distribution automatically by Packer, for other formats manual 
+Some artefact formats are packages and uploaded from distribution automatically by Packer, for other formats manual
 packaging and/or uploading is required.
 
 ### Vagrant base boxes
 
-Packer will automatically compress and package Vagrant base boxes as required. 
+Packer will automatically compress and package Vagrant base boxes as required.
 
 #### Artefact lists
 
-A JSON file is provided for each template containing Vagrant base box artefacts. It lists, for each artefact version, 
+A JSON file is provided for each template containing Vagrant base box artefacts. It lists, for each artefact version,
 the HTTPS distribution URL, SHA1 checksum of the box and the provider it targets.
 
-Add a new entry to the relevant artefact list in `artefacts/vagrant-base-boxes/artefact-lists`, following the pattern 
+Add a new entry to the relevant artefact list in `artefacts/vagrant-base-boxes/artefact-lists`, following the pattern
 for previous releases. You will need to calculate an SHA1 hash for each `.box` file [1].
 
-The `bas-packages-prod` bucket is used to hold these lists. This bucket is stored under the BAS AWS account and should 
-be accessible to all account users by default. If this is not the case please get in touch using the information in the 
+The `bas-packages-prod` bucket is used to hold these lists. This bucket is stored under the BAS AWS account and should
+be accessible to all account users by default. If this is not the case please get in touch using the information in the
 *feedback* section.
 
 Note: This bucket has a permissions policy to allow anonymous read on all objects (but not directories or ACLs).
@@ -346,10 +346,10 @@ Additional meta-data will need to be manually added to provide a relevant change
 
 #### S3
 
-Amazon S3 is used an external alternative to Atlas in case this service becomes unsuitable in the future (due to 
+Amazon S3 is used an external alternative to Atlas in case this service becomes unsuitable in the future (due to
 pricing, feature changes, etc.).
 
-The `bas-packages-prod` bucket is used to hold base box artefacts. This bucket is stored under the BAS AWS account and 
+The `bas-packages-prod` bucket is used to hold base box artefacts. This bucket is stored under the BAS AWS account and
 should be accessible to all account users by default. If this is not the case please get in touch using the information
 in the *feedback* section.
 
@@ -369,11 +369,11 @@ $ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region 
 
 #### BAS SAN
 
-The BAS SAN is used an internal alternative to Atlas in case this service becomes unsuitable in the future (due to 
+The BAS SAN is used an internal alternative to Atlas in case this service becomes unsuitable in the future (due to
 pricing, feature changes, etc.). This location also acts as the canonical storage location for records management.
 
-The `/data/softwaredist` SAN volume is used to hold base box artefacts. This volume is writeable to all members of the 
-`swpack` Unix group, which should include all relevant staff. Contact the [BAS ICT helpdesk](mailto:helpdesk@bas.ac.uk) 
+The `/data/softwaredist` SAN volume is used to hold base box artefacts. This volume is writeable to all members of the
+`swpack` Unix group, which should include all relevant staff. Contact the [BAS ICT helpdesk](mailto:helpdesk@bas.ac.uk)
 if you don't have this access.
 
 Note: This volume has a permissions policy to allow anonymous read on all directories and files.
@@ -416,8 +416,8 @@ See the *S3* and *BAS SAN* sub-sections of this section for instructions on dist
 
 #### VMware (`vmware-iso`)
 
-The VMware builder produces a VM directory in its native format, a `.vmx` file with associated support files. 
-This needs to be converted into an OVA file using the *OVFTool* utility prior to distribution. 
+The VMware builder produces a VM directory in its native format, a `.vmx` file with associated support files.
+This needs to be converted into an OVA file using the *OVFTool* utility prior to distribution.
 
 See the *S3* and *BAS SAN* sub-sections of this section for instructions on distributing OVA files.
 
@@ -435,8 +435,8 @@ $ ovftool --schemaValidate [OVA]
 $ rm -rf scratch
 ```
 
-Where: `[VMX directory]` is the path containing the `.vmx` file, `[VMX file]` is the name of the `.vmx` file and `[OVF]` 
-is the path of the `.ovf` file to create. `*` will be then name of VM produced (usually `vmware`) and `[OVA]`, 
+Where: `[VMX directory]` is the path containing the `.vmx` file, `[VMX file]` is the name of the `.vmx` file and `[OVF]`
+is the path of the `.ovf` file to create. `*` will be then name of VM produced (usually `vmware`) and `[OVA]`,
 the path of the `.ova` file to create.
 
 Note: If `ovftool --schemaValidate` fails the OVA file will not work when deployed into a VMware product.
@@ -457,10 +457,10 @@ $ rm -rf scratch
 
 #### S3
 
-Amazon S3 is used an external alternative to Atlas in case this service becomes unsuitable in the future (due to 
+Amazon S3 is used an external alternative to Atlas in case this service becomes unsuitable in the future (due to
 pricing, feature changes, etc.).
 
-The `bas-packages-prod` bucket is used to hold OVA artefacts. This bucket is stored under the BAS AWS account and 
+The `bas-packages-prod` bucket is used to hold OVA artefacts. This bucket is stored under the BAS AWS account and
 should be accessible to all account users by default. If this is not the case please get in touch using the information
 in the *feedback* section.
 
@@ -480,11 +480,11 @@ $ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region 
 
 #### BAS SAN
 
-The BAS SAN is used an internal alternative to Atlas in case this service becomes unsuitable in the future (due to 
+The BAS SAN is used an internal alternative to Atlas in case this service becomes unsuitable in the future (due to
 pricing, feature changes, etc.). This location also acts as the canonical storage location for records management.
 
-The `/data/softwaredist` SAN volume is used to hold OVA artefacts. This volume is writeable to all members of the 
-`swpack` Unix group, which should include all relevant staff. Contact the [BAS ICT helpdesk](mailto:helpdesk@bas.ac.uk) 
+The `/data/softwaredist` SAN volume is used to hold OVA artefacts. This volume is writeable to all members of the
+`swpack` Unix group, which should include all relevant staff. Contact the [BAS ICT helpdesk](mailto:helpdesk@bas.ac.uk)
 if you don't have this access.
 
 Note: This volume has a permissions policy to allow anonymous read on all directories and files.
@@ -528,7 +528,7 @@ Packer will automatically store AMIs within the Amazon Web Services account Pack
 Other than the changes listed in the *Operating system customisations* section, and an altered directory structure,
 these templates are the same as those found in the [Bento](https://github.com/opscode/bento) project from Chef.
 
-Therefore 90% of any credit for this project should rightfully go to Bento. The authors of this project are incredibly 
+Therefore 90% of any credit for this project should rightfully go to Bento. The authors of this project are incredibly
 grateful for their work.
 
 See their original notice file, `BENTO-NOTICE.md`, for further licensing information.
@@ -541,7 +541,7 @@ This project welcomes contributions, see `CONTRIBUTING` for our general policy.
 
 Please log all feedback to the BAS Web and Applications Team:
 
-* If you are a BAS/NERC staff member please use our [Jira project](https://jira.ceh.ac.uk/browse/BASWEB) with the 
+* If you are a BAS/NERC staff member please use our [Jira project](https://jira.ceh.ac.uk/browse/BASWEB) with the
 *Project - Packer* component.
 * If you are external to BAS/NERC please email [basweb@bas.ac.uk](mailto:basweb@bas.ac.uk) to log feedback directly.
 
@@ -565,7 +565,7 @@ required and merge into master with a tagged, semantic version (e.g. v1.2.3)
 
 ### Issue tracking
 
-Issues, bugs, improvements, questions, suggestions and other tasks related to this project are managed through our 
+Issues, bugs, improvements, questions, suggestions and other tasks related to this project are managed through our
 [Jira project](https://jira.ceh.ac.uk/browse/BASWEB) using the *Project - Packer* component [2].
 
 [1] Please use the contact information in the *Feedback* section, rather than direct contact.
