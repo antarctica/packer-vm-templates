@@ -342,8 +342,8 @@ Note: This volume has a permissions policy to allow anonymous read on all direct
 Base boxes should be stored using the following directory structure:
 
 ```shell
-$ ssh bslcene@bas.ac.uk
-$ cd /data/sofwaredist
+$ ssh bslcene.nerc-bas.ac.uk
+$ cd /data/softwaredist
 $ mkdir -p vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]
 $ logout
 ```
@@ -351,14 +351,14 @@ $ logout
 Base boxes should be stored using the following file name structure:
 
 ```shell
-$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/sofwaredist/vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Base box provider].box artefacts/vagrant-base-boxes/base-boxes/[Template alternate name]/[Packer builder].box
+$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/softwaredist/vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Base box provider].box artefacts/vagrant-base-boxes/base-boxes/[Template alternate name]/[Packer builder].box
 ```
 
 E.g.
 
 ```shell
-$ ssh bslcene@bas.ac.uk
-$ cd /data/sofwaredist
+$ ssh bslcene.nerc-bas.ac.uk
+$ cd /data/softwaredist
 $ mkdir -p vagrant/baseboxes/ubuntu/14.04/amd64/0.0.0
 $ logout
 
@@ -413,7 +413,7 @@ $ cd scratch
 $ tar cf ../vmware.ova vmware.ovf vmware.mf vmware-disk1.vmdk
 $ cd ..
 $ ovftool --schemaValidate vmware.ova
-$ rm -f scratch
+$ rm -rf scratch
 ```
 
 #### S3
@@ -453,8 +453,8 @@ Note: This volume has a permissions policy to allow anonymous read on all direct
 OVA files should be stored using the following directory structure:
 
 ```shell
-$ ssh bslcene@bas.ac.uk
-$ cd /data/sofwaredist
+$ ssh bslcene.nerc-bas.ac.uk
+$ cd /data/softwaredist
 $ mkdir -p ovas/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]
 $ logout
 ```
@@ -462,14 +462,14 @@ $ logout
 OVA files should then be stored using the following file name structure:
 
 ```shell
-$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/sofwaredist/ovas/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Provider].ova artefacts/ovas/[Template alternate name]-[Packer builder]/[Provider].ova
+$ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/softwaredist/ovas/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]/[Provider].ova artefacts/ovas/[Template alternate name]-[Packer builder]/[Provider].ova
 ```
 
 E.g.
 
 ```shell
-$ ssh bslcene@bas.ac.uk
-$ cd /data/sofwaredist
+$ ssh bslcene.nerc-bas.ac.uk
+$ cd /data/softwaredist
 $ mkdir -p ovas/ubuntu/14.04/amd64/0.0.0
 $ logout
 

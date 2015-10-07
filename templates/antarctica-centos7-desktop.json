@@ -1,0 +1,156 @@
+
+{
+  "variables": {
+    "iso_url": "http://mirrors.kernel.org/centos/7.1.1503/isos/x86_64/CentOS-7-x86_64-DVD-1503-01.iso",
+    "iso_checksum": "1795184136b8bdddabe50453cc2cc2d46f0f7c5e",
+    "iso_checksum_type": "sha1",
+
+    "distro": "centos-7.1-x86_64",
+    "disk_size": "40960",
+    "io_ram_size": "612",
+
+    "http_proxy": "{{env `http_proxy`}}",
+    "https_proxy": "{{env `https_proxy`}}",
+    "no_proxy": "{{env `no_proxy`}}",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+
+    "artefact": "antarctica-centos7",
+    "release_version": "0.1.0",
+    "atlas_artifact": "antarctica/centos7"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+
+      "format": "ova",
+      "vm_name": "virtualbox",
+      "guest_os_type": "RedHat_64",
+
+      "virtualbox_version_file": ".vbox_version",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "{{ user `io_ram_size`}}"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ],
+      "disk_size": "{{user `disk_size`}}",
+      "hard_drive_interface": "sata",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "http_directory": "preseed",
+
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `artefact`}}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
+
+      "output_directory": "artefacts/ovas/{{user `artefact`}}-virtualbox-iso"
+    },
+    {
+      "type": "vmware-iso",
+
+      "vm_name": "{{ user `template` }}",
+      "guest_os_type": "centos-64",
+      "tools_upload_flavor": "linux",
+
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "{{ user `io_ram_size`}}",
+        "numvcpus": "1"
+      },
+      "disk_size": "{{user `disk_size`}}",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "http_directory": "preseed",
+
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `artefact`}}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
+
+      "output_directory": "artefacts/ovas/{{user `artefact`}}-vmware-iso"
+    }
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [
+        "HOME_DIR=/home/vagrant",
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "no_proxy={{user `no_proxy`}}"
+      ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "scripts": [
+        "provisioning/scripts/common/sshd.sh",
+        "provisioning/scripts/centos/sudoers.sh",
+        "provisioning/scripts/centos/networking.sh",
+        "provisioning/scripts/common/vagrant.sh",
+        "provisioning/scripts/common/vmtools.sh",
+        "provisioning/scripts/centos/cleanup.sh",
+        "provisioning/scripts/common/minimize.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "artefacts/vagrant-base-boxes/base-boxes/{{user `artefact`}}/{{.Provider}}.box",
+      "keep_input_artifact": true
+    },
+    {
+      "type": "atlas",
+      "only": ["virtualbox-iso"],
+      "artifact": "{{user `atlas_artifact`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "virtualbox",
+        "version": "{{user `release_version`}}",
+        "created_at": "{{timestamp}}"
+      }
+    },
+    {
+      "type": "atlas",
+      "only": ["vmware-iso"],
+      "artifact": "{{user `atlas_artifact`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "vmware_desktop",
+        "version": "{{user `release_version`}}",
+        "created_at": "{{timestamp}}"
+      }
+    }
+  ]
+}

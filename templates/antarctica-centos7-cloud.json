@@ -1,0 +1,45 @@
+{
+  "variables": {
+    "distro": "ubuntu-14.04-amd64",
+
+    "hostname": "cloud",
+
+    "artefact": "antarctica-centos7",
+    "release_version": "0.1.0",
+    "atlas_artifact": "antarctica/centos7"
+  },
+  "builders": [
+    {
+      "type": "digitalocean",
+      "communicator": "ssh",
+      "ssh_pty": true,
+      "image": "centos-7-0-x64",
+      "region": "lon1",
+      "size": "512mb",
+      "droplet_name": "{{user `hostname`}}",
+      "private_networking": true,
+      "snapshot_name": "{{user `atlas_artifact`}}-{{user `release_version`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "scripts": [
+        "provisioning/scripts/common/sshd.sh",
+        "provisioning/scripts/centos/sudoers.sh",
+        "provisioning/scripts/centos/networking.sh",
+        "provisioning/scripts/centos/cleanup.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "post-processors": [{
+    "type": "atlas",
+    "artifact": "{{user `atlas_artifact`}}",
+    "artifact_type": "digitalocean.droplet",
+    "metadata": {
+      "version": "{{user `release_version`}}",
+      "created_at": "{{timestamp}}"
+    }
+  }]
+}
