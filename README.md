@@ -33,6 +33,8 @@ summarised below:
 | `antarctica/centos7` | SELinux set to "permissive"        | To be compatible with some legacy BAS projects       | *Vagrant base box* and *OVA* | -     |
 | `antarctica/centos7` | Root password set to "password"    | To emphasise that this is not a secure default       | *Vagrant base box* and *OVA* | -     |
 
+Note: The above list does not include customisations made by the Bento project.
+
 ## Supported providers
 
 Active support is provided for a range of desktop and cloud providers, for the versions specified.
@@ -179,17 +181,23 @@ copied to Amazon S3 (for HTTPS distribution) and the BAS SAN (for BAS SAN distri
 A DigitalOcean image represents the saved state of a previously created Droplet (VM) from which new Droplets can be
 based upon.
 
-Packer builds DigitalOcean images using one the pre-defined base images provided by DigitalOcean [1] to create a new 
-Droplet. It then configures the droplet, saves it as an image with the users DigitalOcean account and destroys before 
-destroying the Droplet.
+Packer builds DigitalOcean images using one the pre-defined base images provided by DigitalOcean to create a new
+Droplet. It then configures the droplet, saves it as an image with the users DigitalOcean account before destroying the
+Droplet.
 
-The DigitalOcean base images are minimal installations of each operating system, very similar to VMs produced using 
-the ISO file. One key difference between DigitalOcean images and Vagrant base boxes, for example, is the absence of a 
-`vagrant` user as this isn't needed.
+The base images used are indicated below, they are minimal installations of each Operating System provided by
+DigitalOcean. These images differ little from VMs produced using ISO files, except where required to run under
+DigitalOcean.
+
+| Template name        | Base Image         | Provider     | Notes |
+| -------------------- | ------------------ | ------------ | ----- |
+| `antarctica/trusty`  | `ubuntu-14-04-x64` | DigitalOcean | -     |
+| `antarctica/centos7` | `centos-7-0-x64`   | DigitalOcean | -     |
 
 Packer will create Artefacts to reference DigitalOcean images in Atlas automatically.
 
-[1] User images must be based on a DigitalOcean defined image, it is not possible to upload and build from an ISO file.
+Note: These images do not include a `vagrant` user, as this is not needed for cloud images.
+
 #### Amazon Machine Images (AMIs)
 
 An Amazon Machine Image represents the saved state of previously created Amazon EC2 instance (VM) from which new
@@ -254,8 +262,8 @@ If testing Vagrant base boxes you will also need:
 [5] Specifically for a user account delegated from the BAS AWS account, use the
 [IAM Console](https://console.aws.amazon.com/iam/home?region=eu-west-1) to generate access keys.
 
-[6] See [here]() for instructions on how to generate a private key, contact the 
-[BAS ICT helpdesk](mailto:helpdesk@bas.ac.uk) if need help enabling this key to access BAS servers.
+[6] See [here](https://help.github.com/articles/generating-ssh-keys/) for instructions on how to generate a private key,
+contact the [BAS ICT helpdesk](mailto:helpdesk@bas.ac.uk) if need help enabling this key to access BAS servers.
 
 [7] Contact the [BAS ICT helpdesk](mailto:helpdesk@bas.ac.uk) if you don't have this access.
 
