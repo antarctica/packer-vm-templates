@@ -39,9 +39,9 @@ Active support is provided for a range of desktop and cloud providers, for the v
 
 | Provider            | Vendor       | Provider Version | Notes                                        |
 | ------------------- | ------------ | ---------------- | -------------------------------------------- |
-| VMware Fusion (Pro) | VMware       | 7.1.2 [1]        | [1]                                          |
-| VMware Workstation  | VMware       | 11.1.2 [1]       | [1]                                          |
-| VMware ESXi         | VMware       | 6.0 [1]          | And associated products such as vCentre. [1] |
+| VMware Fusion (Pro) | VMware       | 7.1.2            | [1]                                          |
+| VMware Workstation  | VMware       | 11.1.2           | [1]                                          |
+| VMware ESXi         | VMware       | 6.0              | And associated products such as vCentre. [1] |
 | VirtualBox          | Oracle       | 4.3.30           | -                                            |
 | DigitalOcean        | DigitalOcean | -                | -                                            |
 
