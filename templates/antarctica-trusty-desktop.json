@@ -3,13 +3,19 @@
     "iso_url": "http://gb.releases.ubuntu.com/trusty/ubuntu-14.04.3-server-amd64.iso",
     "iso_checksum": "0501c446929f713eb162ae2088d8dc8b6426224a",
     "iso_checksum_type": "sha1",
-    "io_ram_size": "384",
-    "hostname": "vagrant",
-    "ssh_username": "vagrant",
-    "ssh_password": "vagrant",
+
     "distro": "ubuntu-14.04-amd64",
     "disk_size": "40960",
-    "release_version": "2.1.0"
+    "io_ram_size": "384",
+
+    "hostname": "vagrant",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+
+    "artefact": "antarctica-trusty",
+    "release_version": "2.1.0",
+    "atlas_artifact": "antarctica/trusty"
   },
   "builders": [
     {
@@ -37,12 +43,13 @@
         ]
       ],
       "disk_size": "{{user `disk_size`}}",
+      "hard_drive_interface": "sata",
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "http_directory": "../preseed",
+      "http_directory": "preseed",
 
       "boot_command": [
         "<esc><wait>",
@@ -61,10 +68,10 @@
         " keyboard-configuration/layout=GB<wait>",
         " keyboard-configuration/variant=GB<wait>",
         " locale=en_GB<wait>",
-        " netcfg/get_domain=vm<wait>",
+        " netcfg/get_domain=v.m<wait>",
         " netcfg/get_hostname={{user `hostname`}}<wait>",
         " noapic<wait>",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `distro`}}/preseed.cfg<wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `artefact`}}/preseed.cfg<wait>",
         " -- <wait>",
         "<enter><wait>"
       ],
@@ -77,7 +84,7 @@
 
       "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
 
-      "output_directory": "../output/vms/{{user `distro`}}-virtualbox-iso"
+      "output_directory": "artefacts/ovas/{{user `artefact`}}-virtualbox-iso"
     },
     {
       "type": "vmware-iso",
@@ -97,7 +104,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "http_directory": "../preseed",
+      "http_directory": "preseed",
 
       "boot_command": [
         "<esc><wait>",
@@ -119,7 +126,7 @@
         " netcfg/get_domain=vm<wait>",
         " netcfg/get_hostname={{user `hostname`}}<wait>",
         " noapic<wait>",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `distro`}}/preseed.cfg<wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `artefact`}}/preseed.cfg<wait>",
         " -- <wait>",
         "<enter><wait>"
       ],
@@ -132,21 +139,21 @@
 
       "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
 
-      "output_directory": "../output/vms/{{user `distro`}}-vmware-iso"
+      "output_directory": "artefacts/ovas/{{user `artefact`}}-vmware-iso"
     }
   ],
   "provisioners": [
     {
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
-        "../provisioining/scripts/ubuntu/update.sh",
-        "../provisioining/scripts/common/sshd.sh",
-        "../provisioining/scripts/ubuntu/networking.sh",
-        "../provisioining/scripts/ubuntu/sudoers.sh",
-        "../provisioining/scripts/common/vagrant.sh",
-        "../provisioining/scripts/common/vmtools.sh",
-        "../provisioining/scripts/ubuntu/cleanup.sh",
-        "../provisioining/scripts/common/minimize.sh"
+        "provisioning/scripts/ubuntu/update.sh",
+        "provisioning/scripts/common/sshd.sh",
+        "provisioning/scripts/ubuntu/networking.sh",
+        "provisioning/scripts/ubuntu/sudoers.sh",
+        "provisioning/scripts/common/vagrant.sh",
+        "provisioning/scripts/common/vmtools.sh",
+        "provisioning/scripts/ubuntu/cleanup.sh",
+        "provisioning/scripts/common/minimize.sh"
       ],
       "type": "shell"
     }
@@ -154,27 +161,29 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "../output/base-boxes/boxes/{{user `distro`}}/{{.Provider}}.box",
+      "output": "artefacts/vagrant-base-boxes/base-boxes/{{user `artefact`}}/{{.Provider}}.box",
       "keep_input_artifact": true
     },
     {
       "type": "atlas",
       "only": ["virtualbox-iso"],
-      "artifact": "antarctica/trusty",
+      "artifact": "{{user `atlas_artifact`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "virtualbox",
-        "version": "{{user `release_version`}}"
+        "version": "{{user `release_version`}}",
+        "created_at": "{{timestamp}}"
       }
     },
     {
       "type": "atlas",
       "only": ["vmware-iso"],
-      "artifact": "antarctica/trusty",
+      "artifact": "{{user `atlas_artifact`}}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "vmware_desktop",
-        "version": "{{user `release_version`}}"
+        "version": "{{user `release_version`}}",
+        "created_at": "{{timestamp}}"
       }
     }
   ]

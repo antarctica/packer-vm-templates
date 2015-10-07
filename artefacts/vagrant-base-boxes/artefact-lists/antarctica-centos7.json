@@ -1,0 +1,29 @@
+
+{
+  "name": "antarctica/centos7",
+  "description": "A vanilla CentOS 7.1 x86_64 base box",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "383981aa2c80506d76d3da5ddbb617554baab628"
+        }
+      ]
+    },
+    {
+      "version": "0.1.1",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/vmware.box",
+          "checksum_type": "sha1",
+          "checksum": "be1970317dd1853e8298ae04574653550654d674"
+        }
+      ]
+    }
+  ]
+}
