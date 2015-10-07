@@ -30,20 +30,21 @@ summarised below:
 | `antarctica/trusty`  | Vagrant support                    | To enable Vagrant base box artefacts to be created   | *Vagrant base box* and *OVA* | -     |
 | `antarctica/trusty`  | Agent forwarding support in Sudo   | To allow Git checkouts using PKI when acting as root | *All*                        | -     |
 | `antarctica/trusty`  | Locale & keyboard layout set to UK | To suit UK hardware and use nearby package mirrors   | *Vagrant base box* and *OVA* | -     |
-| `antarctica/centos7` | SELinux set to "permissive"        | To be compatible with some legacy BAS projects       | *All*                        | -     |
-| `antarctica/centos7` | Root password set to "password"    | To emphasise that this is not a secure default       | *All*                        | -     |
+| `antarctica/centos7` | SELinux set to "permissive"        | To be compatible with some legacy BAS projects       | *Vagrant base box* and *OVA* | -     |
+| `antarctica/centos7` | Root password set to "password"    | To emphasise that this is not a secure default       | *Vagrant base box* and *OVA* | -     |
 
 ## Supported providers
 
 Active support is provided for a range of desktop and cloud providers, for the versions specified.
 
-| Provider            | Vendor       | Provider Version | Notes                                        |
-| ------------------- | ------------ | ---------------- | -------------------------------------------- |
-| VMware Fusion (Pro) | VMware       | 7.1.2            | [1]                                          |
-| VMware Workstation  | VMware       | 11.1.2           | [1]                                          |
-| VMware ESXi         | VMware       | 6.0              | And associated products such as vCentre. [1] |
-| VirtualBox          | Oracle       | 4.3.30           | -                                            |
-| DigitalOcean        | DigitalOcean | -                | -                                            |
+| Provider            | Vendor              | Provider Version | Notes                                        |
+| ------------------- | ------------------- | ---------------- | -------------------------------------------- |
+| VMware Fusion (Pro) | VMware              | 7.1.2            | [1]                                          |
+| VMware Workstation  | VMware              | 11.1.2           | [1]                                          |
+| VMware ESXi         | VMware              | 6.0              | And associated products such as vCentre. [1] |
+| VirtualBox          | Oracle              | 4.3.30           | -                                            |
+| DigitalOcean        | DigitalOcean        | -                | -                                            |
+| EC2                 | Amazon Web Services | -                | -                                            |
 
 [1] Because VMware Tools is not forwards compatible you must use a version of the relevant VMware product equal or lower
 than shown in this table. This is a VMware limitation, not with Packer, Bento or us.
@@ -53,24 +54,28 @@ than shown in this table. This is a VMware limitation, not with Packer, Bento or
 Pre-compiled artefacts for the current version of each template are listed here. Except where otherwise stated artefacts
 are made publicly available, under the same license as this project.
 
-| Template             | Format             | Status | Provider       | Distribution method | Distribution URL                                                                                                                                                                                   | Notes                                                                                    |
-| -------------------- | ------------------ | ------ | -------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `antarctica/trusty`  | Vagrant base box   | Mature | VMware         | Atlas / HTTPS       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/2.1.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/vmware.box)   | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/trusty`  | Vagrant base box   | Mature | VirtualBox     | Atlas / HTTPS       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/2.1.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/virtual.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/trusty`  | OVA [3]            | Mature | VMware         | HTTPS               | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/2.0.0/vmware.ova)                                                                                             | Supports VMware Fusion, Workstation and ESXi                                             |
-| `antarctica/trusty`  | OVA [3]            | Mature | VirtualBox     | HTTPS               | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/2.0.0/virtualbox.ova)                                                                                         | -                                                                                        |
-| `antarctica/trusty`  | DigitalOcean Image | Mature | DigitalOcean   | Atlas               | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/digitalocean.droplet/1)                                                                                                      | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
-| `antarctica/centos7` | Vagrant base box   | New    | VMware         | Atlas / HTTPS       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.1.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/centos7` | Vagrant base box   | New    | VirtualBox     | Atlas / HTTPS       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.1.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/centos7` | OVA [3]            | New    | VMware         | HTTPS               | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.1.0/vmware.ova)                                                                                              | Supports VMware Fusion, Workstation and ESXi                                             |
-| `antarctica/centos7` | OVA [3]            | New    | VirtualBox     | HTTPS               | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.1.0/virtualbox.ova)                                                                                          | -                                                                                        |
-| `antarctica/centos7` | DigitalOcean Image | New    | DigitalOcean   | Atlas               | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/digitalocean.droplet/1)                                                                                                     | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
+| Template             | Format               | Status | Provider       | Distribution method | Distribution URL                                                                                                                                                                                   | Notes                                                                                    |
+| -------------------- | -------------------- | ------ | -------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `antarctica/trusty`  | Vagrant base box     | Mature | VMware         | Atlas / HTTPS       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/2.1.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/vmware.box)   | Supports VMware Fusion and Workstation [1] [2]                                           |
+| `antarctica/trusty`  | Vagrant base box     | Mature | VirtualBox     | Atlas / HTTPS       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/2.1.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/virtual.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
+| `antarctica/trusty`  | OVA [3]              | Mature | VMware         | HTTPS               | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/2.0.0/vmware.ova)                                                                                             | Supports VMware Fusion, Workstation and ESXi                                             |
+| `antarctica/trusty`  | OVA [3]              | Mature | VirtualBox     | HTTPS               | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/2.0.0/virtualbox.ova)                                                                                         | -                                                                                        |
+| `antarctica/trusty`  | DigitalOcean Image   | Mature | DigitalOcean   | Atlas               | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/digitalocean.droplet/1)                                                                                                      | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
+| `antarctica/trusty`  | Amazon Machine Image | New    | EC2            | Atlas               | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/amazon.ami/1)                                                                                                                | Available only in the `eu-west-1` region                                                 |
+| `antarctica/centos7` | Vagrant base box     | New    | VMware         | Atlas / HTTPS       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.1.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
+| `antarctica/centos7` | Vagrant base box     | New    | VirtualBox     | Atlas / HTTPS       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.1.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]                                           |
+| `antarctica/centos7` | OVA [3]              | New    | VMware         | HTTPS               | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.1.0/vmware.ova)                                                                                              | Supports VMware Fusion, Workstation and ESXi                                             |
+| `antarctica/centos7` | OVA [3]              | New    | VirtualBox     | HTTPS               | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.1.0/virtualbox.ova)                                                                                          | -                                                                                        |
+| `antarctica/centos7` | DigitalOcean Image   | New    | DigitalOcean   | Atlas               | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/digitalocean.droplet/1)                                                                                                     | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
+| `antarctica/centos7` | Amazon Machine Image | New    | EC2            | Atlas               | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/amazon.ami/1)                                                                                                               | Available only in the `eu-west-1` region [6]                                             |
 
 The recommended method to use DigitalOcean images is through [Terraform](https://www.terraform.io), using the BAS
 [terraform-module-digital-ocean-droplet](https://github.com/antarctica/terraform-module-digital-ocean-droplet) module.
 
-Note: The *status* attribute represents how stable a template is. New templates will be listed as *New* and may contain 
-teething issues, such as small bugs or performance issues. Once these are fixed, templates will marked as *Mature*. This 
+The recommended method to use EC2 AMIs is through [Terraform](https://www.terraform.io).
+
+Note: The *status* attribute represents how stable a template is. New templates will be listed as *New* and may contain
+teething issues, such as small bugs or performance issues. Once these are fixed, templates will marked as *Mature*. This
 does not mean mature templates cannot be improved, rather that they are expected to work in most cases.
 
 [1] Atlas artefacts are listed under the [Antarctica](https://atlas.hashicorp.com/antarctica).
@@ -82,6 +87,13 @@ does not mean mature templates cannot be improved, rather that they are expected
 making it ideal for distribution.
 
 [4] DigitalOcean images cannot be shared so this is not available publicly.
+
+[5] SELinux is **NOT** disabled on this artefact, see [this issue](https://jira.ceh.ac.uk/browse/BASWEB-500) for further
+details.
+
+[6] Despite being free the CentOS base AIM carries a license agreement which prevents the built artefact from being
+shared publicly. To use this AMI you must be assigned permissions. Please get in touch using the information in the
+*Feedback* section if you wish to use this artefact.
 
 ### BAS SAN distribution location
 
@@ -178,6 +190,31 @@ the ISO file. One key difference between DigitalOcean images and Vagrant base bo
 Packer will create Artefacts to reference DigitalOcean images in Atlas automatically.
 
 [1] User images must be based on a DigitalOcean defined image, it is not possible to upload and build from an ISO file.
+#### Amazon Machine Images (AMIs)
+
+An Amazon Machine Image represents the saved state of previously created Amazon EC2 instance (VM) from which new
+instances can be based upon.
+
+Packer builds AMIs using one of the pre-defined, public, AMIs provided through the Amazon AMI Marketplace to create a
+new EC2 instance. It then configures the instance, saves it as an AMI within the users Amazon Web Services account
+before terminating the instance.
+
+The base AMIs used are indicated below, they are official, minimal, installations of each Operating System provided by
+the relevant distribution. These AMIs differ little from VMs produced using ISO files, except where required to run
+under EC2. One difference is the absence of a `vagrant` user, as this is not needed for cloud images.
+
+| Template name        | Base AMI                                                         | Provider                                                                                               | Notes |
+| -------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ----- |
+| `antarctica/trusty`  | [ami-47a23a30](https://aws.amazon.com/marketplace/pp/B00JV9TBA6) | [Canonical](https://aws.amazon.com/marketplace/seller-profile?id=565feec9-3d43-413e-9760-c651546613f2) | -     |
+| `antarctica/centos7` | [ami-e4ff5c93](https://aws.amazon.com/marketplace/pp/B00O7WM7QW) | [CentOS](https://aws.amazon.com/marketplace/seller-profile?id=16cb8b03-256e-4dde-8f34-1b0f377efe89)    | -     |
+
+Packer will create Artefacts to reference AMIs in Atlas automatically.
+
+Note: These images do not include a `vagrant` user, as this is not needed for cloud images.
+
+Note: Additional elements required to use an EC2 instance, as such security groups, SSH keys, etc. are not defined as
+part of the AMI. These additional elements will therefore need to be provided at runtime, ideally through a provisioning
+tool.
 
 ### Requirements
 
@@ -194,7 +231,9 @@ You will also need:
 
 * An `ATLAS_TOKEN` environment variable set to your [Atlas access token](https://atlas.hashicorp.com/settings/tokens)
 * An `DIGITALOCEAN_API_TOKEN` environment variable set to your DigitalOcean personal access token [4]
-* An `AWS_ACCESS_KEY_ID` and  `AWS_ACCESS_KEY_SECRET` environment variable set to your AWS Access Key [5]
+* An `AWS_ACCESS_KEY_ID` environment variable set to your AWS access key ID, and both `AWS_ACCESS_KEY_SECRET` and
+`AWS_SECRET_ACCESS_KEY` environment variables set to your AWS Access Key [5]
+* Suitable permissions within AWS to create/destroy EC2 instances, AMIs, security groups, key-pairs, etc.
 * Access to the `bas-packages-prod` S3 bucket
 * A private key with access to `bslcene.nerc-bas.ac.uk` located as `~/.ssh/id_rsa` [6]
 * Write access to the `/data/softwaredist` volume [7]
@@ -234,7 +273,7 @@ $ cd packer-templates
 Each template within this project is split into multiple template files, each targeting different artefact formats:
 
 * `-desktop` templates build *Vagrant base boxes* and *OVA files*
-* `-cloud` templates build *DigitalOcean images*
+* `-cloud` templates build *DigitalOcean images* and *AMIs*
 
 Template files are built separately using the `packer build` command, typically all template files for a template will
 be built.
@@ -479,6 +518,10 @@ $ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.ner
 ### DigitalOcean images
 
 Packer will automatically store DigitalOcean images within the DigitalOcean account Packer is configured to use.
+
+### Amazon Machine Images
+
+Packer will automatically store AMIs within the Amazon Web Services account Packer is configured to use.
 
 ## Acknowledgements
 
