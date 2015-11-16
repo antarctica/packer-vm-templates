@@ -5,7 +5,7 @@
     "hostname": "cloud",
 
     "artefact": "antarctica-centos7",
-    "release_version": "0.1.0",
+    "release_version": "0.2.0",
     "atlas_artifact": "antarctica/centos7"
   },
   "builders": [
