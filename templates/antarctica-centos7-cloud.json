@@ -19,6 +19,16 @@
       "droplet_name": "{{user `hostname`}}",
       "private_networking": true,
       "snapshot_name": "{{user `atlas_artifact`}}-{{user `release_version`}}"
+    },
+    {
+      "type": "amazon-ebs",
+      "communicator": "ssh",
+      "ssh_pty": true,
+      "source_ami": "ami-e4ff5c93",
+      "region": "eu-west-1",
+      "instance_type": "t2.micro",
+      "ssh_username": "centos",
+      "ami_name": "{{user `atlas_artifact`}}-{{user `release_version`}}"
     }
   ],
   "provisioners": [
@@ -33,13 +43,26 @@
       "type": "shell"
     }
   ],
-  "post-processors": [{
-    "type": "atlas",
-    "artifact": "{{user `atlas_artifact`}}",
-    "artifact_type": "digitalocean.droplet",
-    "metadata": {
-      "version": "{{user `release_version`}}",
-      "created_at": "{{timestamp}}"
+  "post-processors": [
+    {
+      "type": "atlas",
+      "only": ["digitalocean"],
+      "artifact": "{{user `atlas_artifact`}}",
+      "artifact_type": "digitalocean.droplet",
+      "metadata": {
+        "version": "{{user `release_version`}}",
+        "created_at": "{{timestamp}}"
+      }
+    },
+    {
+      "type": "atlas",
+      "only": ["amazon-ebs"],
+      "artifact": "{{user `atlas_artifact`}}",
+      "artifact_type": "amazon.ami",
+      "metadata": {
+        "version": "{{user `release_version`}}",
+        "created_at": "{{timestamp}}"
+      }
     }
-  }]
+  ]
 }

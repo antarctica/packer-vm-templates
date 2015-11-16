@@ -158,7 +158,7 @@
       "type": "shell"
     }
   ],
-  "post-processors": [
+  "post-processors": [[
     {
       "type": "vagrant",
       "output": "artefacts/vagrant-base-boxes/base-boxes/{{user `artefact`}}/{{.Provider}}.box",
@@ -186,5 +186,5 @@
         "created_at": "{{timestamp}}"
       }
     }
-  ]
+  ]]
 }

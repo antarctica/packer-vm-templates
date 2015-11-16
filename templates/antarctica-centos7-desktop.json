@@ -17,7 +17,7 @@
     "ssh_password": "vagrant",
 
     "artefact": "antarctica-centos7",
-    "release_version": "0.1.0",
+    "release_version": "0.1.2",
     "atlas_artifact": "antarctica/centos7"
   },
   "builders": [
@@ -124,7 +124,7 @@
       "type": "shell"
     }
   ],
-  "post-processors": [
+  "post-processors": [[
     {
       "type": "vagrant",
       "output": "artefacts/vagrant-base-boxes/base-boxes/{{user `artefact`}}/{{.Provider}}.box",
@@ -152,5 +152,5 @@
         "created_at": "{{timestamp}}"
       }
     }
-  ]
+  ]]
 }

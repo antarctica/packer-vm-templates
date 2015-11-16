@@ -17,6 +17,17 @@
       "droplet_name": "{{user `hostname`}}",
       "private_networking": true,
       "snapshot_name": "{{user `atlas_artifact`}}-{{user `release_version`}}"
+    },
+    {
+      "type": "amazon-ebs",
+      "source_ami": "ami-47a23a30",
+      "region": "eu-west-1",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "ami_groups": [
+        "all"
+      ],
+      "ami_name": "{{user `atlas_artifact`}}-{{user `release_version`}}"
     }
   ],
   "provisioners": [
@@ -25,20 +36,32 @@
       "scripts": [
         "provisioning/scripts/ubuntu/update.sh",
         "provisioning/scripts/common/sshd.sh",
-        "provisioning/scripts/ubuntu/networking.sh",
         "provisioning/scripts/ubuntu/sudoers.sh",
         "provisioning/scripts/ubuntu/cleanup.sh"
       ],
       "type": "shell"
     }
   ],
-  "post-processors": [{
-    "type": "atlas",
-    "artifact": "{{user `atlas_artifact`}}",
-    "artifact_type": "digitalocean.droplet",
-    "metadata": {
-      "version": "{{user `release_version`}}",
-      "created_at": "{{timestamp}}"
+  "post-processors": [
+    {
+      "type": "atlas",
+      "only": ["digitalocean"],
+      "artifact": "{{user `atlas_artifact`}}",
+      "artifact_type": "digitalocean.droplet",
+      "metadata": {
+        "version": "{{user `release_version`}}",
+        "created_at": "{{timestamp}}"
+      }
+    },
+    {
+      "type": "atlas",
+      "only": ["amazon-ebs"],
+      "artifact": "{{user `atlas_artifact`}}",
+      "artifact_type": "amazon.ami",
+      "metadata": {
+        "version": "{{user `release_version`}}",
+        "created_at": "{{timestamp}}"
+      }
     }
-  }]
+  ]
 }
