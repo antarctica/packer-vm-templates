@@ -10,7 +10,7 @@ See the *pre-built artefacts* section for distribution/download links.
 
 | Template Name        | Template Version | Status | Distribution Name                | Distribution Version | Distribution Architecture | Notes |
 | -------------------- | ---------------- | ------ | -------------------------------- | -------------------- | ------------------------- | ----- |
-| `antarctica/trusty`  | 3.0.0            | Mature |[Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | -     |
+| `antarctica/trusty`  | 3.0.1            | Mature |[Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | -     |
 | `antarctica/centos7` | 0.4.0            | New    |[CentOS](https://www.centos.org/) | 7.1                  | x86_64                    | -     |
 
 Note: The *status* attribute represents how stable a template is. New templates will be listed as *New* and may contain
