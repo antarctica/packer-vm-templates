@@ -5,7 +5,7 @@
     "hostname": "cloud",
 
     "artefact": "antarctica-centos7",
-    "release_version": "0.3.0",
+    "release_version": "0.4.0",
     "atlas_artifact": "antarctica/centos7"
   },
   "builders": [
@@ -44,28 +44,6 @@
         "provisioning/scripts/centos/cleanup.sh"
       ],
       "type": "shell"
-    }
-  ],
-  "post-processors": [
-    {
-      "type": "atlas",
-      "only": ["digitalocean"],
-      "artifact": "{{user `atlas_artifact`}}",
-      "artifact_type": "digitalocean.droplet",
-      "metadata": {
-        "version": "{{user `release_version`}}",
-        "created_at": "{{timestamp}}"
-      }
-    },
-    {
-      "type": "atlas",
-      "only": ["amazon-ebs"],
-      "artifact": "{{user `atlas_artifact`}}",
-      "artifact_type": "amazon.ami",
-      "metadata": {
-        "version": "{{user `release_version`}}",
-        "created_at": "{{timestamp}}"
-      }
     }
   ]
 }
