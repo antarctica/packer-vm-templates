@@ -17,7 +17,7 @@
     "ssh_password": "vagrant",
 
     "artefact": "antarctica-centos7",
-    "release_version": "0.2.0",
+    "release_version": "0.3.0",
     "atlas_artifact": "antarctica/centos7"
   },
   "builders": [

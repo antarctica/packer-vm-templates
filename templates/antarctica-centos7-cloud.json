@@ -5,7 +5,7 @@
     "hostname": "cloud",
 
     "artefact": "antarctica-centos7",
-    "release_version": "0.2.0",
+    "release_version": "0.3.0",
     "atlas_artifact": "antarctica/centos7"
   },
   "builders": [
@@ -38,6 +38,7 @@
         "provisioning/scripts/common/sshd.sh",
         "provisioning/scripts/centos/sudoers.sh",
         "provisioning/scripts/centos/networking.sh",
+        "provisioning/scripts/centos/firewalld.sh",
         "provisioning/scripts/centos/cleanup.sh"
       ],
       "type": "shell"
