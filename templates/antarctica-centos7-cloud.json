@@ -35,6 +35,7 @@
     {
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
+        "provisioning/scripts/centos/selinux.sh",
         "provisioning/scripts/common/sshd.sh",
         "provisioning/scripts/centos/sudoers.sh",
         "provisioning/scripts/centos/networking.sh",
