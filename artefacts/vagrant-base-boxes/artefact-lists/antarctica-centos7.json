@@ -11,12 +11,7 @@
           "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "383981aa2c80506d76d3da5ddbb617554baab628"
-        }
-      ]
-    },
-    {
-      "version": "0.1.0",
-      "providers": [
+        },
         {
           "name": "vmware_desktop",
           "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.1.0/vmware.box",
@@ -33,12 +28,7 @@
           "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.2.0/virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "0197e88a303f1287c951cfca2f037fe6b4f14ef2"
-        }
-      ]
-    },
-    {
-      "version": "0.2.0",
-      "providers": [
+        },
         {
           "name": "vmware_desktop",
           "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.2.0/vmware.box",
@@ -55,17 +45,29 @@
           "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.3.0/virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "c52bddabb5893c97f24a36789828cad5316f9ce2"
-        }
-      ]
-    },
-    {
-      "version": "0.3.0",
-      "providers": [
+        },
         {
           "name": "vmware_desktop",
           "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.3.0/vmware.box",
           "checksum_type": "sha1",
           "checksum": "b2be9f81760ca36ddbd9d95eb71a0dcb7aa333d5"
+        }
+      ]
+    },
+    {
+      "version": "0.4.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.4.0/virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "cff998cbb88707f764c61ab1e5be12f5f6c2a122"
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.4.0/vmware.box",
+          "checksum_type": "sha1",
+          "checksum": "dee1c63346536cfae65fe576e58a00cc90f8a3ee"
         }
       ]
     }
