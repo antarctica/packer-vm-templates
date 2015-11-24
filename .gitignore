@@ -1,11 +1,3 @@
 packer_cache
-ubuntu-12-4-64-basebox-virtualbox.box
-Vagrantfile
-*.box
-*.vmdk
-*.nvram
-*.vmsd
-*.vmx
-*.vmxf
-*.ova
-output/vms
+artefacts/ovas
+artefacts/vagrant-base-boxes/base-boxes

@@ -5,7 +5,7 @@
     "hostname": "cloud",
 
     "artefact": "antarctica-trusty",
-    "release_version": "2.1.0",
+    "release_version": "3.0.1",
     "atlas_artifact": "antarctica/trusty"
   },
   "builders": [
@@ -20,6 +20,8 @@
     },
     {
       "type": "amazon-ebs",
+      "communicator": "ssh",
+      "ssh_pty": true,
       "source_ami": "ami-47a23a30",
       "region": "eu-west-1",
       "instance_type": "t2.micro",
@@ -36,7 +38,9 @@
       "scripts": [
         "provisioning/scripts/ubuntu/update.sh",
         "provisioning/scripts/common/sshd.sh",
+        "provisioning/scripts/ubuntu/ufw.sh",
         "provisioning/scripts/ubuntu/sudoers.sh",
+        "provisioning/scripts/ubuntu/locale.sh",
         "provisioning/scripts/ubuntu/cleanup.sh"
       ],
       "type": "shell"

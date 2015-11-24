@@ -14,7 +14,7 @@
     "ssh_password": "vagrant",
 
     "artefact": "antarctica-trusty",
-    "release_version": "2.1.0",
+    "release_version": "3.0.1",
     "atlas_artifact": "antarctica/trusty"
   },
   "builders": [
@@ -149,6 +149,7 @@
         "provisioning/scripts/ubuntu/update.sh",
         "provisioning/scripts/common/sshd.sh",
         "provisioning/scripts/ubuntu/networking.sh",
+        "provisioning/scripts/ubuntu/ufw.sh",
         "provisioning/scripts/ubuntu/sudoers.sh",
         "provisioning/scripts/common/vagrant.sh",
         "provisioning/scripts/common/vmtools.sh",
