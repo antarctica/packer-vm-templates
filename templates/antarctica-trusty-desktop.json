@@ -146,7 +146,7 @@
     {
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
-        "provisioning/scripts/ubuntu/update.sh",
+        "provisioning/scripts/ubuntu/update-desktop.sh",
         "provisioning/scripts/common/sshd.sh",
         "provisioning/scripts/ubuntu/networking.sh",
         "provisioning/scripts/ubuntu/ufw.sh",
