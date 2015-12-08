@@ -17,7 +17,7 @@
     "ssh_password": "vagrant",
 
     "artefact": "antarctica-centos7",
-    "release_version": "0.4.0",
+    "release_version": "0.5.0",
     "atlas_artifact": "antarctica/centos7"
   },
   "builders": [
@@ -111,7 +111,10 @@
         "HOME_DIR=/home/vagrant",
         "http_proxy={{user `http_proxy`}}",
         "https_proxy={{user `https_proxy`}}",
-        "no_proxy={{user `no_proxy`}}"
+        "no_proxy={{user `no_proxy`}}",
+        "TEMPLATE_NAME={{user `atlas_artifact`}}",
+        "TEMPLATE_NAME_ALT={{user `artefact`}}",
+        "TEMPLATE_VERSION={{user `release_version`}}"
       ],
       "scripts": [
         "provisioning/scripts/common/sshd.sh",
@@ -119,6 +122,7 @@
         "provisioning/scripts/centos/networking.sh",
         "provisioning/scripts/common/vagrant.sh",
         "provisioning/scripts/common/vmtools.sh",
+        "provisioning/scripts/common/metadata.sh",
         "provisioning/scripts/centos/cleanup.sh",
         "provisioning/scripts/common/minimize.sh"
       ]

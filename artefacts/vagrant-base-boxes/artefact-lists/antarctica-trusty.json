@@ -232,6 +232,23 @@
           "checksum": "99ccf03c35d450a4b6d87a8dd9a61dc1619a479c"
         }
       ]
+    },
+    {
+      "version": "3.1.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.1.0/virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": ""
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.1.0/vmware.box",
+          "checksum_type": "sha1",
+          "checksum": ""
+        }
+      ]
     }
   ]
 }

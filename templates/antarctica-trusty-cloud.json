@@ -5,7 +5,7 @@
     "hostname": "cloud",
 
     "artefact": "antarctica-trusty",
-    "release_version": "3.0.1",
+    "release_version": "3.1.0",
     "atlas_artifact": "antarctica/trusty"
   },
   "builders": [
@@ -36,12 +36,18 @@
     {
       "type": "shell",
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "environment_vars": [
+        "TEMPLATE_NAME={{user `atlas_artifact`}}",
+        "TEMPLATE_NAME_ALT={{user `artefact`}}",
+        "TEMPLATE_VERSION={{user `release_version`}}"
+      ],
       "scripts": [
         "provisioning/scripts/ubuntu/update-cloud.sh",
         "provisioning/scripts/common/sshd.sh",
         "provisioning/scripts/ubuntu/ufw.sh",
         "provisioning/scripts/ubuntu/sudoers.sh",
         "provisioning/scripts/ubuntu/locale.sh",
+        "provisioning/scripts/common/metadata.sh",
         "provisioning/scripts/ubuntu/cleanup.sh"
       ]
     }
