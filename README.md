@@ -25,18 +25,19 @@ instead. For example a template named `antarctica/trusty` would alternatively be
 Some customisations are made to these Operating systems using  provisioning scripts and installation options, these are
 summarised below:
 
-| Template Name(s)     | Since | Customisation                                                 | Rational                                                       | Applicable Artefact Formats                  | Notes |
-| -------------------- | ----- | ------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------- | ----- |
-| `antarctica/trusty`  | 0.1.0 | Vagrant support                                               | To enable Vagrant base box artefacts to be created             | *Vagrant base box* and *OVA*                 | -     |
-| `antarctica/trusty`  | 2.0.0 | Agent forwarding support in Sudo                              | To allow Git checkouts using PKI when acting as root           | *All*                                        | -     |
-| `antarctica/trusty`  | 0.1.0 | Locale & keyboard layout set to UK                            | To suit UK hardware and use nearby package mirrors             | *Vagrant base box* and *OVA*                 | -     |
-| `antarctica/trusty`  | 3.0.0 | System firewall enabled by default, with an exception for SSH | For basic system security whilst allowing remote management    | *All*                                        | -     |
-| `antarctica/centos7` | 0.1.0 | SELinux set to "permissive"                                   | To be compatible with some legacy BAS projects                 | *Vagrant base box*, *OVA* and *DigitalOcean* | [1]   |
-| `antarctica/centos7` | 0.1.0 | Root password set to "password"                               | To emphasise that this is not a secure default                 | *Vagrant base box* and *OVA*                 | -     |
-| `antarctica/centos7` | 0.1.0 | Agent forwarding support in Sudo                              | To allow Git checkouts using PKI when acting as root           | *All*                                        | -     |
-| `antarctica/centos7` | 0.2.0 | Password-less sudo enabled for members of the 'wheel' group   | To allow provisioning tools to perform sudo actions            | *All*                                        | -     |
-| `antarctica/centos7` | 0.3.0 | System firewall enabled by default, with an exception for SSH | For basic system security whilst allowing remote management    | *All*                                        | -     |
-| `antarctica/centos7` | 0.4.0 | UID for Vagrant user set to '900'                             | For consistency with Ubuntu and allow users to start from 1000 | *Vagrant base box* and *OVA*                 | -     |
+| Template Name(s)     | Since | Customisation                                                 | Rational                                                         | Applicable Artefact Formats                  | Notes |
+| -------------------- | ----- | ------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------- | ----- |
+| `antarctica/trusty`  | 0.1.0 | Vagrant support                                               | To enable Vagrant base box artefacts to be created               | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/trusty`  | 0.1.0 | Locale & keyboard layout set to UK                            | To suit UK hardware and use nearby package mirrors               | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/trusty`  | 1.0.0 | Basing template of the Bento project                          | No more reinventing the wheel, much smaller artefacts            | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/trusty`  | 2.0.0 | Agent forwarding support in Sudo                              | To allow Git checkouts using PKI when acting as root             | *All*                                        | -     |
+| `antarctica/trusty`  | 3.0.0 | System firewall enabled by default, with an exception for SSH | For basic system security whilst allowing remote management      | *All*                                        | -     |
+| `antarctica/centos7` | 0.1.0 | SELinux set to "permissive"                                   | To be compatible with some legacy BAS projects                   | *All except AMI*                             | [1]   |
+| `antarctica/centos7` | 0.1.0 | Root password set to "password"                               | To emphasise that this is not a secure default                   | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/centos7` | 0.1.0 | Agent forwarding support in Sudo                              | To allow Git checkouts using PKI when acting as root             | *All*                                        | -     |
+| `antarctica/centos7` | 0.2.0 | Password-less sudo enabled for members of the 'wheel' group   | To allow provisioning tools to perform sudo actions              | *All*                                        | -     |
+| `antarctica/centos7` | 0.3.0 | System firewall enabled by default, with an exception for SSH | For basic system security whilst allowing remote management      | *All*                                        | -     |
+| `antarctica/centos7` | 0.4.0 | UID for Vagrant user set to '900'                             | For consistency with Ubuntu and allow users to start from 1000   | *Vagrant base box* and *OVA*                 | -     |
 
 Note: The above list does not include customisations made by the Bento project.
 

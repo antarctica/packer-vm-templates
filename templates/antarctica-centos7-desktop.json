@@ -105,13 +105,14 @@
   ],
   "provisioners": [
     {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "environment_vars": [
         "HOME_DIR=/home/vagrant",
         "http_proxy={{user `http_proxy`}}",
         "https_proxy={{user `https_proxy`}}",
         "no_proxy={{user `no_proxy`}}"
       ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
         "provisioning/scripts/common/sshd.sh",
         "provisioning/scripts/centos/sudoers.sh",
@@ -120,8 +121,7 @@
         "provisioning/scripts/common/vmtools.sh",
         "provisioning/scripts/centos/cleanup.sh",
         "provisioning/scripts/common/minimize.sh"
-      ],
-      "type": "shell"
+      ]
     }
   ],
   "post-processors": [[

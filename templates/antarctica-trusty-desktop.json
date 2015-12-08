@@ -144,6 +144,7 @@
   ],
   "provisioners": [
     {
+      "type": "shell",
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
         "provisioning/scripts/ubuntu/update-desktop.sh",
@@ -155,8 +156,7 @@
         "provisioning/scripts/common/vmtools.sh",
         "provisioning/scripts/ubuntu/cleanup.sh",
         "provisioning/scripts/common/minimize.sh"
-      ],
-      "type": "shell"
+      ]
     }
   ],
   "post-processors": [[

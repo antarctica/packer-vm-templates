@@ -33,6 +33,7 @@
   ],
   "provisioners": [
     {
+      "type": "shell",
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
         "provisioning/scripts/centos/selinux.sh",
@@ -42,8 +43,7 @@
         "provisioning/scripts/centos/firewalld.sh",
         "provisioning/scripts/centos/locale.sh",
         "provisioning/scripts/centos/cleanup.sh"
-      ],
-      "type": "shell"
+      ]
     }
   ],
   "post-processors": [

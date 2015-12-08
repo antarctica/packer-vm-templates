@@ -34,6 +34,7 @@
   ],
   "provisioners": [
     {
+      "type": "shell",
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
         "provisioning/scripts/ubuntu/update-cloud.sh",
@@ -42,8 +43,7 @@
         "provisioning/scripts/ubuntu/sudoers.sh",
         "provisioning/scripts/ubuntu/locale.sh",
         "provisioning/scripts/ubuntu/cleanup.sh"
-      ],
-      "type": "shell"
+      ]
     }
   ],
   "post-processors": [
