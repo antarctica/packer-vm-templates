@@ -5,7 +5,7 @@
     "hostname": "cloud",
 
     "artefact": "antarctica-centos7",
-    "release_version": "0.4.0",
+    "release_version": "0.5.0",
     "atlas_artifact": "antarctica/centos7"
   },
   "builders": [
@@ -33,7 +33,13 @@
   ],
   "provisioners": [
     {
+      "type": "shell",
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "environment_vars": [
+        "TEMPLATE_NAME={{user `atlas_artifact`}}",
+        "TEMPLATE_NAME_ALT={{user `artefact`}}",
+        "TEMPLATE_VERSION={{user `release_version`}}"
+      ],
       "scripts": [
         "provisioning/scripts/centos/selinux.sh",
         "provisioning/scripts/common/sshd.sh",
@@ -41,9 +47,9 @@
         "provisioning/scripts/centos/networking.sh",
         "provisioning/scripts/centos/firewalld.sh",
         "provisioning/scripts/centos/locale.sh",
+        "provisioning/scripts/common/metadata.sh",
         "provisioning/scripts/centos/cleanup.sh"
-      ],
-      "type": "shell"
+      ]
     }
   ],
   "post-processors": [

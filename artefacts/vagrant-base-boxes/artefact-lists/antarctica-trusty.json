@@ -119,13 +119,13 @@
       "providers": [
         {
           "name": "virtualbox",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.0/virtualbox.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.0/virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "ea1cd8d10c5eab0ed24756e32684b2426b8b18e0"
         },
         {
           "name": "vmware_desktop",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.0/vmware.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.0/vmware.box",
           "checksum_type": "sha1",
           "checksum": "2a2d1532237ff02c1ce334545cb42dee1bc8c11b"
         }
@@ -136,13 +136,13 @@
       "providers": [
         {
           "name": "virtualbox",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.1/virtualbox.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.1/virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "df4422ac3da1bd6e684cf7d8343e6c9030c9e013"
         },
         {
           "name": "vmware_desktop",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.1/vmware.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/1.0.1/vmware.box",
           "checksum_type": "sha1",
           "checksum": "517380914c84912904a48b76292438619deb0355"
         }
@@ -153,13 +153,13 @@
       "providers": [
         {
           "name": "virtualbox",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.1.0/virtualbox.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/1.1.0/virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "b541b94f5218a39b5868cd59d884b93f0e743365"
         },
         {
           "name": "vmware_desktop",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.1.0/vmware.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/1.1.0/vmware.box",
           "checksum_type": "sha1",
           "checksum": "02ddb46bbe3631cba83a3535c59693eb54f28022"
         }
@@ -170,13 +170,13 @@
       "providers": [
         {
           "name": "virtualbox",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.2.0/virtualbox.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/1.2.0/virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "efd4c408ef51b20f25f70995fece8cb4cda20abc"
         },
         {
           "name": "vmware_desktop",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/1.2.0/vmware.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/1.2.0/vmware.box",
           "checksum_type": "sha1",
           "checksum": "b6f999db47b5ded37a1a537ce4c1b005bf076ca4"
         }
@@ -187,13 +187,13 @@
       "providers": [
         {
           "name": "virtualbox",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/2.0.0/virtualbox.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/2.0.0/virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "e53a37dfecc3f071a41edf6adc03bb0d88f4a631"
         },
         {
           "name": "vmware_desktop",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/2.0.0/vmware.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/2.0.0/vmware.box",
           "checksum_type": "sha1",
           "checksum": "17f5c1beedb4c4f473629c9c7f3be3ee3067fc82"
         }
@@ -204,13 +204,13 @@
       "providers": [
         {
           "name": "virtualbox",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/2.1.0/virtualbox.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/2.1.0/virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "9ab5c2cf9083d83f43ffda19bf27f1a497c7cc5d"
         },
         {
           "name": "vmware_desktop",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/2.1.0/vmware.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/2.1.0/vmware.box",
           "checksum_type": "sha1",
           "checksum": "041aabae36a31d3148f92e398156dbaf8860d8a5"
         }
@@ -221,15 +221,32 @@
       "providers": [
         {
           "name": "virtualbox",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/3.0.0/virtualbox.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.0.0/virtualbox.box",
           "checksum_type": "sha1",
           "checksum": "c9c826f02233967519a0e1bd8d15c8bfd720f181"
         },
         {
           "name": "vmware_desktop",
-          "url": "https://s3-eu-west-1.amazonaws.com/packages.calcifer.co/vagrant/baseboxes/ubuntu/14.04/amd64/3.0.0/vmware.box",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.0.0/vmware.box",
           "checksum_type": "sha1",
           "checksum": "99ccf03c35d450a4b6d87a8dd9a61dc1619a479c"
+        }
+      ]
+    },
+    {
+      "version": "3.1.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.1.0/virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": ""
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.1.0/vmware.box",
+          "checksum_type": "sha1",
+          "checksum": ""
         }
       ]
     }

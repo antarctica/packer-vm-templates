@@ -10,8 +10,8 @@ See the *pre-built artefacts* section for distribution/download links.
 
 | Template Name        | Template Version | Status | Distribution Name                | Distribution Version | Distribution Architecture | Notes |
 | -------------------- | ---------------- | ------ | -------------------------------- | -------------------- | ------------------------- | ----- |
-| `antarctica/trusty`  | 3.0.1            | Mature |[Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | -     |
-| `antarctica/centos7` | 0.4.0            | New    |[CentOS](https://www.centos.org/) | 7.1                  | x86_64                    | -     |
+| `antarctica/trusty`  | 3.1.0            | Mature |[Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | -     |
+| `antarctica/centos7` | 0.5.0            | New    |[CentOS](https://www.centos.org/) | 7.1                  | x86_64                    | -     |
 
 Note: The *status* attribute represents how stable a template is. New templates will be listed as *New* and may contain
 teething issues, such as small bugs or performance issues. Once these are fixed, templates will marked as *Mature*. This
@@ -25,18 +25,21 @@ instead. For example a template named `antarctica/trusty` would alternatively be
 Some customisations are made to these Operating systems using  provisioning scripts and installation options, these are
 summarised below:
 
-| Template Name(s)     | Since | Customisation                                                 | Rational                                                       | Applicable Artefact Formats                  | Notes |
-| -------------------- | ----- | ------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------- | ----- |
-| `antarctica/trusty`  | 0.1.0 | Vagrant support                                               | To enable Vagrant base box artefacts to be created             | *Vagrant base box* and *OVA*                 | -     |
-| `antarctica/trusty`  | 2.0.0 | Agent forwarding support in Sudo                              | To allow Git checkouts using PKI when acting as root           | *All*                                        | -     |
-| `antarctica/trusty`  | 0.1.0 | Locale & keyboard layout set to UK                            | To suit UK hardware and use nearby package mirrors             | *Vagrant base box* and *OVA*                 | -     |
-| `antarctica/trusty`  | 3.0.0 | System firewall enabled by default, with an exception for SSH | For basic system security whilst allowing remote management    | *All*                                        | -     |
-| `antarctica/centos7` | 0.1.0 | SELinux set to "permissive"                                   | To be compatible with some legacy BAS projects                 | *Vagrant base box*, *OVA* and *DigitalOcean* | [1]   |
-| `antarctica/centos7` | 0.1.0 | Root password set to "password"                               | To emphasise that this is not a secure default                 | *Vagrant base box* and *OVA*                 | -     |
-| `antarctica/centos7` | 0.1.0 | Agent forwarding support in Sudo                              | To allow Git checkouts using PKI when acting as root           | *All*                                        | -     |
-| `antarctica/centos7` | 0.2.0 | Password-less sudo enabled for members of the 'wheel' group   | To allow provisioning tools to perform sudo actions            | *All*                                        | -     |
-| `antarctica/centos7` | 0.3.0 | System firewall enabled by default, with an exception for SSH | For basic system security whilst allowing remote management    | *All*                                        | -     |
-| `antarctica/centos7` | 0.4.0 | UID for Vagrant user set to '900'                             | For consistency with Ubuntu and allow users to start from 1000 | *Vagrant base box* and *OVA*                 | -     |
+| Template Name(s)     | Since | Customisation                                                 | Rational                                                         | Applicable Artefact Formats                  | Notes |
+| -------------------- | ----- | ------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------- | ----- |
+| `antarctica/trusty`  | 0.1.0 | Vagrant support                                               | To enable Vagrant base box artefacts to be created               | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/trusty`  | 0.1.0 | Locale & keyboard layout set to UK                            | To suit UK hardware and use nearby package mirrors               | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/trusty`  | 1.0.0 | Basing template of the Bento project                          | No more reinventing the wheel, much smaller artefacts            | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/trusty`  | 2.0.0 | Agent forwarding support in Sudo                              | To allow Git checkouts using PKI when acting as root             | *All*                                        | -     |
+| `antarctica/trusty`  | 3.0.0 | System firewall enabled by default, with an exception for SSH | For basic system security whilst allowing remote management      | *All*                                        | -     |
+| `antarctica/trusty`  | 3.1.0 | Adding template information to an Ansible local facts file    | For registering instances of this template in system inventories | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/centos7` | 0.1.0 | SELinux set to "permissive"                                   | To be compatible with some legacy BAS projects                   | *All except AMI*                             | [1]   |
+| `antarctica/centos7` | 0.1.0 | Root password set to "password"                               | To emphasise that this is not a secure default                   | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/centos7` | 0.1.0 | Agent forwarding support in Sudo                              | To allow Git checkouts using PKI when acting as root             | *All*                                        | -     |
+| `antarctica/centos7` | 0.2.0 | Password-less sudo enabled for members of the 'wheel' group   | To allow provisioning tools to perform sudo actions              | *All*                                        | -     |
+| `antarctica/centos7` | 0.3.0 | System firewall enabled by default, with an exception for SSH | For basic system security whilst allowing remote management      | *All*                                        | -     |
+| `antarctica/centos7` | 0.4.0 | UID for Vagrant user set to '900'                             | For consistency with Ubuntu and allow users to start from 1000   | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/centos7` | 0.5.0 | Adding template information to an Ansible local facts file    | For registering instances of this template in system inventories | *Vagrant base box* and *OVA*                 | -     |
 
 Note: The above list does not include customisations made by the Bento project.
 
@@ -66,18 +69,18 @@ are made publicly available, under the same license as this project.
 
 | Template             | Format               | Status | Provider       | Distribution Method & URL                                                                                                                                                                                   | Notes                                                                                    |
 | -------------------- | -------------------- | ------ | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `antarctica/trusty`  | Vagrant base box     | Mature | VMware         | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.0.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/3.0.0/vmware.box)   | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/trusty`  | Vagrant base box     | Mature | VirtualBox     | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.0.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/3.0.0/virtual.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/trusty`  | OVA [3]              | Mature | VMware         | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/3.0.0/vmware.ova)                                                                                             | Supports VMware Fusion, Workstation and ESXi                                             |
-| `antarctica/trusty`  | OVA [3]              | Mature | VirtualBox     | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/3.0.0/virtualbox.ova)                                                                                         | -                                                                                        |
-| `antarctica/trusty`  | DigitalOcean Image   | Mature | DigitalOcean   | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/digitalocean.droplet/3)                                                                                                      | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
-| `antarctica/trusty`  | Amazon Machine Image | New    | EC2            | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/amazon.ami/3)                                                                                                                | Available only in the `eu-west-1` region                                                 |
-| `antarctica/centos7` | Vagrant base box     | New    | VMware         | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.4.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.4.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/centos7` | Vagrant base box     | New    | VirtualBox     | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.4.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.4.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/centos7` | OVA [3]              | New    | VMware         | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.4.0/vmware.ova)                                                                                              | Supports VMware Fusion, Workstation and ESXi                                             |
-| `antarctica/centos7` | OVA [3]              | New    | VirtualBox     | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.4.0/virtualbox.ova)                                                                                          | -                                                                                        |
-| `antarctica/centos7` | DigitalOcean Image   | New    | DigitalOcean   | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/digitalocean.droplet/4)                                                                                                     | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
-| `antarctica/centos7` | Amazon Machine Image | New    | EC2            | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/amazon.ami/4)                                                                                                               | Available only in the `eu-west-1` region [6]                                             |
+| `antarctica/trusty`  | Vagrant base box     | Mature | VMware         | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.1.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.1.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
+| `antarctica/trusty`  | Vagrant base box     | Mature | VirtualBox     | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.1.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.1.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]                                           |
+| `antarctica/trusty`  | OVA [3]              | Mature | VMware         | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/3.1.0/vmware.ova)                                                                                             | Supports VMware Fusion, Workstation and ESXi                                             |
+| `antarctica/trusty`  | OVA [3]              | Mature | VirtualBox     | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/3.1.0/virtualbox.ova)                                                                                         | -                                                                                        |
+| `antarctica/trusty`  | DigitalOcean Image   | Mature | DigitalOcean   | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/digitalocean.droplet/4)                                                                                                      | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
+| `antarctica/trusty`  | Amazon Machine Image | New    | EC2            | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/amazon.ami/4)                                                                                                                | Available only in the `eu-west-1` region                                                 |
+| `antarctica/centos7` | Vagrant base box     | New    | VMware         | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.5.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.5.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
+| `antarctica/centos7` | Vagrant base box     | New    | VirtualBox     | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.5.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.5.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]                                           |
+| `antarctica/centos7` | OVA [3]              | New    | VMware         | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.5.0/vmware.ova)                                                                                              | Supports VMware Fusion, Workstation and ESXi                                             |
+| `antarctica/centos7` | OVA [3]              | New    | VirtualBox     | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.5.0/virtualbox.ova)                                                                                          | -                                                                                        |
+| `antarctica/centos7` | DigitalOcean Image   | New    | DigitalOcean   | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/digitalocean.droplet/5)                                                                                                     | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
+| `antarctica/centos7` | Amazon Machine Image | New    | EC2            | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/amazon.ami/5)                                                                                                               | Available only in the `eu-west-1` region [6]                                             |
 
 The recommended method to use DigitalOcean images is through [Terraform](https://www.terraform.io), using the BAS
 [terraform-module-digital-ocean-droplet](https://github.com/antarctica/terraform-module-digital-ocean-droplet) module.
@@ -146,6 +149,27 @@ They may be removed at any time.
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------- | ----- |
 | `antarctica/trusty`  | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/antarctica-trusty.json)  | -     |
 | `antarctica/centos7` | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/antarctica-centos7.json)  | -     |
+
+### Accessing template information from within instances
+
+Templates include details about themselves in an INI formatted meta-data file. This is useful for querying the version 
+of a template used in an instance for a system inventory for example.
+
+Meta-data Location: `/etc/ansible/facts.d/os_template.fact`
+
+Meta-data contents:
+
+| Key        | Represents                | Example             | Notes |
+| ---------- | ------------------------- | ------------------- | ----- |
+| *name*     | Template name             | `antarctica/trusty` | -     |
+| *name_alt* | Alternative template name | `antarctica-trusty` | -     |
+| *version*  | Template version          | `3.1.0`             | -     |
+
+Note: All meta-data is grouped under a `general` section.
+
+Note: This meta-data is stored to be compatible with Ansible 
+[Local Facts](http://docs.ansible.com/ansible/playbooks_variables.html#local-facts-facts-d) but can be used for other
+purposes as needed.
 
 ## Building artefacts
 
