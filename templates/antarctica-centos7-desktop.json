@@ -124,7 +124,8 @@
         "provisioning/scripts/common/vmtools.sh",
         "provisioning/scripts/common/metadata.sh",
         "provisioning/scripts/centos/cleanup.sh",
-        "provisioning/scripts/common/minimize.sh"
+        "provisioning/scripts/common/minimize.sh",
+        "provisioning/scripts/common/remove-host-keys.sh"
       ]
     }
   ],
