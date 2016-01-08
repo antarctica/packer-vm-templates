@@ -1,4 +1,4 @@
-#!/bin/bash -eux
+#!/usr/bin/env bash -eux
 
 # Allow passwordless sudo for wheel (sudo) group
 echo "# Allow passwordless sudo for members of the wheel group" >> /etc/sudoers.d/wheel_nopasswd

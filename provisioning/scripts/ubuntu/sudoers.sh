@@ -1,4 +1,4 @@
-#!/bin/bash -eux
+#!/usr/bin/env bash -eux
 
 # https://help.ubuntu.com/community/CheckingYourUbuntuVersion
 if [ lsb_release > /dev/null 2>&1 ]

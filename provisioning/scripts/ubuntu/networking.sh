@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/usr/bin/env bash -eux
 
 # Disable automatic udev rules for network interfaces in Ubuntu,
 # source: http://6.ptmc.org/164/

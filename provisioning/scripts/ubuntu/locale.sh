@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/usr/bin/env bash -eux
 # This script is only needed for cloud images as on desktops the pre-seed process will configure the firewall
 
 # Generate locale

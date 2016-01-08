@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/usr/bin/env bash -eux
 
 # Ensure firewall exists
 sudo apt-get install ufw;
