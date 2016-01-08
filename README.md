@@ -54,7 +54,7 @@ Active support is provided for a range of desktop and cloud providers, for the v
 
 | Provider            | Vendor              | Provider Version | Notes                                        |
 | ------------------- | ------------------- | ---------------- | -------------------------------------------- |
-| VMware Fusion (Pro) | VMware              | 7.1.2            | [1]                                          |
+| VMware Fusion (Pro) | VMware              | 8.1.0            | [1]                                          |
 | VMware Workstation  | VMware              | 11.1.2           | [1]                                          |
 | VMware ESXi         | VMware              | 6.0              | And associated products such as vCentre. [1] |
 | VirtualBox          | Oracle              | 5.0.10           | -                                            |
@@ -128,9 +128,9 @@ For example...
 The following software versions were used to produce these artefact's:
 
 * Mac OS X: version `10.10.5`
-* VirtualBox: version `4.3.30` (with version `4.3.30` of the VirtualBox Guest Additions)
-* VMware: version `7.1.2` (with bundled VMware Tools version)
-* Packer: version `0.8.5`
+* VirtualBox: version `5.0.10` (with version `5.0.10` of the VirtualBox Guest Additions)
+* VMware: version `8.1.0` (with bundled VMware Tools version)
+* Packer: version `0.8.6`
 
 ### Older artefacts
 
@@ -423,10 +423,7 @@ Note: This volume has a permissions policy to allow anonymous read on all direct
 Base boxes should be stored using the following directory structure:
 
 ```shell
-$ ssh bslcene.nerc-bas.ac.uk
-$ cd /data/softwaredist
-$ mkdir -p vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]
-$ logout
+$ ssh bslcene.nerc-bas.ac.uk mkdir -p /data/softwaredist/vagrant/baseboxes/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]
 ```
 
 Base boxes should be stored using the following file name structure:
@@ -438,17 +435,13 @@ $ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.ner
 E.g.
 
 ```shell
-$ ssh bslcene.nerc-bas.ac.uk
-$ cd /data/softwaredist
-$ mkdir -p vagrant/baseboxes/ubuntu/14.04/amd64/0.0.0
-$ logout
-
+$ ssh bslcene.nerc-bas.ac.uk mkdir -p /data/softwaredist/vagrant/baseboxes/ubuntu/14.04/amd64/0.0.0
 $ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/softwaredist/vagrant/baseboxes/ubuntu/14.04/amd64/0.0.0/vmware.box artefacts/vagrant-base-boxes/base-boxes/antarctica-trusty/vmware.box
 ```
 
 ### OVA files
 
- Each Packer builder differs in how OVA files are created:
+Each Packer builder differs in how OVA files are created:
 
 #### VirtualBox (`virtualbox-iso`)
 
@@ -518,10 +511,7 @@ Note: This volume has a permissions policy to allow anonymous read on all direct
 OVA files should be stored using the following directory structure:
 
 ```shell
-$ ssh bslcene.nerc-bas.ac.uk
-$ cd /data/softwaredist
-$ mkdir -p ovas/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]
-$ logout
+$ ssh bslcene.nerc-bas.ac.uk mkdir -p /data/softwaredist/ovas/[Template distribution name]/[Template distribution version]/[Template architecture]/[Artefact version]
 ```
 
 OVA files should then be stored using the following file name structure:
@@ -533,11 +523,7 @@ $ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.ner
 E.g.
 
 ```shell
-$ ssh bslcene.nerc-bas.ac.uk
-$ cd /data/softwaredist
-$ mkdir -p ovas/ubuntu/14.04/amd64/0.0.0
-$ logout
-
+$ ssh bslcene.nerc-bas.ac.uk mkdir -p /data/softwaredist/ovas/ubuntu/14.04/amd64/0.0.0
 $ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/softwaredist/ovas/ubuntu/14.04/amd64/0.0.0/vmware.ova artefacts/ovas/antarctica-trusty-vmware-iso/vmware.ova
 ```
 
