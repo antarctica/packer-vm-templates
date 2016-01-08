@@ -467,33 +467,17 @@ Note: Due to a bug, the `.vmx` file must be first converted to an OVF package, t
 $ cd [VMX directory]
 
 $ mkdir scratch
-$ ovftool [VMX file] scratch/[OVF]
-$ cd scratch
-$ tar cf ../[OVA] *.ovf *.mf *-disk1.vmdk
-$ cd ..
-$ ovftool --schemaValidate [OVA]
-$ rm -rf scratch
-```
-
-Where: `[VMX directory]` is the path containing the `.vmx` file, `[VMX file]` is the name of the `.vmx` file and `[OVF]`
-is the path of the `.ovf` file to create. `*` will be then name of VM produced (usually `vmware`) and `[OVA]`,
-the path of the `.ova` file to create.
-
-Note: If `ovftool --schemaValidate` fails the OVA file will not work when deployed into a VMware product.
-
-E.g.
-
-```shell
-$ cd artefacts/ovas/antarctica-trusty-vmware-iso
-
-$ mkdir scratch
-$ ovftool packer-vmware-iso.vmx scratch/vmware.ovf
+$ ovftool vmware.vmx scratch/vmware.ovf
 $ cd scratch
 $ tar cf ../vmware.ova vmware.ovf vmware.mf vmware-disk1.vmdk
 $ cd ..
 $ ovftool --schemaValidate vmware.ova
 $ rm -rf scratch
 ```
+
+Where: `[VMX directory]` is the path containing the `.vmx` file.
+
+Note: If `ovftool --schemaValidate` fails the OVA file will not work when deployed into a VMware product.
 
 #### S3
 

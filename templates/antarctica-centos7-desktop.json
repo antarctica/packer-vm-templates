@@ -71,7 +71,7 @@
     {
       "type": "vmware-iso",
 
-      "vm_name": "{{ user `template` }}",
+      "vm_name": "vmware",
       "guest_os_type": "centos-64",
       "tools_upload_flavor": "linux",
 
