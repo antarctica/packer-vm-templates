@@ -78,11 +78,11 @@ printf "\n"
 printf "${FGBlue}== Cleaning up old artefacts${FGreset}\n"
 printf "\n"
 
-# find artefacts/ovas -mindepth 1 -delete
-# printf "${FGGreen}<>${FGreset} OVA files cleaned\n"
+find artefacts/ovas -mindepth 1 -delete
+printf "${FGGreen}<>${FGreset} OVA files cleaned\n"
 
-# find artefacts/vagrant-base-boxes/base-boxes -mindepth 1 -delete
-# printf "${FGGreen}<>${FGreset} Vagrant base boxes cleaned\n"
+find artefacts/vagrant-base-boxes/base-boxes -mindepth 1 -delete
+printf "${FGGreen}<>${FGreset} Vagrant base boxes cleaned\n"
 
 printf "\n"
 printf "${FGGreen}# All Clean${FGreset}\n"
@@ -110,11 +110,11 @@ confirm
 
 printf "\n  Sit tight this will take a while - Packer's output will follow...\n"
 
-# printf "\n"
-# printf "  Processing the 'antarctica/trusty' (desktop) template:\n"
-# packer build -var "release_version=${VAR_antarctica_trusty_version}" templates/antarctica-trusty-desktop.json
-# printf "\n"
-# printf "${FGGreen}<>${FGreset} 'antarctica/trusty' (desktop) built successfully\n"
+printf "\n"
+printf "  Processing the 'antarctica/trusty' (desktop) template:\n"
+packer build -var "release_version=${VAR_antarctica_trusty_version}" templates/antarctica-trusty-desktop.json
+printf "\n"
+printf "${FGGreen}<>${FGreset} 'antarctica/trusty' (desktop) built successfully\n"
 
 printf "\n"
 printf "  Processing the 'antarctica/trusty' (cloud) template:\n"
