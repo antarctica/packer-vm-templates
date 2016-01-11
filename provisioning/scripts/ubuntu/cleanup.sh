@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/usr/bin/env bash -eux
 
 # Delete all Linux headers
 dpkg --list \

@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/usr/bin/env bash -eux
 
 # Remove development and kernel source packages
 yum -y remove gcc cpp kernel-devel kernel-headers perl;

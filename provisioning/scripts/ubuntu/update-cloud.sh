@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/usr/bin/env bash -eux
 
 # Prepare for updating (this is needed to workaround Grub being obnoxious)
 unset UCF_FORCE_CONFFOLD;

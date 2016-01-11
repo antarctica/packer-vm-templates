@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/usr/bin/env bash -eux
 
 # This file relies on environment variables to provide template information. Required variables are:
 # * TEMPLATE_NAME      equal to the 'proper' name of the template (e.g. antarctica/trusty)

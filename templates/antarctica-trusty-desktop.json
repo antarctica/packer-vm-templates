@@ -14,7 +14,7 @@
     "ssh_password": "vagrant",
 
     "artefact": "antarctica-trusty",
-    "release_version": "3.1.0",
+    "release_version": "0.0.0",
     "atlas_artifact": "antarctica/trusty"
   },
   "builders": [
@@ -159,9 +159,11 @@
         "provisioning/scripts/ubuntu/sudoers.sh",
         "provisioning/scripts/common/vagrant.sh",
         "provisioning/scripts/common/vmtools.sh",
+        "provisioning/scripts/ubuntu/regenerate-host-keys.sh",
         "provisioning/scripts/common/metadata.sh",
         "provisioning/scripts/ubuntu/cleanup.sh",
-        "provisioning/scripts/common/minimize.sh"
+        "provisioning/scripts/common/minimize.sh",
+        "provisioning/scripts/common/remove-host-keys.sh"
       ]
     }
   ],

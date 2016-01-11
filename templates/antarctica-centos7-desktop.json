@@ -17,7 +17,7 @@
     "ssh_password": "vagrant",
 
     "artefact": "antarctica-centos7",
-    "release_version": "0.5.0",
+    "release_version": "0.0.0",
     "atlas_artifact": "antarctica/centos7"
   },
   "builders": [
@@ -71,7 +71,7 @@
     {
       "type": "vmware-iso",
 
-      "vm_name": "{{ user `template` }}",
+      "vm_name": "vmware",
       "guest_os_type": "centos-64",
       "tools_upload_flavor": "linux",
 
@@ -124,7 +124,8 @@
         "provisioning/scripts/common/vmtools.sh",
         "provisioning/scripts/common/metadata.sh",
         "provisioning/scripts/centos/cleanup.sh",
-        "provisioning/scripts/common/minimize.sh"
+        "provisioning/scripts/common/minimize.sh",
+        "provisioning/scripts/common/remove-host-keys.sh"
       ]
     }
   ],

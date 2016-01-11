@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/usr/bin/env bash -eux
 
 case "$PACKER_BUILDER_TYPE" in
 
