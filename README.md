@@ -1,6 +1,6 @@
 # BAS Packer VM Templates
 
-A subset of customised [Packer](http://www.packer.io/) templates from the [Bento](https://github.com/opscode/bento) to 
+A subset of customised [Packer](http://www.packer.io/) templates from [Bento](https://github.com/opscode/bento) to 
 act as localised, minimal, base images for desktop and cloud providers.
 
 ## Supported operating systems
