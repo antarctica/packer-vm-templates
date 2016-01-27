@@ -1,0 +1,110 @@
+{
+  "variables": {
+    "iso_url": "http://gb.releases.ubuntu.com/trusty/ubuntu-14.04.3-server-amd64.iso",
+    "iso_checksum": "0501c446929f713eb162ae2088d8dc8b6426224a",
+    "iso_checksum_type": "sha1",
+
+    "distro": "ubuntu-14.04-amd64",
+    "disk_size": "40960",
+    "io_ram_size": "384",
+
+    "hostname": "vagrant",
+
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+
+    "artefact": "antarctica-trusty-vdirector",
+    "release_version": "0.0.0",
+    "atlas_artifact": "antarctica/trusty"
+  },
+  "builders": [
+    {
+      "type": "vmware-iso",
+
+      "vm_name": "vmware",
+      "guest_os_type": "ubuntu-64",
+      "tools_upload_flavor": "linux",
+      "version": "7",
+
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "{{user `io_ram_size`}}",
+        "numvcpus": "1"
+      },
+      "disk_size": "{{user `disk_size`}}",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "http_directory": "preseed",
+
+      "boot_command": [
+        "<esc><wait>",
+        "<esc><wait>",
+        "<enter><wait>",
+        "/install/vmlinuz<wait>",
+        " auto<wait>",
+        " console-setup/ask_detect=false<wait>",
+        " console-setup/layoutcode=gb<wait>",
+        " console-setup/modelcode=SKIP<wait>",
+        " debconf/frontend=noninteractive<wait>",
+        " debian-installer=en_GB<wait>",
+        " fb=false<wait>",
+        " initrd=/install/initrd.gz<wait>",
+        " kbd-chooser/method=gb<wait>",
+        " keyboard-configuration/layout=GB<wait>",
+        " keyboard-configuration/variant=GB<wait>",
+        " locale=en_GB<wait>",
+        " netcfg/get_domain=vm<wait>",
+        " netcfg/get_hostname={{user `hostname`}}<wait>",
+        " noapic<wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `artefact`}}/preseed.cfg<wait>",
+        " -- <wait>",
+        "<enter><wait>"
+      ],
+      "boot_wait": "10s",
+
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+
+      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+
+      "output_directory": "artefacts/ovas/{{user `artefact`}}-vmware-iso"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "environment_vars": [
+        "TEMPLATE_NAME={{user `atlas_artifact`}}",
+        "TEMPLATE_NAME_ALT={{user `artefact`}}",
+        "TEMPLATE_VERSION={{user `release_version`}}"
+      ],
+      "scripts": [
+        "provisioning/scripts/ubuntu/update-desktop.sh",
+        "provisioning/scripts/common/sshd.sh",
+        "provisioning/scripts/ubuntu/networking.sh",
+        "provisioning/scripts/ubuntu/ufw.sh",
+        "provisioning/scripts/ubuntu/sudoers.sh",
+        "provisioning/scripts/common/vagrant.sh",
+        "provisioning/scripts/common/vmtools.sh",
+        "provisioning/scripts/ubuntu/regenerate-host-keys.sh",
+        "provisioning/scripts/common/metadata.sh",
+        "provisioning/scripts/ubuntu/cleanup.sh",
+        "provisioning/scripts/common/minimize.sh",
+        "provisioning/scripts/common/remove-host-keys.sh"
+      ]
+    }
+  ],
+  "post-processors": [[
+    {
+      "type": "vagrant",
+      "output": "artefacts/vagrant-base-boxes/base-boxes/{{user `artefact`}}/{{.Provider}}.box",
+      "keep_input_artifact": true
+    }
+  ]]
+}
