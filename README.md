@@ -11,7 +11,7 @@ See the *pre-built artefacts* section for distribution/download links.
 | Template Name                 | Template Version | Status | Distribution Name                | Distribution Version | Distribution Architecture | Notes   |
 | ----------------------------- | ---------------- | ------ | -------------------------------- | -------------------- | ------------------------- | ------- |
 | `antarctica/trusty`           | 3.2.0            | Mature |[Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | -       |
-| `antarctica/trusty-vdirector` | 0.1.0            | New    |[Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | [1] [2] |
+| `antarctica/trusty-vdirector` | 0.1.1            | New    |[Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | [1] [2] |
 | `antarctica/centos7`          | 0.6.1            | New    |[CentOS](https://www.centos.org/) | 7.1                  | x86_64                    | -       |
 
 Note: The *status* attribute represents how stable a template is. New templates will be listed as *New* and may contain
@@ -88,7 +88,7 @@ are made publicly available, under the same license as this project.
 | `antarctica/trusty`           | OVA [3]              | Mature | VirtualBox       | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/3.2.0/virtualbox.ova)                                                                                         | -                                                                                        |
 | `antarctica/trusty`           | DigitalOcean Image   | Mature | DigitalOcean     | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/digitalocean.droplet/5)                                                                                                      | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
 | `antarctica/trusty`           | Amazon Machine Image | New    | EC2              | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/amazon.ami/5)                                                                                                                | Available only in the `eu-west-1` region                                                 |
-| `antarctica/trusty-vdirector` | Zipped OVF           | New    | VMware vDirector | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/3.2.0/vmware-vdirector-0.1.0.ovf.zip)                                                                             | Supports VMware vDirector [7]                                                            |
+| `antarctica/trusty-vdirector` | Zipped OVF           | New    | VMware vDirector | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/3.2.0/vmware-vdirector-0.1.1.ovf.zip)                                                                         | Supports VMware vDirector [7] [8]                                                           |
 | `antarctica/centos7`          | Vagrant base box     | New    | VMware Desktop   | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.6.1) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.6.1/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
 | `antarctica/centos7`          | Vagrant base box     | New    | VirtualBox       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.6.1) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.6.1/virtual.box) | Supports VMware Fusion and Workstation [1] [2]                                           |
 | `antarctica/centos7`          | OVA [3]              | New    | VMware           | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.6.1/vmware.ova)                                                                                              | Supports VMware Fusion, Workstation and ESXi                                             |
@@ -124,6 +124,14 @@ shared publicly. To use this AMI you must be assigned permissions. Please get in
 
 [7] These artefacts are essentially an addition to artefacts produced for the 'antarctica/trusty' template and as such 
 are located within the directory structure for the 'antarctica/trusty' template.
+
+[8] vDirector templates are also listed in the shared *BAS-Base-Images* catalogue within the *PolarView* tenancy in 
+the JASMIN unmanaged cloud vDirector instance. To use these templates in other vDirector instances, download the zipped 
+OVF file and upload to your own instance.
+
+Note: Currently access to this catalogue is restricted to members of the *PolarView* tenancy, this is being addressed 
+with JASMIN support. Until this is fixed, follow the instructions above for users of other vDirector instances to load
+these templates into a catalogue within another tenancy.
 
 ### BAS SAN distribution location
 
@@ -289,6 +297,9 @@ be manually copied to Amazon S3 (for HTTPS distribution) and the BAS SAN (for BA
 
 Note: In future this artefact will produced from the 'OVA' artefacts (for VMware) to reduce complexity. Currently it is
 not possible to do this due to incompatible VMware hardware versions.
+
+Note: Support for vApps is currently very experimental and may contain settings, names or meta-data that are specific
+to BAS. Where possible these will be removed, or changed to more generic values, as testing for vApps continues.
 
 ### Requirements
 
@@ -616,7 +627,10 @@ Note: If `ovftool --schemaValidate` fails the OVA file will not work when deploy
 Covert this OVA file to a vApp using vCentre using 
 [these steps](https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.vsphere.vm_admin.doc_50%2FGUID-2A95EBB8-1779-40FA-B4FB-4D0845750879.html).
 
-Note: You will need to contact ICT to have the OVA file converted to a vApp [1].
+Note: You will need to contact ICT to have the OVA file converted to a vApp [1], ensure you request the following:
+
+* All networks are removed from the inner VM to prevent errors when provisioning automatically in vDirector
+* The name of the inner VM is set to `node1` to be suitably generic 
 
 The vApp will typically be exported as an OVA file, these cannot be read by vDirector and so need to be converted to an
 OVF file.
@@ -635,7 +649,9 @@ as it relates to the input OVA file, not the OVF file produced (the manifest for
 For distribution the OVF file is compressed as a zip archive:
 
 ```shell
-$ zip vmware-vapp.ovf.zip -x \*.DS_Store -r vmware-vapp/
+$ cd vmware-vapp
+$ zip ../vmware-vapp.ovf.zip -r vmware-vapp-disk1.vmdk vmware-vapp.mf vmware-vapp.ovf
+$ cd ..
 $ rm -rf vmware-vapp
 ```
 
@@ -706,11 +722,31 @@ Note: In future it is hoped an automated deployment method can be used to upload
 
 1. Download the relevant zipped vApp and uncompress to a local directory
 2. Login to the vDirector web interface and from the dashboard choose *Catalogues*
-3. Select the relevant Catalogue, or create a new one
+3. Select the *BAS-Base-Images* Catalogue
 4. Choose the *vApps Templates* tab and then *upload*
 5. Choose *Upload* and select the OVF file uncompressed in step 1 and choose upload [1]
+    * Set the name to `[Template distribution name]-vdirector-[Template version]` (e.g. `antarctica/trusty-director-0.0.0`)
+    * Set to the description to [2]
+6. Once uploaded, select the template and choose *properties*:
+    * Set meta-data key-values to [3]
 
 [1] Though only the OVF file is selected, related files such as the virtual hard disk will be uploaded as well.
+
+[2]
+vDirector compatible version of the '`[Template distribution name]`' base image using a single VM wrapped in a vApp.
+More information: https://github.com/antarctica/packer-vm-templates
+
+E.g.
+vDirector compatible version of the 'antarctica/trusty' base image using a single VM wrapped in a vApp.
+More information: https://github.com/antarctica/packer-vm-templates
+
+[3]
+
+| Type | Name                  | Value                             | Value (example)     | Notes |
+| ---- | --------------------- | --------------------------------- | ------------------- | ----- |
+| Text | version               | `[Template version]`              | 0.0.0               | -     |
+| Text | x-associated-template | `[Template distribution name]`    | `antarctica/trusty` | -     |
+| Text | x-associated-version  | `[Template distribution version]` | 0.0.0               | -     |
 
 ## Acknowledgements
 
