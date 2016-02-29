@@ -42,6 +42,7 @@ summarised below:
 | `antarctica/trusty`  | 3.0.0 | System firewall enabled by default, with an exception for SSH | For basic system security whilst allowing remote management      | *All*                                        | -     |
 | `antarctica/trusty`  | 3.1.0 | Adding template information to an Ansible local facts file    | For registering instances of this template in system inventories | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/trusty`  | 3.2.0 | Removing SSH host keys                                        | To ensure unique host keys to be used for each instance          | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/trusty`  | 3.3.0 | Adding Terraform user                                         | To ensure consistent access across templates for provisioning    | *AMI* and *DigitalOcean Image*               | -     |
 | `antarctica/centos7` | 0.1.0 | SELinux set to "permissive"                                   | To be compatible with some legacy BAS projects                   | *All except AMI*                             | [1]   |
 | `antarctica/centos7` | 0.1.0 | Root password set to "password"                               | To emphasise that this is not a secure default                   | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/centos7` | 0.1.0 | Agent forwarding support in Sudo                              | To allow Git checkouts using PKI when acting as root             | *All*                                        | -     |
@@ -50,6 +51,7 @@ summarised below:
 | `antarctica/centos7` | 0.4.0 | UID for Vagrant user set to '900'                             | For consistency with Ubuntu and allow users to start from 1000   | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/centos7` | 0.5.0 | Adding template information to an Ansible local facts file    | For registering instances of this template in system inventories | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/centos7` | 0.6.0 | Removing SSH host keys                                        | To ensure unique host keys to be used for each instance          | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/trusty`  | 0.7.0 | Adding Terraform user                                         | To ensure consistent access across templates for provisioning    | *AMI* and *DigitalOcean Image*               | -     |
 
 Note: The above list does not include customisations made by the Bento project.
 
@@ -95,43 +97,76 @@ are made publicly available, under the same license as this project.
 | `antarctica/centos7`          | OVA [3]              | New    | VirtualBox       | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.6.1/virtualbox.ova)                                                                                          | -                                                                                        |
 | `antarctica/centos7`          | DigitalOcean Image   | New    | DigitalOcean     | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/digitalocean.droplet/8)                                                                                                     | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
 | `antarctica/centos7`          | Amazon Machine Image | New    | EC2              | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/amazon.ami/7)                                                                                                               | Available only in the `eu-west-1` region [6]                                             |
+## Default user accounts (conventional)
 
 The recommended method to use DigitalOcean images is through [Terraform](https://www.terraform.io), using the BAS
 [terraform-module-digital-ocean-droplet](https://github.com/antarctica/terraform-module-digital-ocean-droplet) module.
+Each artefact will contain of two conventional user accounts, depending on the artefact provider. These user accounts
+are consistent across all supported operating systems.
 
 The recommended method to use EC2 AMIs is through [Terraform](https://www.terraform.io).
+These accounts are designed to provide initial access for provisioning, which will typically involve creating 
+additional user accounts. It is recommended to disable these conventional accounts in these cases.
 
 Note: The *status* attribute represents how stable an artefact is. New artefacts will be listed as *New* and may contain
 teething issues, such as small bugs or performance issues. Once these are fixed, artefacts will marked as *Mature*. This
 does not mean mature artefacts cannot be improved, rather that they are expected to work in most cases.
+Note: Artefacts may contain additional default accounts, which are unconventional, and not controlled by this project.
 
 [1] Atlas artefacts are listed under the [Antarctica](https://atlas.hashicorp.com/antarctica).
+| Provider            | Username    | Privileged (Sudo) | Authorised Keys                             | Notes |
+| ------------------- | ----------- | ----------------- | ------------------------------------------- | ----- |
+| VMware Fusion (Pro) | `vagrant`   | Yes               | Vagrant shared insecure identity            | [1]   |
+| VMware Workstation  | `vagrant`   | Yes               | Vagrant shared insecure identity            | [1]   |
+| VMware ESXi         | `vagrant`   | Yes               | Vagrant shared insecure identity            | [1]   |
+| VirtualBox          | `vagrant`   | Yes               | Vagrant shared insecure identity            | [1]   |
+| DigitalOcean        | `terraform` | Yes               | BAS AWS Core Provisioning Identity          | [2]   |
+| EC2                 | `terraform` | Yes               | BAS DigitalOcean Core Provisioning Identity | [2]   |
+| VMware vDirector    | `vagrant`   | Yes               | Vagrant shared insecure identity            | [1]   |
 
 [2] To use a base boxes list its name in a `Vagrantfile`, or follow the instructions in the
 [Atlas documentation](https://atlas.hashicorp.com/help/vagrant/boxes/catalog).
+[1] This identity is shared between all Vagrant users and so is inherently insecure. This is used for creating Vagrant
+base box artefacts, but will also be present in any OVA based artefacts as these are built from the same source VM.
+More information on this identity is available [here](https://github.com/mitchellh/vagrant/tree/master/keys).
 
 [3] An OVA file is a [OVF](https://en.wikipedia.org/wiki/Open_Virtualization_Format) file compressed into a single file,
 making it ideal for distribution.
+[2] This identity is shared, and restricted to, relevant BAS Staff. Contact the Web & Applications Team for access.
 
 [4] DigitalOcean images cannot be shared so this is not available publicly.
+## Default user accounts (unconventional)
 
 [5] SELinux is **NOT** disabled on this artefact, see [this issue](https://jira.ceh.ac.uk/browse/BASWEB-500) for further
 details.
+These accounts are specific to a single artefact and are present in the underlying source artefacts used in this 
+project.
 
 [6] Despite being free the CentOS base AIM carries a license agreement which prevents the built artefact from being
 shared publicly. To use this AMI you must be assigned permissions. Please get in touch using the information in the
 *Feedback* section if you wish to use this artefact.
+E.g. The Ubuntu EC2 artefact is based on the Ubuntu official AMI, which contains a pre-configured `ubuntu` user.
 
 [7] These artefacts are essentially an addition to artefacts produced for the 'antarctica/trusty' template and as such 
 are located within the directory structure for the 'antarctica/trusty' template.
+Note: These unconventional accounts are not removed by this project. If needed this must be performed manually or, 
+ideally, using automated provisioning.
 
 [8] vDirector templates are also listed in the shared *BAS-Base-Images* catalogue within the *PolarView* tenancy in 
 the JASMIN unmanaged cloud vDirector instance. To use these templates in other vDirector instances, download the zipped 
 OVF file and upload to your own instance.
+| Provider     | Template            | Username | Privileged (Sudo) | Authorised Keys              | Notes |
+| ------------ | ------------------- | -------- | ----------------- | ---------------------------- | ----- |
+| EC2          | `antarctica/trusty` | `ubuntu` | Yes               | Defined at instance creation |       |
+| EC2          | `antarctica/centos` | `user`   | Yes               | Defined at instance creation |       |
+| DigitalOcean | `antarctica/trusty` | `root`   | Yes               | Defined at instance creation | [1]   |
+| DigitalOcean | `antarctica/centos` | `root`   | Yes               | Defined at instance creation | [1]   |
 
 Note: Currently access to this catalogue is restricted to members of the *PolarView* tenancy, this is being addressed 
 with JASMIN support. Until this is fixed, follow the instructions above for users of other vDirector instances to load
 these templates into a catalogue within another tenancy.
+[1] Be careful about provisioning steps which may configure SSH to refuse root logins. Without additional privileged 
+users it will be impossible to connect to such instances, including to create additional users.
 
 ### BAS SAN distribution location
 

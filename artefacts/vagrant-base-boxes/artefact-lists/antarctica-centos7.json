@@ -121,6 +121,23 @@
           "checksum": "669bd17fbc75bc8b0ffeb69f4fd559ddbcc35b25"
         }
       ]
+    },
+    {
+      "version": "0.7.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.7.0/virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "ae297507aabe95df361f0ea463ff1ba52f13035f"
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.7.0/vmware.box",
+          "checksum_type": "sha1",
+          "checksum": "753a0dbfe2bbcce1ad4a96e995e005700dc8f50a"
+        }
+      ]
     }
   ]
 }

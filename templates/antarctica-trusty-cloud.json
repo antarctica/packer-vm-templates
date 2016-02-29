@@ -34,6 +34,18 @@
   ],
   "provisioners": [
     {
+      "only": ["digitalocean"],
+      "type": "file",
+      "source": "provisioning/files/common/authorized_keys/terraform-user/bas-digitalocean-core-provisioning-identity",
+      "destination": "/tmp/authorized_keys"
+    },
+    {
+      "only": ["amazon-ebs"],
+      "type": "file",
+      "source": "provisioning/files/common/authorized_keys/terraform-user/bas-aws-core-provisioning-identity",
+      "destination": "/tmp/authorized_keys"
+    },
+    {
       "type": "shell",
       "execute_command": "echo 'vagrant'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
       "environment_vars": [
@@ -43,6 +55,7 @@
       ],
       "scripts": [
         "provisioning/scripts/ubuntu/update-cloud.sh",
+        "provisioning/scripts/ubuntu/conventional-users.sh",
         "provisioning/scripts/common/sshd.sh",
         "provisioning/scripts/ubuntu/ufw.sh",
         "provisioning/scripts/ubuntu/sudoers.sh",

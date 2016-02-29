@@ -266,6 +266,23 @@
           "checksum": "1adabe25abd71562c3cfcab3b077c7bd074f320e"
         }
       ]
+    },
+    {
+      "version": "3.3.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.3.0/virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "2d4bf18a6258b636958e31fa370673246bddf65e"
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.3.0/vmware.box",
+          "checksum_type": "sha1",
+          "checksum": "2c4d502b8b51655e5601ffa1002f0054f8d3a300"
+        }
+      ]
     }
   ]
 }
