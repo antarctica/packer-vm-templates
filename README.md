@@ -235,7 +235,8 @@ For example...
 
 `/data/softwaredist/ovas/ubuntu/14.04/amd64/2.0.0/virtualbox.ova`
 
-Note: The BAS SAN is used as the canonical storage location for records management.
+Note: The BAS Package Service (i.e. `pacakges.web.bas.ac.uk`) is used as the canonical storage location for the 
+purposes of records management.
 
 ### Build environment
 
@@ -544,7 +545,7 @@ Additional meta-data will need to be manually added to provide a relevant change
 #### S3
 
 Amazon S3 is used an external alternative to Atlas in case this service becomes unsuitable in the future (due to
-pricing, feature changes, etc.).
+pricing, feature changes, etc.). This location also acts as the canonical storage location for records management.
 
 The `bas-packages-prod` bucket is used to hold base box artefacts. This bucket is stored under the BAS AWS account and
 should be accessible to all account users by default. If this is not the case please get in touch using the information
@@ -567,7 +568,7 @@ $ duck --username $AWS_ACCESS_KEY_ID --password $AWS_ACCESS_KEY_SECRET --region 
 #### BAS SAN
 
 The BAS SAN is used an internal alternative to Atlas in case this service becomes unsuitable in the future (due to
-pricing, feature changes, etc.). This location also acts as the canonical storage location for records management.
+pricing, feature changes, etc.).
 
 The `/data/softwaredist` SAN volume is used to hold base box artefacts. This volume is writeable to all members of the
 `swpack` Unix group, which should include all relevant staff. Contact the [BAS ICT helpdesk](mailto:helpdesk@bas.ac.uk)
