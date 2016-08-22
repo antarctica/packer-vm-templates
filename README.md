@@ -8,24 +8,18 @@ act as localised, minimal, base images for desktop and cloud providers.
 Pre-compiled artefacts for the current version of each template are listed here. Except where otherwise stated artefacts
 are made publicly available, under the same license as this project.
 
-| Template                      | Format               | Status | Provider         | Distribution Method & URL                                                                                                                                                                          | Notes                                                                                    |
-| ----------------------------- | -------------------- | ------ | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `antarctica/trusty`           | Vagrant base box     | Mature | VMware Desktop   | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.3.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.3.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/trusty`           | Vagrant base box     | Mature | VirtualBox       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.3.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/3.3.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/trusty`           | OVA [3]              | Mature | VMware Desktop   | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/3.3.0/vmware.ova)                                                                                             | Supports VMware Fusion, Workstation and ESXi                                             |
-| `antarctica/trusty`           | OVA [3]              | Mature | VirtualBox       | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/3.3.0/virtualbox.ova)                                                                                         | -                                                                                        |
-| `antarctica/trusty`           | DigitalOcean Image   | Mature | DigitalOcean     | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/digitalocean.droplet/6)                                                                                                      | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
-| `antarctica/trusty`           | Amazon Machine Image | New    | EC2              | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/trusty/types/amazon.ami/6)                                                                                                                | Available only in the `eu-west-1` region                                                 |
-| `antarctica/trusty-vdirector` | Zipped OVF           | New    | VMware vDirector | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/3.2.0/vmware-vdirector-0.1.1.ovf.zip)                                                                         | Supports VMware vDirector [7] [8]                                                        |
-| `antarctica/centos7`          | Vagrant base box     | New    | VMware Desktop   | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.7.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.7.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/centos7`          | Vagrant base box     | New    | VirtualBox       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.7.0) / [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/0.7.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]                                           |
-| `antarctica/centos7`          | OVA [3]              | New    | VMware           | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.7.0/vmware.ova)                                                                                              | Supports VMware Fusion, Workstation and ESXi                                             |
-| `antarctica/centos7`          | OVA [3]              | New    | VirtualBox       | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/centos/7.1/x86_64/0.7.0/virtualbox.ova)                                                                                          | -                                                                                        |
-| `antarctica/centos7`          | DigitalOcean Image   | New    | DigitalOcean     | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/digitalocean.droplet/9)                                                                                                     | Available only in the `lon1` region, includes private networking but not backups [1] [4] |
-| `antarctica/centos7`          | Amazon Machine Image | New    | EC2              | [Atlas](https://atlas.hashicorp.com/antarctica/artifacts/centos7/types/amazon.ami/8)                                                                                                               | Available only in the `eu-west-1` region [6]                                             |
-
-The recommended method to use DigitalOcean images is through [Terraform](https://www.terraform.io), using the BAS
-[terraform-module-digital-ocean-droplet](https://github.com/antarctica/terraform-module-digital-ocean-droplet) module.
+| Template                      | Format               | Status | Provider         | Distribution Method & URL                                                                                                                                                    | Notes                                            |
+| ----------------------------- | -------------------- | ------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| `antarctica/trusty`           | Vagrant base box     | Mature | VMware Desktop   | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.3.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/ubuntu/14.04/amd64/3.3.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]   |
+| `antarctica/trusty`           | Vagrant base box     | Mature | VirtualBox       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.3.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/ubuntu/14.04/amd64/3.3.0/virtual.box) | [1] [2]                                          |
+| `antarctica/trusty`           | OVA [3]              | Mature | VMware Desktop   | [HTTPS](https://packages.web.bas.ac.uk/ovas/ubuntu/14.04/amd64/3.3.0/vmware.ova)                                                                                             | Supports VMware Fusion, Workstation and ESXi     |
+| `antarctica/trusty`           | OVA [3]              | Mature | VirtualBox       | [HTTPS](https://packages.web.bas.ac.uk/ovas/ubuntu/14.04/amd64/3.3.0/virtualbox.ova)                                                                                         | -                                                |
+| `antarctica/trusty`           | Amazon Machine Image | New    | EC2              | [AWS](https://console.aws.amazon.com/ec2/v2/home?region=eu-west-1#LaunchInstanceWizard:ami=ami-c7229db4)                                                                     | Available only in the `eu-west-1` region         |
+| `antarctica/centos7`          | Vagrant base box     | New    | VMware Desktop   | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.7.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.1/x86_64/0.7.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]   |
+| `antarctica/centos7`          | Vagrant base box     | New    | VirtualBox       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.7.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.1/x86_64/0.7.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]   |
+| `antarctica/centos7`          | OVA [3]              | New    | VMware           | [HTTPS](https://packages.web.bas.ac.uk/ovas/centos/7.1/x86_64/0.7.0/vmware.ova)                                                                                              | Supports VMware Fusion, Workstation and ESXi     |
+| `antarctica/centos7`          | OVA [3]              | New    | VirtualBox       | [HTTPS](https://packages.web.bas.ac.uk/ovas/centos/7.1/x86_64/0.7.0/virtualbox.ova)                                                                                          | -                                                | 
+| `antarctica/centos7`          | Amazon Machine Image | New    | EC2              | [AWS](https://console.aws.amazon.com/ec2/v2/home?region=eu-west-1#LaunchInstanceWizard:ami=ami-741ea107)                                                                     | Available only in the `eu-west-1` region [4] [5] |
 
 The recommended method to use EC2 AMIs is through [Terraform](https://www.terraform.io).
 
@@ -33,9 +27,9 @@ Note: The *status* attribute represents how stable an artefact is. New artefacts
 teething issues, such as small bugs or performance issues. Once these are fixed, artefacts will marked as *Mature*. This
 does not mean mature artefacts cannot be improved, rather that they are expected to work in most cases.
 
-[1] Atlas artefacts are listed under the [Antarctica](https://atlas.hashicorp.com/antarctica).
+[1] Atlas artefacts are listed under the [Antarctica](https://atlas.hashicorp.com/antarctica) organisation.
 
-[2] To use a base boxes list its name in a `Vagrantfile`, or follow the instructions in the
+[2] To use a base box, list its name in a `Vagrantfile`, or follow the instructions in the
 [Atlas documentation](https://atlas.hashicorp.com/help/vagrant/boxes/catalog).
 
 [3] An OVA file is a [OVF](https://en.wikipedia.org/wiki/Open_Virtualization_Format) file compressed into a single file,
@@ -64,66 +58,61 @@ these templates into a catalogue within another tenancy.
 ## Contents
 
 * [BAS Packer VM Templates](#bas-packer-vm-templates)
-    * [Pre\-built artefacts](#pre-built-artefacts)
-    * [Contents](#contents)
-    * [Supported operating systems](#supported-operating-systems)
-      * [Operating system customisations](#operating-system-customisations)
-    * [Supported providers](#supported-providers)
-    * [Default user accounts (conventional)](#default-user-accounts-conventional)
-    * [Default user accounts (unconventional)](#default-user-accounts-unconventional)
-      * [BAS SAN distribution location](#bas-san-distribution-location)
-      * [Build environment](#build-environment)
-      * [Older artefacts](#older-artefacts)
-      * [Artefact indexes](#artefact-indexes)
-      * [Accessing template information from within instances](#accessing-template-information-from-within-instances)
-    * [Building artefacts](#building-artefacts)
-      * [Artefact formats](#artefact-formats)
-        * [Vagrant base boxes](#vagrant-base-boxes)
-        * [OVA files](#ova-files)
-        * [DigitalOcean images](#digitalocean-images)
-        * [Amazon Machine Images (AMIs)](#amazon-machine-images-amis)
-        * [VMware vApps](#vmware-vapps)
-      * [Requirements](#requirements)
-    * [Setup](#setup)
-    * [Usage](#usage)
-      * [Standard builds](#standard-builds)
-      * [Manual builds](#manual-builds)
-    * [Packaging/Distribution](#packagingdistribution)
-      * [Vagrant base boxes](#vagrant-base-boxes-1)
-        * [Artefact lists](#artefact-lists)
-        * [Atlas](#atlas)
-        * [S3](#s3)
-        * [BAS SAN](#bas-san)
-      * [OVA files](#ova-files-1)
-        * [VirtualBox (virtualbox\-iso)](#virtualbox-virtualbox-iso)
-        * [VMware (vmware\-iso)](#vmware-vmware-iso)
-        * [S3](#s3-1)
-        * [BAS SAN](#bas-san-1)
-      * [DigitalOcean images](#digitalocean-images-1)
-      * [Amazon Machine Images](#amazon-machine-images)
-        * [VMware vApps](#vmware-vapps-1)
-        * [S3](#s3-2)
-        * [BAS SAN](#bas-san-2)
-        * [vDirector](#vdirector)
-    * [Acknowledgements](#acknowledgements)
-    * [Contributing](#contributing)
-    * [Feedback](#feedback)
-    * [Developing](#developing)
-      * [Project management](#project-management)
-      * [Committing changes](#committing-changes)
-      * [Issue tracking](#issue-tracking)
-      * [License](#license)
+  * [Pre\-built artefacts](#pre-built-artefacts)
+  * [Contents](#contents)
+  * [Supported operating systems](#supported-operating-systems)
+    * [Operating system customisations](#operating-system-customisations)
+  * [Supported providers](#supported-providers)
+  * [Default user accounts (conventional)](#default-user-accounts-conventional)
+  * [Default user accounts (unconventional)](#default-user-accounts-unconventional)
+    * [BAS SAN distribution location](#bas-san-distribution-location)
+    * [Build environment](#build-environment)
+    * [Older artefacts](#older-artefacts)
+    * [Artefact indexes](#artefact-indexes)
+    * [Terraform remote state outputs](#terraform-remote-state-outputs)
+    * [Accessing template information from within instances](#accessing-template-information-from-within-instances)
+  * [Building artefacts](#building-artefacts)
+    * [Artefact formats](#artefact-formats)
+      * [Vagrant base boxes](#vagrant-base-boxes)
+      * [OVA files](#ova-files)
+      * [Amazon Machine Images (AMIs)](#amazon-machine-images-amis)
+    * [Requirements](#requirements)
+  * [Setup](#setup)
+  * [Usage](#usage)
+    * [Standard builds](#standard-builds)
+    * [Manual builds](#manual-builds)
+  * [Packaging/Distribution](#packagingdistribution)
+    * [Vagrant base boxes](#vagrant-base-boxes-1)
+      * [Artefact lists](#artefact-lists)
+      * [Atlas](#atlas)
+      * [S3](#s3)
+      * [BAS SAN](#bas-san)
+    * [OVA files](#ova-files-1)
+      * [VirtualBox (virtualbox\-iso)](#virtualbox-virtualbox-iso)
+      * [VMware (vmware\-iso)](#vmware-vmware-iso)
+      * [S3](#s3-1)
+      * [BAS SAN](#bas-san-1)
+    * [Amazon Machine Images](#amazon-machine-images)
+      * [Community AMI URL](#community-ami-url)
+      * [Terraform remote state output](#terraform-remote-state-output)
+  * [Acknowledgements](#acknowledgements)
+  * [Contributing](#contributing)
+  * [Feedback](#feedback)
+  * [Developing](#developing)
+    * [Project management](#project-management)
+    * [Committing changes](#committing-changes)
+    * [Issue tracking](#issue-tracking)
+    * [License](#license)
 
 ## Supported operating systems
 
 Active support is provided for these operating systems, for the versions specified.
 See the *pre-built artefacts* section for distribution/download links.
 
-| Template Name                 | Template Version | Status | Distribution Name                | Distribution Version | Distribution Architecture | Notes   |
-| ----------------------------- | ---------------- | ------ | -------------------------------- | -------------------- | ------------------------- | ------- |
-| `antarctica/trusty`           | 3.2.0            | Mature |[Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | -       |
-| `antarctica/trusty-vdirector` | 0.1.1            | New    |[Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | [1] [2] |
-| `antarctica/centos7`          | 0.6.1            | New    |[CentOS](https://www.centos.org/) | 7.1                  | x86_64                    | -       |
+| Template Name                 | Template Version | Status | Distribution Name                 | Distribution Version | Distribution Architecture | Notes   |
+| ----------------------------- | ---------------- | ------ | --------------------------------- | -------------------- | ------------------------- | ------- |
+| `antarctica/trusty`           | 3.3.0            | Mature | [Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | -       |
+| `antarctica/centos7`          | 0.7.0            | New    | [CentOS](https://www.centos.org/) | 7.1                  | x86_64                    | -       |
 
 Note: The *status* attribute represents how stable a template is. New templates will be listed as *New* and may contain
 teething issues, such as small bugs or performance issues. Once these are fixed, templates will marked as *Mature*. This
@@ -176,22 +165,21 @@ Active support is provided for a range of desktop and cloud providers, for the v
 | Provider            | Vendor              | Provider Version | Notes                                        |
 | ------------------- | ------------------- | ---------------- | -------------------------------------------- |
 | VMware Fusion (Pro) | VMware              | 8.1.0            | [1]                                          |
-| VMware Workstation  | VMware              | 11.1.2           | [1]                                          |
+| VMware Workstation  | VMware              | 12.1.0           | [1]                                          |
 | VMware ESXi         | VMware              | 6.0              | And associated products such as vCentre. [1] |
 | VirtualBox          | Oracle              | 5.0.10           | -                                            |
 | DigitalOcean        | DigitalOcean        | -                | -                                            |
 | EC2                 | Amazon Web Services | -                | -                                            |
 | VMware vDirector    | vDirector           | 5.5              | [2]                                          |
 
-[1] Because VMware Tools is not forwards compatible you must use a version of the relevant VMware product equal or lower
-than shown in this table. This is a VMware limitation, not with Packer, Bento or us.
-
 [2] Extremely experimental! Only the 'antarctica/trusty-vdirector' template is supported for this provider.
+[1] Because VMware Tools is not forwards compatible you must use a version of the relevant VMware product equal or 
+lower than shown in this table. This is a VMware limitation, not with Packer, Bento or us.
 
 ## Default user accounts (conventional)
 
-Each artefact will contain of two conventional user accounts, depending on the artefact provider. These user accounts
-are consistent across all supported operating systems.
+Each artefact will contain one or more conventional user accounts, depending on the artefact provider. 
+These user accounts are consistent across all supported operating systems.
 
 These accounts are designed to provide initial access for provisioning, which will typically involve creating 
 additional user accounts. It is recommended to disable these conventional accounts in these cases.
@@ -217,7 +205,7 @@ More information on this identity is available [here](https://github.com/mitchel
 ## Default user accounts (unconventional)
 
 These accounts are specific to a single artefact and are present in the underlying source artefacts used in this 
-project.
+project. They are listed for reference only.
 
 E.g. The Ubuntu EC2 artefact is based on the Ubuntu official AMI, which contains a pre-configured `ubuntu` user.
 
@@ -237,11 +225,11 @@ users it will be impossible to connect to such instances, including to create ad
 ### BAS SAN distribution location
 
 BAS Staff can also access these artefacts from the BAS SAN by replacing
-`https://s3-eu-west-1.amazonaws.com/bas-packages-prod` in any HTTPS link with `/data/softwaredist`.
+`https://packages.web.bas.ac.uk` in any HTTPS link with `/data/softwaredist`.
 
 For example...
 
-`https://s3-eu-west-1.amazonaws.com/bas-packages-prod/ovas/ubuntu/14.04/amd64/2.0.0/virtualbox.ova`
+`https://packages.web.bas.ac.uk/ovas/ubuntu/14.04/amd64/2.0.0/virtualbox.ova`
 
 ...would become
 
@@ -254,9 +242,9 @@ Note: The BAS SAN is used as the canonical storage location for records manageme
 The following software versions were used to produce these artefact's:
 
 * Mac OS X: version `10.10.5`
-* VirtualBox: version `5.0.10` (with version `5.0.10` of the VirtualBox Guest Additions)
-* VMware: version `8.1.0` (with bundled VMware Tools version)
 * Packer: version `0.8.6`
+* VirtualBox: version `5.1.4` (with version `5.1.4` of the VirtualBox Guest Additions)
+* VMware Fusion Pro: version `8.1.0` (with bundled VMware Tools version)
 
 ### Older artefacts
 
@@ -273,10 +261,10 @@ the HTTPS distribution URL, SHA1 checksum of the box and the provider it targets
 Note: These indexes are not supported, they are provided for legacy reasons when Vagrant base boxes were self hosted.
 They may be removed at any time.
 
-| Template Name        | Index URL                                                                                                                  | Notes |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `antarctica/trusty`  | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/ubuntu/14.04/amd64/antarctica-trusty.json)  | -     |
-| `antarctica/centos7` | [HTTPS](https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.1/x86_64/antarctica-centos7.json)  | -     |
+| Template Name        | Index URL                                                                                            | Notes |
+| -------------------- | ---------------------------------------------------------------------------------------------------- | ----- |
+| `antarctica/trusty`  | [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/ubuntu/14.04/amd64/antarctica-trusty.json)  | -     |
+| `antarctica/centos7` | [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.1/x86_64/antarctica-centos7.json)  | -     |
 
 ### Accessing template information from within instances
 
@@ -360,11 +348,11 @@ Note: These images do not include a `vagrant` user, as this is not needed for cl
 
 #### Amazon Machine Images (AMIs)
 
-An Amazon Machine Image represents the saved state of previously created Amazon EC2 instance (VM) from which new
+An Amazon Machine Image represents the saved state of a previously created Amazon EC2 instance (VM) from which new
 instances can be based upon.
 
 Packer builds AMIs using one of the pre-defined, public, AMIs provided through the Amazon AMI Marketplace to create a
-new EC2 instance. It then configures the instance, saves it as an AMI within the users Amazon Web Services account
+new EC2 instance. It then configures the instance, saves it as an AMI, within the users Amazon Web Services account,
 before terminating the instance.
 
 The base AMIs used are indicated below, they are official, minimal, installations of each Operating System provided by
@@ -413,7 +401,7 @@ To build artefacts from these template you will need the following software inst
 or [VMware Workstation](http://www.vmware.com/products/workstation) [3]
 * [Ovftool](https://www.vmware.com/support/developer/ovf/) [2]
 
-You will also need:
+You will also need the following permissions:
 
 * An `ATLAS_TOKEN` environment variable set to your [Atlas access token](https://atlas.hashicorp.com/settings/tokens)
 * An `DIGITALOCEAN_API_TOKEN` environment variable set to your DigitalOcean personal access token [4]
@@ -460,13 +448,13 @@ $ cd packer-templates
 
 If you are generating all templates within this project, this is known as a *standard build*.
 
-As these involve preparation, running packer multiple times for different templates, followed by packaging and release 
-steps, a shell script to automate as much of this process is included for convenience.
+As each template involves preparation, running packer multiple times for different templates, followed by packaging and 
+release steps, a shell script to automate as much of this process as possible is included for convenience.
 
-This shell script is designed for this use-case only. It is not intended to be configurable or flexible to meet any
-custom needs.
+This shell script is designed for the above use-case only. It is not intended to be configurable or flexible to meet 
+any other general needs.
 
-To launch the script - which is non-interactive once template versions have been specified, run:
+To run the script - which is non-interactive once template versions have been specified, run:
 
 ```shell
 $ ./standard-build.sh
@@ -508,7 +496,7 @@ $ packer build -only=vmware-iso -var 'release_version=1.2.3' templates/antarctic
 
 ## Packaging/Distribution
 
-Some artefact formats are packages and uploaded from distribution automatically by Packer, for other formats manual
+Some artefact formats are packaged and uploaded for distribution automatically by Packer, for other formats manual
 packaging and/or uploading is required.
 
 Note: You do not need to do this if you have used the standard build script, *except* for the artefact lists.
