@@ -213,9 +213,9 @@ purposes of records management.
 The following software versions were used to produce these artefact's:
 
 * Mac OS X: version `10.10.5`
-* Packer: version `0.8.6`
 * VirtualBox: version `5.1.4` (with version `5.1.4` of the VirtualBox Guest Additions)
 * VMware Fusion Pro: version `8.1.0` (with bundled VMware Tools version)
+* Packer: version `0.10.1`
 
 ### Older artefacts
 
