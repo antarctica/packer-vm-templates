@@ -35,12 +35,7 @@ does not mean mature artefacts cannot be improved, rather that they are expected
 [3] An OVA file is a [OVF](https://en.wikipedia.org/wiki/Open_Virtualization_Format) file compressed into a single file,
 making it ideal for distribution.
 
-[4] DigitalOcean images cannot be shared so this is not available publicly.
-
-[5] SELinux is **NOT** disabled on this artefact, see [this issue](https://jira.ceh.ac.uk/browse/BASWEB-500) for further
-details.
-
-[6] Despite being free the CentOS base AIM carries a license agreement which prevents the built artefact from being
+[4] Despite being free the CentOS base AIM carries a license agreement which prevents the built artefact from being
 shared publicly. To use this AMI you must be assigned permissions. Please get in touch using the information in the
 *Feedback* section if you wish to use this artefact.
 
@@ -54,6 +49,8 @@ OVF file and upload to your own instance.
 Note: Currently access to this catalogue is restricted to members of the *PolarView* tenancy, this is being addressed 
 with JASMIN support. Until this is fixed, follow the instructions above for users of other vDirector instances to load
 these templates into a catalogue within another tenancy.
+[5] It is not currently possible to disable SELinux on *AMI* artefacts, 
+see [BASWEB-500](https://jira.ceh.ac.uk/browse/BASWEB-500) for details.
 
 ## Contents
 
@@ -168,7 +165,6 @@ Active support is provided for a range of desktop and cloud providers, for the v
 | VMware Workstation  | VMware              | 12.1.0           | [1]                                          |
 | VMware ESXi         | VMware              | 6.0              | And associated products such as vCentre. [1] |
 | VirtualBox          | Oracle              | 5.0.10           | -                                            |
-| DigitalOcean        | DigitalOcean        | -                | -                                            |
 | EC2                 | Amazon Web Services | -                | -                                            |
 | VMware vDirector    | vDirector           | 5.5              | [2]                                          |
 
@@ -192,7 +188,6 @@ Note: Artefacts may contain additional default accounts, which are unconventiona
 | VMware Workstation  | `vagrant`   | Yes               | Vagrant shared insecure identity            | [1]   |
 | VMware ESXi         | `vagrant`   | Yes               | Vagrant shared insecure identity            | [1]   |
 | VirtualBox          | `vagrant`   | Yes               | Vagrant shared insecure identity            | [1]   |
-| DigitalOcean        | `terraform` | Yes               | BAS AWS Core Provisioning Identity          | [2]   |
 | EC2                 | `terraform` | Yes               | BAS DigitalOcean Core Provisioning Identity | [2]   |
 | VMware vDirector    | `vagrant`   | Yes               | Vagrant shared insecure identity            | [1]   |
 
@@ -216,11 +211,6 @@ ideally, using automated provisioning.
 | ------------ | ------------------- | -------- | ----------------- | ---------------------------- | ----- |
 | EC2          | `antarctica/trusty` | `ubuntu` | Yes               | Defined at instance creation |       |
 | EC2          | `antarctica/centos` | `user`   | Yes               | Defined at instance creation |       |
-| DigitalOcean | `antarctica/trusty` | `root`   | Yes               | Defined at instance creation | [1]   |
-| DigitalOcean | `antarctica/centos` | `root`   | Yes               | Defined at instance creation | [1]   |
-
-[1] Be careful about provisioning steps which may configure SSH to refuse root logins. Without additional privileged 
-users it will be impossible to connect to such instances, including to create additional users.
 
 ### BAS SAN distribution location
 
@@ -324,28 +314,6 @@ packaged. This means OVA files are built from the same ISO file and include thin
 
 Packer will create OVA files for some providers, whereas others require manual creation. OVAs will need to be manually
 copied to Amazon S3 (for HTTPS distribution) and the BAS SAN (for BAS SAN distribution).
-
-#### DigitalOcean images
-
-A DigitalOcean image represents the saved state of a previously created Droplet (VM) from which new Droplets can be
-based upon.
-
-Packer builds DigitalOcean images using one the pre-defined base images provided by DigitalOcean to create a new
-Droplet. It then configures the droplet, saves it as an image with the users DigitalOcean account before destroying the
-Droplet.
-
-The base images used are indicated below, they are minimal installations of each Operating System provided by
-DigitalOcean. These images differ little from VMs produced using ISO files, except where required to run under
-DigitalOcean.
-
-| Template name        | Base Image         | Provider     | Notes |
-| -------------------- | ------------------ | ------------ | ----- |
-| `antarctica/trusty`  | `ubuntu-14-04-x64` | DigitalOcean | -     |
-| `antarctica/centos7` | `centos-7-0-x64`   | DigitalOcean | -     |
-
-Packer will create Artefacts to reference DigitalOcean images in Atlas automatically.
-
-Note: These images do not include a `vagrant` user, as this is not needed for cloud images.
 
 #### Amazon Machine Images (AMIs)
 
@@ -468,8 +436,8 @@ generated by the script.
 
 Each template within this project is split into multiple template files, each targeting different artefact formats:
 
-* `-desktop` templates build *Vagrant base boxes* and *OVA files*
-* `-cloud` templates build *DigitalOcean images* and *AMIs*
+* `-desktop` templates to build *Vagrant base boxes* and *OVA files*
+* `-cloud` templates to build *AMIs*
 
 Template files are built separately using the `packer build` command, typically all template files for a template will
 be built.
@@ -678,10 +646,6 @@ E.g.
 $ ssh bslcene.nerc-bas.ac.uk mkdir -p /data/softwaredist/ovas/ubuntu/14.04/amd64/0.0.0
 $ duck --username $(whoami) --identity ~/.ssh/id_rsa --upload sftp://bslcene.nerc-bas.ac.uk/data/softwaredist/ovas/ubuntu/14.04/amd64/0.0.0/vmware.ova artefacts/ovas/antarctica-trusty-vmware-iso/vmware.ova
 ```
-
-### DigitalOcean images
-
-Packer will automatically store DigitalOcean images within the DigitalOcean account Packer is configured to use.
 
 ### Amazon Machine Images
 
