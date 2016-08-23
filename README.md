@@ -15,10 +15,10 @@ are made publicly available, under the same license as this project.
 | `antarctica/trusty`           | OVA [3]              | Mature | VMware Desktop   | [HTTPS](https://packages.web.bas.ac.uk/ovas/ubuntu/14.04/amd64/3.3.0/vmware.ova)                                                                                             | Supports VMware Fusion, Workstation and ESXi     |
 | `antarctica/trusty`           | OVA [3]              | Mature | VirtualBox       | [HTTPS](https://packages.web.bas.ac.uk/ovas/ubuntu/14.04/amd64/3.3.0/virtualbox.ova)                                                                                         | -                                                |
 | `antarctica/trusty`           | Amazon Machine Image | New    | EC2              | [AWS](https://console.aws.amazon.com/ec2/v2/home?region=eu-west-1#LaunchInstanceWizard:ami=ami-c7229db4)                                                                     | Available only in the `eu-west-1` region         |
-| `antarctica/centos7`          | Vagrant base box     | New    | VMware Desktop   | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.7.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.1/x86_64/0.7.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]   |
-| `antarctica/centos7`          | Vagrant base box     | New    | VirtualBox       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.7.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.1/x86_64/0.7.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]   |
-| `antarctica/centos7`          | OVA [3]              | New    | VMware           | [HTTPS](https://packages.web.bas.ac.uk/ovas/centos/7.1/x86_64/0.7.0/vmware.ova)                                                                                              | Supports VMware Fusion, Workstation and ESXi     |
-| `antarctica/centos7`          | OVA [3]              | New    | VirtualBox       | [HTTPS](https://packages.web.bas.ac.uk/ovas/centos/7.1/x86_64/0.7.0/virtualbox.ova)                                                                                          | -                                                | 
+| `antarctica/centos7`          | Vagrant base box     | New    | VMware Desktop   | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.8.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.2/x86_64/0.8.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]   |
+| `antarctica/centos7`          | Vagrant base box     | New    | VirtualBox       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.8.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.2/x86_64/0.8.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]   |
+| `antarctica/centos7`          | OVA [3]              | New    | VMware           | [HTTPS](https://packages.web.bas.ac.uk/ovas/centos/7.2/x86_64/0.8.0/vmware.ova)                                                                                              | Supports VMware Fusion, Workstation and ESXi     |
+| `antarctica/centos7`          | OVA [3]              | New    | VirtualBox       | [HTTPS](https://packages.web.bas.ac.uk/ovas/centos/7.2/x86_64/0.8.0/virtualbox.ova)                                                                                          | -                                                | 
 | `antarctica/centos7`          | Amazon Machine Image | New    | EC2              | [AWS](https://console.aws.amazon.com/ec2/v2/home?region=eu-west-1#LaunchInstanceWizard:ami=ami-741ea107)                                                                     | Available only in the `eu-west-1` region [4] [5] |
 
 The recommended method to use EC2 AMIs is through [Terraform](https://www.terraform.io).
@@ -96,10 +96,10 @@ see [BASWEB-500](https://jira.ceh.ac.uk/browse/BASWEB-500) for details.
 Active support is provided for these operating systems, for the versions specified.
 See the *pre-built artefacts* section for distribution/download links.
 
-| Template Name                 | Template Version | Status | Distribution Name                 | Distribution Version | Distribution Architecture | Notes   |
-| ----------------------------- | ---------------- | ------ | --------------------------------- | -------------------- | ------------------------- | ------- |
 | `antarctica/trusty`           | 3.3.0            | Mature | [Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | -       |
-| `antarctica/centos7`          | 0.7.0            | New    | [CentOS](https://www.centos.org/) | 7.1                  | x86_64                    | -       |
+| Template Name                 | Template Version | Status | Distribution Name                 | Distribution Version  | Distribution Architecture | Notes   |
+| ----------------------------- | ---------------- | ------ | --------------------------------- | --------------------- | ------------------------- | ------- |
+| `antarctica/centos7`          | 0.8.0            | New    | [CentOS](https://www.centos.org/) | 7.2                   | x86_64                    | -       |
 
 Note: The *status* attribute represents how stable a template is. New templates will be listed as *New* and may contain
 teething issues, such as small bugs or performance issues. Once these are fixed, templates will marked as *Mature*. This
@@ -132,6 +132,8 @@ summarised below:
 | `antarctica/centos7` | 0.5.0 | Adding template information to an Ansible local facts file    | For registering instances of this template in system inventories | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/centos7` | 0.6.0 | Removing SSH host keys                                        | To ensure unique host keys to be used for each instance          | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/trusty`  | 0.7.0 | Adding Terraform user                                         | To ensure consistent access across templates for provisioning    | *AMI* and *DigitalOcean Image*               | -     |
+| `antarctica/centos7` | 0.8.0 | Updating to CentOS 7.2                                        | To update initial package versions and incorporate bug fixes     | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/centos7` | 0.8.0 | Updating VMware/VirtualBox tools to the latest version        | To ensure compatibility with the latest software versions        | *Vagrant base box* and *OVA*                 | -     |
 
 Note: The above list does not include customisations made by the Bento project.
 
@@ -232,10 +234,11 @@ the HTTPS distribution URL, SHA1 checksum of the box and the provider it targets
 Note: These indexes are not supported, they are provided for legacy reasons when Vagrant base boxes were self hosted.
 They may be removed at any time.
 
-| Template Name        | Index URL                                                                                            | Notes |
-| -------------------- | ---------------------------------------------------------------------------------------------------- | ----- |
-| `antarctica/trusty`  | [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/ubuntu/14.04/amd64/antarctica-trusty.json)  | -     |
-| `antarctica/centos7` | [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.1/x86_64/antarctica-centos7.json)  | -     |
+| Template Name        | Versions      | Index URL                                                                                              | Notes |
+| -------------------- | ------------- | ------------------------------------------------------------------------------------------------------ | ----- |
+| `antarctica/trusty`  | *all*         | [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/ubuntu/14.04/amd64/antarctica-trusty.json)    | -     |
+| `antarctica/centos7` | 0.1.0 - 0.7.0 | [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.1/x86_64/antarctica-centos7.1.json)  | -     |
+| `antarctica/centos7` | 0.8.0 +       | [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.2/x86_64/antarctica-centos7.2.json)  | -     |
 
 ### Terraform remote state outputs
 
