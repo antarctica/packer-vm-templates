@@ -133,11 +133,13 @@ summarised below:
 | `antarctica/centos7` | 0.4.0 | UID for Vagrant user set to '900'                             | For consistency with Ubuntu and allow users to start from 1000   | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/centos7` | 0.5.0 | Adding template information to an Ansible local facts file    | For registering instances of this template in system inventories | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/centos7` | 0.6.0 | Removing SSH host keys                                        | To ensure unique host keys to be used for each instance          | *Vagrant base box* and *OVA*                 | -     |
-| `antarctica/trusty`  | 0.7.0 | Adding Terraform user                                         | To ensure consistent access across templates for provisioning    | *AMI* and *DigitalOcean Image*               | -     |
+| `antarctica/centos7` | 0.7.0 | Adding Terraform user                                         | To ensure consistent access across templates for provisioning    | *AMI* and *DigitalOcean Image*               | -     |
 | `antarctica/centos7` | 0.8.0 | Updating to CentOS 7.2                                        | To update initial package versions and incorporate bug fixes     | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/centos7` | 0.8.0 | Updating VMware/VirtualBox tools to the latest version        | To ensure compatibility with the latest software versions        | *Vagrant base box* and *OVA*                 | -     |
 
 Note: The above list does not include customisations made by the Bento project.
+
+Note: Support for DigitalOcean artefacts has been removed.
 
 [1] It is not currently possible to disable SELinux on *AMI* artefacts, 
 see [BASWEB-500](https://jira.ceh.ac.uk/browse/BASWEB-500) for details.
