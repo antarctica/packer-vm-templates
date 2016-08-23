@@ -10,10 +10,10 @@ are made publicly available, under the same license as this project.
 
 | Template                      | Format               | Status | Provider         | Distribution Method & URL                                                                                                                                                    | Notes                                            |
 | ----------------------------- | -------------------- | ------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| `antarctica/trusty`           | Vagrant base box     | Mature | VMware Desktop   | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.3.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/ubuntu/14.04/amd64/3.3.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]   |
-| `antarctica/trusty`           | Vagrant base box     | Mature | VirtualBox       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.3.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/ubuntu/14.04/amd64/3.3.0/virtual.box) | [1] [2]                                          |
-| `antarctica/trusty`           | OVA [3]              | Mature | VMware Desktop   | [HTTPS](https://packages.web.bas.ac.uk/ovas/ubuntu/14.04/amd64/3.3.0/vmware.ova)                                                                                             | Supports VMware Fusion, Workstation and ESXi     |
-| `antarctica/trusty`           | OVA [3]              | Mature | VirtualBox       | [HTTPS](https://packages.web.bas.ac.uk/ovas/ubuntu/14.04/amd64/3.3.0/virtualbox.ova)                                                                                         | -                                                |
+| `antarctica/trusty`           | Vagrant base box     | Mature | VMware Desktop   | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.4.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/ubuntu/14.04/amd64/3.4.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]   |
+| `antarctica/trusty`           | Vagrant base box     | Mature | VirtualBox       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/trusty/versions/3.4.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/ubuntu/14.04/amd64/3.4.0/virtual.box) | [1] [2]                                          |
+| `antarctica/trusty`           | OVA [3]              | Mature | VMware Desktop   | [HTTPS](https://packages.web.bas.ac.uk/ovas/ubuntu/14.04/amd64/3.4.0/vmware.ova)                                                                                             | Supports VMware Fusion, Workstation and ESXi     |
+| `antarctica/trusty`           | OVA [3]              | Mature | VirtualBox       | [HTTPS](https://packages.web.bas.ac.uk/ovas/ubuntu/14.04/amd64/3.4.0/virtualbox.ova)                                                                                         | -                                                |
 | `antarctica/trusty`           | Amazon Machine Image | New    | EC2              | [AWS](https://console.aws.amazon.com/ec2/v2/home?region=eu-west-1#LaunchInstanceWizard:ami=ami-c7229db4)                                                                     | Available only in the `eu-west-1` region         |
 | `antarctica/centos7`          | Vagrant base box     | New    | VMware Desktop   | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.8.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.2/x86_64/0.8.0/vmware.box)  | Supports VMware Fusion and Workstation [1] [2]   |
 | `antarctica/centos7`          | Vagrant base box     | New    | VirtualBox       | [Atlas](https://atlas.hashicorp.com/antarctica/boxes/centos7/versions/0.8.0) / [HTTPS](https://packages.web.bas.ac.uk/vagrant/baseboxes/centos/7.2/x86_64/0.8.0/virtual.box) | Supports VMware Fusion and Workstation [1] [2]   |
@@ -96,9 +96,9 @@ see [BASWEB-500](https://jira.ceh.ac.uk/browse/BASWEB-500) for details.
 Active support is provided for these operating systems, for the versions specified.
 See the *pre-built artefacts* section for distribution/download links.
 
-| `antarctica/trusty`           | 3.3.0            | Mature | [Ubuntu](http://www.ubuntu.com/)  | 14.04 LTS (Trusty)   | AMD 64                    | -       |
 | Template Name                 | Template Version | Status | Distribution Name                 | Distribution Version  | Distribution Architecture | Notes   |
 | ----------------------------- | ---------------- | ------ | --------------------------------- | --------------------- | ------------------------- | ------- |
+| `antarctica/trusty`           | 3.4.0            | Mature | [Ubuntu](http://www.ubuntu.com/)  | 14.04.05 LTS (Trusty) | AMD 64                    | -       |
 | `antarctica/centos7`          | 0.8.0            | New    | [CentOS](https://www.centos.org/) | 7.2                   | x86_64                    | -       |
 
 Note: The *status* attribute represents how stable a template is. New templates will be listed as *New* and may contain
@@ -123,6 +123,8 @@ summarised below:
 | `antarctica/trusty`  | 3.1.0 | Adding template information to an Ansible local facts file    | For registering instances of this template in system inventories | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/trusty`  | 3.2.0 | Removing SSH host keys                                        | To ensure unique host keys to be used for each instance          | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/trusty`  | 3.3.0 | Adding Terraform user                                         | To ensure consistent access across templates for provisioning    | *AMI* and *DigitalOcean Image*               | -     |
+| `antarctica/trusty`  | 3.4.0 | Updating to Ubuntu 14.04.05                                   | To update initial package versions and incorporate bug fixes     | *Vagrant base box* and *OVA*                 | -     |
+| `antarctica/trusty`  | 3.4.0 | Updating VMware/VirtualBox tools to the latest version        | To ensure compatibility with the latest software versions        | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/centos7` | 0.1.0 | SELinux set to "permissive"                                   | To be compatible with some legacy BAS projects                   | *All except AMI*                             | [1]   |
 | `antarctica/centos7` | 0.1.0 | Root password set to "password"                               | To emphasise that this is not a secure default                   | *Vagrant base box* and *OVA*                 | -     |
 | `antarctica/centos7` | 0.1.0 | Agent forwarding support in Sudo                              | To allow Git checkouts using PKI when acting as root             | *All*                                        | -     |
@@ -251,7 +253,7 @@ See the Terraform documentation on [outputs](https://www.terraform.io/intro/gett
 
 Note: These outputs are the recommended way to refer to artefacts from this project in Terraform configuration files.
 
-For example, to create an Amazon EC2 instance using the identifier for version `3.3.0` of the *antarctica/trusty* 
+For example, to create an Amazon EC2 instance using the identifier for version `3.4.0` of the *antarctica/trusty* 
 template, a Terraform configuration like this could be used:
 
 ```
@@ -272,7 +274,7 @@ data "terraform_remote_state" "BAS-PACKER-VM-TEMPLATES" {
 
 resource "aws_instance" "example-dev-node1" {
     instance_type = "t2.nano"
-    ami = "${data.terraform_remote_state.BAS-PACKER-VM-TEMPLATES.ANTARCTICA-TRUSTY-3-3-0-AMI-ID}"
+    ami = "${data.terraform_remote_state.BAS-PACKER-VM-TEMPLATES.ANTARCTICA-TRUSTY-3-4-0-AMI-ID}"
 }
 ```
 

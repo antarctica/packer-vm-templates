@@ -21,6 +21,9 @@ output "ANTARCTICA-TRUSTY-3-2-0-AMI-ID" {
 output "ANTARCTICA-TRUSTY-3-3-0-AMI-ID" {
     value = "ami-c7229db4"
 }
+output "ANTARCTICA-TRUSTY-3-4-0-AMI-ID" {
+    value = "ami-b66c1ac5"
+}
 
 # 'antarctica/centos7' identifiers
 
