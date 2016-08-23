@@ -1,0 +1,24 @@
+
+{
+  "name": "antarctica/centos7",
+  "description": "A vanilla CentOS 7.2 x86_64 base box",
+  "versions": [
+    {
+      "version": "0.8.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.2/x86_64/0.8.0/virtualbox.box",
+          "checksum_type": "sha1",
+          "checksum": "b7155c07d4e35883d43674495999d73ff1e6260d"
+        },
+        {
+          "name": "vmware_desktop",
+          "url": "https://s3-eu-west-1.amazonaws.com/bas-packages-prod/vagrant/baseboxes/centos/7.2/x86_64/0.8.0/vmware.box",
+          "checksum_type": "sha1",
+          "checksum": "9759892e80efd8b2a90903f79a47840dcafa5399"
+        }
+      ]
+    }
+  ]
+}

@@ -5,19 +5,10 @@
     "hostname": "cloud",
 
     "artefact": "antarctica-trusty",
-    "release_version": "3.1.0",
+    "release_version": "0.0.0",
     "atlas_artifact": "antarctica/trusty"
   },
   "builders": [
-    {
-      "type": "digitalocean",
-      "image": "ubuntu-14-04-x64",
-      "region": "lon1",
-      "size": "512mb",
-      "droplet_name": "{{user `hostname`}}",
-      "private_networking": true,
-      "snapshot_name": "{{user `atlas_artifact`}}-{{user `release_version`}}"
-    },
     {
       "type": "amazon-ebs",
       "communicator": "ssh",
@@ -33,12 +24,6 @@
     }
   ],
   "provisioners": [
-    {
-      "only": ["digitalocean"],
-      "type": "file",
-      "source": "provisioning/files/common/authorized_keys/terraform-user/bas-digitalocean-core-provisioning-identity",
-      "destination": "/tmp/authorized_keys"
-    },
     {
       "only": ["amazon-ebs"],
       "type": "file",
@@ -65,26 +50,5 @@
       ]
     }
   ],
-  "post-processors": [
-    {
-      "type": "atlas",
-      "only": ["digitalocean"],
-      "artifact": "{{user `atlas_artifact`}}",
-      "artifact_type": "digitalocean.droplet",
-      "metadata": {
-        "version": "{{user `release_version`}}",
-        "created_at": "{{timestamp}}"
-      }
-    },
-    {
-      "type": "atlas",
-      "only": ["amazon-ebs"],
-      "artifact": "{{user `atlas_artifact`}}",
-      "artifact_type": "amazon.ami",
-      "metadata": {
-        "version": "{{user `release_version`}}",
-        "created_at": "{{timestamp}}"
-      }
-    }
-  ]
+  "post-processors": []
 }

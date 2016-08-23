@@ -1,7 +1,7 @@
 {
   "variables": {
-    "iso_url": "http://gb.releases.ubuntu.com/trusty/ubuntu-14.04.3-server-amd64.iso",
-    "iso_checksum": "0501c446929f713eb162ae2088d8dc8b6426224a",
+    "iso_url": "http://gb.releases.ubuntu.com/trusty/ubuntu-14.04.5-server-amd64.iso",
+    "iso_checksum": "5e567024c385cc8f90c83d6763c6e4f1cd5deb6f",
     "iso_checksum_type": "sha1",
 
     "distro": "ubuntu-14.04-amd64",
