@@ -148,7 +148,7 @@ Active support is provided for a range of desktop and cloud providers, for the v
 
 | Provider            | Vendor              | Provider Version | Notes                                        |
 | ------------------- | ------------------- | ---------------- | -------------------------------------------- |
-| VMware Fusion (Pro) | VMware              | 8.1.0            | [1]                                          |
+| VMware Fusion (Pro) | VMware              | 8.1.1            | [1]                                          |
 | VMware Workstation  | VMware              | 12.1.0           | [1]                                          |
 | VMware ESXi         | VMware              | 6.0              | And associated products such as vCentre. [1] |
 | VirtualBox          | Oracle              | 5.0.10           | -                                            |
