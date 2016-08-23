@@ -42,3 +42,6 @@ output "ANTARCTICA-CENTOS7-0-6-1-AMI-ID" {
 output "ANTARCTICA-CENTOS7-0-7-0-AMI-ID" {
     value = "ami-741ea107"
 }
+output "ANTARCTICA-CENTOS7-0-8-0-AMI-ID" {
+    value = "ami-d95721aa"
+}
