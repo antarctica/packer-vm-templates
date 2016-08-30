@@ -680,9 +680,11 @@ section for more information.
 
 Edit the `terraform_remote_state/02-outputs.tf` file and create new entries using the conventions shown in the file.
 
-Update the remote state of this project:
+Apply and update the remote state of the project:
 
 ```
+$ terraform apply
+$ terraform show
 $ terraform remote push
 ```
 
